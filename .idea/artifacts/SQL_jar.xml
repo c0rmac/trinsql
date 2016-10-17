@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="SQL:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/SQL_jar</output-path>
+    <root id="archive" name="SQL.jar">
+      <element id="module-output" name="SQL" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../Utility/Server/apache-tomcat-8.5.4/lib/sqlite-jdbc-3.8.11.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../Utility/Server/apache-tomcat-8.5.4/lib/tomcat-jdbc.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../Utility/Server/apache-tomcat-8.5.4/lib/json-simple-1.1.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
