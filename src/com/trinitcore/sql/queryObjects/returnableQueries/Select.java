@@ -53,14 +53,20 @@ public class Select extends QueryObject {
         return this;
     }
 
-    public Select where(String type, String equalityType, Map... expectedLocations) {
-        int count = 1;
+    public void resetWhere() {
         this.whereQuery = "";
+    }
+
+    public Select where(String type, String equalityType, Map... expectedLocations) {
+        String startOfString = " AND ";
+        if (this.whereQuery.equals("")) startOfString = "WHERE";
+        int count = 1;
+
         for (Map location : expectedLocations) {
             if (count == 1)
-                this.whereQuery += " WHERE "+location.key+" "+equalityType+" ?";
+                this.whereQuery += " "+startOfString+" "+location.key+" "+equalityType+" ? ";
              else
-                 this.whereQuery += " "+type+" "+location.key+" = ?";
+                 this.whereQuery += " "+type+" "+location.key+" = ? ";
             parameters.add(location.value);
             count++;
         }
@@ -166,12 +172,16 @@ public class Select extends QueryObject {
             }
             close();
             this.rows = total;
-            if (this.associationList.size() != 0) {
-                this.associationList.forEach(Association::process);
-            }
+            processAssociations();
             return total;
         } catch (SQLException exception) {
             return null;
+        }
+    }
+
+    public void processAssociations() {
+        if (this.associationList.size() != 0) {
+            this.associationList.forEach(Association::process);
         }
     }
 

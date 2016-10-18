@@ -1,6 +1,5 @@
 package com.trinitcore.sql;
 
-import com.sun.tools.corba.se.idl.InterfaceGen;
 import com.trinitcore.sql.queryObjects.returnableQueries.Select;
 import org.json.simple.JSONObject;
 
