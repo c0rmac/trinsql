@@ -13,7 +13,11 @@ public class Update extends NoneReturnableQuery {
         this.query = "UPDATE "+table+" ";
         int count = 1;
         for (Map column : values) {
-            this.query += "SET "+column.key+" = ? ";
+            if (count == 1) {
+                this.query += "SET " + column.key + " = ? ";
+            }else {
+                this.query += " "+column.key+" = ? ";
+            }
             this.parameters.add(column.value);
             if (count == values.length) break;
             this.query += ", ";

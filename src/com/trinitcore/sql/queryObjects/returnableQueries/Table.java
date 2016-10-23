@@ -26,15 +26,15 @@ public class Table extends Select {
         return this;
     }
 
-    public Table update(String whereColumn, Object value, Map... maps) throws IOException {
-        if (!checkValidRow(whereColumn, value)) throw new IOException("No column has value '"+value+"'.");
+    public Table update(String whereColumn, Object value, Map... maps){
+        if (!checkValidRow(whereColumn, value)) return this;
         new Update(this.table,whereColumn,value,maps);
         reset();
         return this;
     }
 
-    public Table delete(String whereColumn, Object value) throws IOException {
-        if (!checkValidRow(whereColumn, value)) throw new IOException("No column has value '"+value+"'.");
+    public Table delete(String whereColumn, Object value){
+        if (!checkValidRow(whereColumn, value))return this;
         new Delete(this.table,whereColumn,value);
         reset();
         return this;
