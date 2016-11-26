@@ -25,7 +25,7 @@ public class Association {
             if (childRowsCount >= 2) {
                 childTable.resetWhere();
                 childTable.where(childColumn,parentRow.get(parentColumn));
-                childTable.reset();
+                childTable.reset(false);
                 parentRow.put(name,childTable.getRows());
                 break;
             }

@@ -110,9 +110,10 @@ public class Select extends QueryObject {
         return this;
     }
 
-    public void reset() {
+    public void reset(boolean parameters){
         this.rows = null;
         this.resultSet = null;
+        if (parameters) this.parameters = new ArrayList<>();
     }
 
     public static JSONObject mapJSONObject(Row row) {
