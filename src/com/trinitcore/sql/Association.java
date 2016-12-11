@@ -14,6 +14,7 @@ public class Association {
     }
 
     public void process() {
+        System.out.println("Proccessing");
         for (Row parentRow : parentTable.getRows()) {
             int childRowsCount = 0;
             for (Row childRows : childTable.getRows()) {

@@ -42,7 +42,7 @@ public class SQL {
 
     public SQL query(boolean returnable) {
         try {
-            this.preparedStmt = configuration.connection.prepareStatement(query);
+            this.preparedStmt = configuration.getConnection().prepareStatement(query);
             int count = 1;
             for (Object value : this.parameters){
                 this.preparedStmt.setObject(count,value);

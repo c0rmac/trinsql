@@ -13,8 +13,7 @@ public class Sqlite extends Configuration{
     public boolean release = false;
     public String name = "cormac_hackbook";
 
-    public Sqlite() {
-        super(true);
+    public Connection getConnection() {
         SQLiteDataSource dataSource = new SQLiteDataSource();
         if (release){
             dataSource.setUrl("jdbc:sqlite:/usr/share/tomcat8/webapps/db/identifier.sqlite");
@@ -28,9 +27,9 @@ public class Sqlite extends Configuration{
             }
         }
         try {
-            setConnection(dataSource.getConnection());
+            return dataSource.getConnection();
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
     }
 

@@ -5,14 +5,10 @@ import java.sql.Connection;
 /**
  * Created by cormacpjkinsella on 10/11/16.
  */
-public class Configuration {
-    public Connection connection = null;
+public abstract class Configuration {
+    public abstract Connection getConnection();
 
-    public Configuration(boolean alive) {
+    public Configuration() {
 
-    }
-
-    public void setConnection(Connection connection) {
-        this.connection = connection;
     }
 }
