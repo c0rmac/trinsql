@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="apache-commons-lang">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../Utility/apache-tomcat-8.5.4/lib/apache-commons-lang.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

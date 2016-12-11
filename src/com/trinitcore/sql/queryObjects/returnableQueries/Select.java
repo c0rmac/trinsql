@@ -1,9 +1,11 @@
 package com.trinitcore.sql.queryObjects.returnableQueries;
 
+import com.sun.deploy.util.ArrayUtil;
 import com.trinitcore.sql.Association;
 import com.trinitcore.sql.Map;
 import com.trinitcore.sql.Row;
 import com.trinitcore.sql.queryObjects.QueryObject;
+import org.apache.commons.lang.ArrayUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -22,6 +24,7 @@ public class Select extends QueryObject {
     public String limitQuery = "";
 
     List<Association> associationList = new ArrayList<>();
+    private boolean reverseArray;
 
     public Select (String table, String... columns) {
         super(table, columns);
@@ -110,10 +113,17 @@ public class Select extends QueryObject {
         return this;
     }
 
+    public Select reverseArray(boolean reverse) {
+        this.reverseArray = reverse;
+        return this;
+    }
+
     public void reset(boolean parameters){
         this.rows = null;
         this.resultSet = null;
-        if (parameters) this.parameters = new ArrayList<>();
+        if (parameters){ this.parameters = new ArrayList<>();
+        this.whereQuery = "";
+        }
     }
 
     public static JSONObject mapJSONObject(Row row) {
@@ -173,6 +183,9 @@ public class Select extends QueryObject {
             }
             close();
             this.rows = total;
+            if (reverseArray) {
+                ArrayUtils.reverse(this.rows);
+            }
             processAssociations();
             return total;
         } catch (SQLException exception) {
