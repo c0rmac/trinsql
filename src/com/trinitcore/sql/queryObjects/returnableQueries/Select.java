@@ -5,7 +5,7 @@ import com.trinitcore.sql.Association;
 import com.trinitcore.sql.Map;
 import com.trinitcore.sql.Row;
 import com.trinitcore.sql.queryObjects.QueryObject;
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
