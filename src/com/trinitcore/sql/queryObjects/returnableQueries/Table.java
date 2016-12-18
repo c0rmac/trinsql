@@ -59,12 +59,12 @@ public class Table extends Select {
         return null;
     }
 
-    public String getStringWhere(String column, Object value) {
-        return (String) getWhere(column, value).get(column);
+    public String getStringWhere(String requestedColumn, String column, Object value) {
+        return (String) getWhere(column, value).get(requestedColumn);
     }
 
-    public Integer getIntegerWhere(String column, Object value) {
-        return (Integer) getWhere(column, value).get(column);
+    public Integer getIntegerWhere(String requestedColumn,String column, Object value) {
+        return (Integer) getWhere(column, value).get(requestedColumn);
     }
 
     public Table reverseArray(boolean reverse) {
