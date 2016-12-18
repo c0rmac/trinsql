@@ -50,6 +50,23 @@ public class Table extends Select {
         return false;
     }
 
+    public Row getWhere(String column, Object value) {
+        for (Row row : getRows()) {
+            if (row.get(column).equals(value)) {
+                return row;
+            }
+        }
+        return null;
+    }
+
+    public String getStringWhere(String column, Object value) {
+        return (String) getWhere(column, value).get(column);
+    }
+
+    public Integer getIntegerWhere(String column, Object value) {
+        return (Integer) getWhere(column, value).get(column);
+    }
+
     public Table reverseArray(boolean reverse) {
         super.reverseArray(reverse);
         return this;
