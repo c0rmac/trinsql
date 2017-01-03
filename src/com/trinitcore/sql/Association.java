@@ -24,11 +24,12 @@ public class Association {
                 }
             }
             if (childRowsCount >= 2) {
-                childTable.resetWhere();
-                childTable.where(childColumn,parentRow.get(parentColumn));
-                childTable.reset(false);
-                parentRow.put(name,childTable.getRows());
-                break;
+                // childTable.resetWhere();
+                // childTable.where(childColumn,parentRow.get(parentColumn));
+                //childTable.reset(false);
+                parentRow.put(name,childTable.getWhere(childColumn,parentRow.get(parentColumn)));
+                // break;
+                System.out.println("Dumped array");
             }
         }
     }
