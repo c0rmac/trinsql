@@ -14,23 +14,37 @@ public class Association {
     }
 
     public void process() {
-        System.out.println("Proccessing");
+        System.out.println("Proccessing: "+parentTable.getRows().length);
         for (Row parentRow : parentTable.getRows()) {
+            Row[] relevantRows = childTable.getRowsWhere(childColumn,parentRow.get(parentColumn));
+            if (relevantRows.length == 1) {
+                // Single object row
+                parentRow.put(name, relevantRows[0]);
+            } else if (relevantRows.length > 1) {
+                // Array objects row
+                parentRow.put(name, relevantRows);
+            }
+
+            /*
             int childRowsCount = 0;
             for (Row childRows : childTable.getRows()) {
                 if (childRows.get(childColumn).equals(parentRow.get(parentColumn))) {
                     parentRow.put(name,childRows);
                     childRowsCount++;
+                    // break;
                 }
             }
+            // Use an array
             if (childRowsCount >= 2) {
                 // childTable.resetWhere();
                 // childTable.where(childColumn,parentRow.get(parentColumn));
-                //childTable.reset(false);
-                parentRow.put(name,childTable.getWhere(childColumn,parentRow.get(parentColumn)));
+                // parentRow.put(name, childTable.getRows());
+                // childTable.reset(false);
+                parentRow.put(name,childTable.getRowsWhere(childColumn,parentRow.get(parentColumn)));
                 // break;
                 System.out.println("Dumped array");
             }
+            */
         }
     }
 

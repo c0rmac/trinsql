@@ -12,6 +12,7 @@ import org.json.simple.JSONObject;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by cormacpjkinsella on 10/9/16.
@@ -85,6 +86,20 @@ public class Select extends QueryObject {
             }
         }
         return null;
+    }
+
+    public Row[] getRowsWhere(String column, Object value) {
+        List<Row> rows = new ArrayList<Row>(Arrays.asList(getRows()));
+        List<Row> newRowsList = rows.stream().filter(row -> row.get(column).equals(value)).collect(Collectors.toList());
+        System.out.println("New row size: "+newRowsList.size());
+        Row[] newRows = new Row[newRowsList.size()];
+
+        int position = 0;
+        for (Row row : newRowsList) {
+            newRows[position] = row;
+            position += 1;
+        }
+        return newRows;
     }
 
     public String getStringWhere(String requestedColumn, String column, Object value) {
