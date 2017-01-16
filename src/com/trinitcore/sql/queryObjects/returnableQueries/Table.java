@@ -1,5 +1,6 @@
 package com.trinitcore.sql.queryObjects.returnableQueries;
 
+import com.trinitcore.sql.Association;
 import com.trinitcore.sql.Map;
 import com.trinitcore.sql.Row;
 import com.trinitcore.sql.queryObjects.noneReturnableQueries.Delete;
@@ -58,6 +59,18 @@ public class Table extends Select {
     @Override
     public Table createAssociation(String parentColumn, String childColumn, Select table, String name) {
         super.createAssociation(parentColumn,childColumn,table,name);
+        return this;
+    }
+
+    @Override
+    public Table createAssociation(String parentColumn, String childColumn, Select childTable, String name, boolean forceArray, boolean rearrangeAssociationsByChildTableCount) {
+        associationList.add(new Association(parentColumn, this, childColumn, childTable, name,forceArray,rearrangeAssociationsByChildTableCount,false));
+        return this;
+    }
+
+    @Override
+    public Table createAssociation(String parentColumn, String childColumn, Select childTable, String name, boolean forceArray, boolean rearrangeAssociationsByChildTableCount, boolean reverseArray) {
+        associationList.add(new Association(parentColumn, this, childColumn, childTable, name,forceArray,rearrangeAssociationsByChildTableCount,reverseArray));
         return this;
     }
 

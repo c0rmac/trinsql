@@ -48,7 +48,10 @@ public class SQL {
                 this.preparedStmt.setObject(count,value);
                 count++;
             }
-            if (returnable) this.resultSet = this.preparedStmt.executeQuery();
+            if (returnable){
+                this.resultSet = this.preparedStmt.executeQuery();
+                System.out.println("QUERY OUT: "+this.resultSet.getStatement().toString());
+            }
             else this.preparedStmt.execute();
         } catch (SQLException e) {
             e.printStackTrace();

@@ -1,6 +1,5 @@
 package com.trinitcore.sql.queryObjects.returnableQueries;
 
-import com.sun.deploy.util.ArrayUtil;
 import com.trinitcore.sql.Association;
 import com.trinitcore.sql.Map;
 import com.trinitcore.sql.Row;
@@ -42,7 +41,7 @@ public class Select extends QueryObject {
         this.initialQuery += " FROM " + table;
     }
 
-    public Select (String table) {
+    public Select(String table) {
         super(table);
         this.initialQuery = "SELECT ";
         this.initialQuery += "* FROM " + table;
@@ -52,9 +51,19 @@ public class Select extends QueryObject {
         return createAssociation(parentColumn,childColumn,table,parentColumn);
     }
 
+    public Select createAssociation(String parentColumn, String childColumn, Select childTable, String name, boolean forceArray, boolean rearrangeAssociationsByChildTableCount) {
+        associationList.add(new Association(parentColumn, this, childColumn, childTable, name,forceArray,rearrangeAssociationsByChildTableCount,false));
+        return this;
+    }
+
+    public Select createAssociation(String parentColumn, String childColumn, Select childTable, String name, boolean forceArray, boolean rearrangeAssociationsByChildTableCount, boolean reverseArray) {
+        associationList.add(new Association(parentColumn, this, childColumn, childTable, name,forceArray,rearrangeAssociationsByChildTableCount,reverseArray));
+        return this;
+    }
+
     public Select createAssociation(String parentColumn, String childColumn, Select childTable, String name) {
         System.out.println("made an assoc");
-        associationList.add(new Association(parentColumn, this, childColumn, childTable, name));
+        associationList.add(new Association(parentColumn, this, childColumn, childTable, name,false, false,false));
         return this;
     }
 

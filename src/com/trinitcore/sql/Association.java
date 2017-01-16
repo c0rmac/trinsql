@@ -2,27 +2,49 @@ package com.trinitcore.sql;
 
 import com.trinitcore.sql.queryObjects.returnableQueries.Select;
 
+import java.util.*;
+
 /**
  * Created by cormacpjkinsella on 10/12/16.
  */
 public class Association {
-    public String parentColumn; public Select parentTable; public String childColumn; public Select childTable; public String name;
+    public String parentColumn; public Select parentTable; public String childColumn; public Select childTable; public String name; public boolean forceArray; boolean rearrangeAssociationsByChildTableCount; boolean reverseRearrangement;
 
-    public Association(String parentColumn, Select parentTable, String childColumn, Select childTable, String name) {
-        this.parentColumn = parentColumn; this.parentTable = parentTable; this.childColumn = childColumn; this.childTable = childTable; this.name = name;
+    public Association(String parentColumn, Select parentTable, String childColumn, Select childTable, String name, boolean forceArray, boolean rearrangeAssociationsByChildTableCount, boolean reverseRearrangement) {
+        this.parentColumn = parentColumn; this.parentTable = parentTable; this.childColumn = childColumn; this.childTable = childTable; this.name = name; this.forceArray = forceArray; this.rearrangeAssociationsByChildTableCount = rearrangeAssociationsByChildTableCount;
+        this.reverseRearrangement = reverseRearrangement;
 
+    }
+
+    public void rearrangeAssociationsByChildTableCount() {
+        if (reverseRearrangement) Arrays.sort(parentTable.getRows(),Collections.reverseOrder());
+        else Arrays.sort(parentTable.getRows());
+    }
+
+    public List<Row> rowsWithAssociations() {
+        List<Row> rows = new ArrayList<>();
+        for (Row parentRow: parentTable.getRows()) {
+            if (parentRow.containsAssociation) {
+                rows.add(parentRow);
+            }
+        }
+        return rows;
     }
 
     public void process() {
         System.out.println("Proccessing: "+parentTable.getRows().length);
         for (Row parentRow : parentTable.getRows()) {
             Row[] relevantRows = childTable.getRowsWhere(childColumn,parentRow.get(parentColumn));
-            if (relevantRows.length == 1) {
+            if (relevantRows.length == 1 && !forceArray) {
                 // Single object row
                 parentRow.put(name, relevantRows[0]);
-            } else if (relevantRows.length > 1) {
+                parentRow.associationColumn = name;
+                parentRow.containsAssociation = true;
+            } else if (relevantRows.length > 1 || forceArray) {
                 // Array objects row
                 parentRow.put(name, relevantRows);
+                parentRow.associationColumn = name;
+                parentRow.containsAssociation = true;
             }
 
             /*
@@ -45,6 +67,9 @@ public class Association {
                 System.out.println("Dumped array");
             }
             */
+        }
+        if (rearrangeAssociationsByChildTableCount) {
+            rearrangeAssociationsByChildTableCount();
         }
     }
 
