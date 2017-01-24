@@ -32,8 +32,9 @@ public class Association {
     }
 
     public void process() {
-        System.out.println("Proccessing: "+parentTable.getRows().length);
+        System.out.println("Processing: "+parentTable.getRows().length);
         for (Row parentRow : parentTable.getRows()) {
+            childTable.reset(false);
             Row[] relevantRows = childTable.getRowsWhere(childColumn,parentRow.get(parentColumn));
             if (relevantRows.length == 1 && !forceArray) {
                 // Single object row

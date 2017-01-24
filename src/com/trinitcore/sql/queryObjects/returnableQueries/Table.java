@@ -23,21 +23,21 @@ public class Table extends Select {
 
     public Table insert(Map... maps) {
         new Insert(this.table, maps);
-        reset(true);
+        reset(false);
         return this;
     }
 
     public Table update(String whereColumn, Object value, Map... maps){
        // if (!checkValidRow(whereColumn, value)) return this;
         new Update(this.table,whereColumn,value,maps);
-        reset(true);
+        reset(false);
         return this;
     }
 
     public Table delete(String whereColumn, Object value){
         // if (!checkValidRow(whereColumn, value))return this;
         new Delete(this.table,whereColumn,value);
-        reset(true);
+        reset(false);
         return this;
     }
 
