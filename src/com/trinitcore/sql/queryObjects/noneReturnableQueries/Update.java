@@ -10,6 +10,24 @@ import com.trinitcore.sql.queryObjects.QueryObject;
 public class Update extends NoneReturnableQuery {
     public Update(String table, String whereColumn, Object value, Map... values) {
         super(table, values);
+        genericConstructor(values);
+        this.query += "WHERE "+whereColumn+" = ?";
+        this.parameters.add(value);
+        System.out.println(this.query);
+        query(false);
+        close();
+    }
+
+    public Update(String table, String seperator, Map[] whereColumnsValues, Map... values) {
+        super(table,values);
+        genericConstructor(values);
+        stringifyWhere(whereColumnsValues,seperator);
+        System.out.println(this.query);
+        query(false);
+        close();
+    }
+
+    public void genericConstructor(Map[] values) {
         this.query = "UPDATE "+table+" ";
         int count = 1;
         for (Map column : values) {
@@ -23,11 +41,19 @@ public class Update extends NoneReturnableQuery {
             this.query += ", ";
             count++;
         }
-        this.query += "WHERE "+whereColumn+" = ?";
-        this.parameters.add(value);
-        System.out.println(this.query);
-        query(false);
-        close();
+    }
+
+    public void stringifyWhere(Map[] whereColumnsValues, String seperator) {
+        String where = "WHERE ";
+        int count = 1;
+        for (Map map:whereColumnsValues) {
+            where += map.key+" = ?";
+            this.parameters.add(map.value);
+            if (count == whereColumnsValues.length) break;
+            where += " "+seperator+" ";
+            count++;
+        }
+        this.query += where;
     }
 
     public Row getUpdatedRow() {

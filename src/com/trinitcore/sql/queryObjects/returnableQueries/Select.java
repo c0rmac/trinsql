@@ -89,26 +89,41 @@ public class Select extends QueryObject {
 
 
     public Row getWhere(String column, Object value) {
-        for (Row row : getRows()) {
-            if (row.get(column).equals(value)) {
-                return row;
+        try {
+            for (Row row : getRows()) {
+                if (row.get(column).equals(value)) {
+                    return row;
+                }
             }
+        } catch (NullPointerException e) {
+
         }
         return null;
     }
 
     public Row[] getRowsWhere(String column, Object value) {
-        List<Row> rows = new ArrayList<Row>(Arrays.asList(getRows()));
-        List<Row> newRowsList = rows.stream().filter(row -> row.get(column).equals(value)).collect(Collectors.toList());
-        System.out.println("New row size: "+newRowsList.size());
-        Row[] newRows = new Row[newRowsList.size()];
+            List<Row> rows = new ArrayList<Row>(Arrays.asList(getRows()));
+            List<Row> newRowsList = rows.stream().filter(row -> row.get(column).equals(value)).collect(Collectors.toList());
+            // System.out.println("New row size: " + newRowsList.size()+" VS. Old row size: "+rows.size());
+            Row[] newRows = new Row[newRowsList.size()];
 
-        int position = 0;
-        for (Row row : newRowsList) {
-            newRows[position] = row;
-            position += 1;
+            int position = 0;
+            for (Row row : newRowsList) {
+                newRows[position] = row;
+                position += 1;
+            }
+            return newRows;
+    }
+
+    public boolean hasRowsWhere(String column, Object value) {
+        try {
+            Row[] rows = getRowsWhere(column, value);
+            // System.out.println("SQL ROWS LENGTH: " + rows.length);
+            if (rows.length != 0) return true;
+            else return false;
+        } catch (Exception e) {
+            return false;
         }
-        return newRows;
     }
 
     public String getStringWhere(String requestedColumn, String column, Object value) {

@@ -22,6 +22,26 @@ public class Row extends HashMap<String,Object> implements Comparable<Row> {
         return Select.mapJSONObject(this);
     }
 
+    public boolean hasAssociatingValuesWhere(String associationColumn, String column, Object value) {
+        try {
+            Object associationObject = get(associationColumn);
+            if (associationObject instanceof Row[]) {
+                Row[] associationRows = (Row[]) associationObject;
+                if (associationRows.length == 0) return false;
+                else {
+                    for (Row row : associationRows) {
+                        if (row.get(column).equals(value)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public void iterateColumns(ColumnIterator e) {
         Iterator it = entrySet().iterator();
         while (it.hasNext()) {

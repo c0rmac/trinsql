@@ -8,7 +8,7 @@ import java.util.*;
  * Created by cormacpjkinsella on 10/12/16.
  */
 public class Association {
-    public String parentColumn; public Select parentTable; public String childColumn; public Select childTable; public String name; public boolean forceArray; boolean rearrangeAssociationsByChildTableCount; boolean reverseRearrangement;
+    public String parentColumn; public Select parentTable; public String childColumn; public Select childTable; public String name; public boolean forceArray = false; boolean rearrangeAssociationsByChildTableCount = false; boolean reverseRearrangement = false;
 
     public Association(String parentColumn, Select parentTable, String childColumn, Select childTable, String name, boolean forceArray, boolean rearrangeAssociationsByChildTableCount, boolean reverseRearrangement) {
         this.parentColumn = parentColumn; this.parentTable = parentTable; this.childColumn = childColumn; this.childTable = childTable; this.name = name; this.forceArray = forceArray; this.rearrangeAssociationsByChildTableCount = rearrangeAssociationsByChildTableCount;
@@ -32,9 +32,8 @@ public class Association {
     }
 
     public void process() {
-        System.out.println("Processing: "+parentTable.getRows().length);
+        // System.out.println("Processing: "+parentTable.getRows().length);
         for (Row parentRow : parentTable.getRows()) {
-            childTable.reset(false);
             Row[] relevantRows = childTable.getRowsWhere(childColumn,parentRow.get(parentColumn));
             if (relevantRows.length == 1 && !forceArray) {
                 // Single object row
