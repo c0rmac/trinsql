@@ -17,6 +17,9 @@ public class Row extends HashMap<String,Object> implements Comparable<Row> {
 
     public boolean containsAssociation = false;
     public String associationColumn;
+    public int associationRowCount;
+    public boolean associationCounter;
+    public boolean associationMatchingDataBoolean;
 
     public JSONObject toJSONObject() {
         return Select.mapJSONObject(this);
@@ -55,17 +58,25 @@ public class Row extends HashMap<String,Object> implements Comparable<Row> {
         String a;
         String b;
         if (containsAssociation) {
-            a = String.valueOf(
-                    ((Row[]) get(associationColumn)).length
-            );
+            if (associationCounter || associationMatchingDataBoolean) {
+                a = String.valueOf(get(associationColumn));
+            } else {
+                a = String.valueOf(
+                        ((Row[]) get(associationColumn)).length
+                );
+            }
         } else {
             a = "0";
         }
 
         if (o.containsAssociation) {
-            b = String.valueOf(
-                    ((Row[]) o.get(o.associationColumn)).length
-            );
+            if (associationCounter || associationMatchingDataBoolean) {
+                b = String.valueOf(o.get(o.associationColumn));
+            } else {
+                b = String.valueOf(
+                        ((Row[]) o.get(o.associationColumn)).length
+                );
+            }
         } else {
             b = "0";
         }

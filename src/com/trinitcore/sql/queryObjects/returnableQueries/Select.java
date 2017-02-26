@@ -23,7 +23,7 @@ public class Select extends QueryObject {
     public String orderQuery = "";
     public String limitQuery = "";
 
-    List<Association> associationList = new ArrayList<>();
+    public List<Association> associationList = new ArrayList<>();
     private boolean reverseArray;
 
     public Select (String table, String... columns) {
@@ -51,19 +51,48 @@ public class Select extends QueryObject {
         return createAssociation(parentColumn,childColumn,table,parentColumn);
     }
 
+    public Association getAssociation(String column) {
+        for (Association association : associationList) {
+            if (association.name.equals(column)) {
+                return association;
+            }
+        }
+        return null;
+    }
+
     public Select createAssociation(String parentColumn, String childColumn, Select childTable, String name, boolean forceArray, boolean rearrangeAssociationsByChildTableCount) {
-        associationList.add(new Association(parentColumn, this, childColumn, childTable, name,forceArray,rearrangeAssociationsByChildTableCount,false));
+        associationList.add(new Association(parentColumn, this, childColumn, childTable, name,forceArray,rearrangeAssociationsByChildTableCount,false,false,false));
         return this;
     }
 
     public Select createAssociation(String parentColumn, String childColumn, Select childTable, String name, boolean forceArray, boolean rearrangeAssociationsByChildTableCount, boolean reverseArray) {
-        associationList.add(new Association(parentColumn, this, childColumn, childTable, name,forceArray,rearrangeAssociationsByChildTableCount,reverseArray));
+        associationList.add(new Association(parentColumn, this, childColumn, childTable, name,forceArray,rearrangeAssociationsByChildTableCount,reverseArray,false,false));
+        return this;
+    }
+
+    public Select createAssociationCounter(String parentColumn, String childColumn, Select childTable, String counterName) {
+        associationList.add(new Association(parentColumn, this, childColumn, childTable, counterName,false,false,false,true,false));
+        return this;
+    }
+
+    public Select createAssociationCounter(String parentColumn, String childColumn, Select childTable, String counterName, boolean rearrangeAssociationsByChildTableCount, boolean reverseArray) {
+        associationList.add(new Association(parentColumn, this, childColumn, childTable, counterName,false,rearrangeAssociationsByChildTableCount,reverseArray,true,false));
+        return this;
+    }
+
+    public Select createAssociationMatchingDataBoolean(String parentColumn, String childColumn, Select childTable, String name) {
+        associationList.add(new Association(parentColumn, this, childColumn, childTable, name,false,false,false,false,true));
+        return this;
+    }
+
+    public Select createAssociationMatchingDataBoolean(String parentColumn, String childColumn, Select childTable, String name, boolean rearrangeAssociationsByChildTableCount, boolean reverseArray) {
+        associationList.add(new Association(parentColumn, this, childColumn, childTable, name,false,rearrangeAssociationsByChildTableCount,reverseArray,false,true));
         return this;
     }
 
     public Select createAssociation(String parentColumn, String childColumn, Select childTable, String name) {
         System.out.println("made an assoc");
-        associationList.add(new Association(parentColumn, this, childColumn, childTable, name,false, false,false));
+        associationList.add(new Association(parentColumn, this, childColumn, childTable, name,false, false,false,false,false));
         return this;
     }
 

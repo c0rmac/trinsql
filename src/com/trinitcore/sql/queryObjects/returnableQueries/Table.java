@@ -69,14 +69,36 @@ public class Table extends Select {
     }
 
     @Override
+    public Table createAssociationCounter(String parentColumn, String childColumn, Select childTable, String counterName) {
+        super.createAssociationCounter(parentColumn,childColumn,childTable,counterName);
+        return this;
+    }
+    @Override
+    public Table createAssociationCounter(String parentColumn, String childColumn, Select childTable, String counterName, boolean rearrangeAssociationsByChildTableCount, boolean reverseArray) {
+        super.createAssociationCounter(parentColumn, childColumn,childTable,counterName,rearrangeAssociationsByChildTableCount,reverseArray);
+        return this;
+    }
+    @Override
     public Table createAssociation(String parentColumn, String childColumn, Select childTable, String name, boolean forceArray, boolean rearrangeAssociationsByChildTableCount) {
-        associationList.add(new Association(parentColumn, this, childColumn, childTable, name,forceArray,rearrangeAssociationsByChildTableCount,false));
+        super.createAssociation(parentColumn,childColumn,childTable,name,forceArray,rearrangeAssociationsByChildTableCount);
         return this;
     }
 
     @Override
     public Table createAssociation(String parentColumn, String childColumn, Select childTable, String name, boolean forceArray, boolean rearrangeAssociationsByChildTableCount, boolean reverseArray) {
-        associationList.add(new Association(parentColumn, this, childColumn, childTable, name,forceArray,rearrangeAssociationsByChildTableCount,reverseArray));
+        super.createAssociation(parentColumn,childColumn,childTable,name,forceArray,rearrangeAssociationsByChildTableCount,reverseArray);
+        return this;
+    }
+
+    @Override
+    public Table createAssociationMatchingDataBoolean(String parentColumn, String childColumn, Select childTable, String name) {
+        super.createAssociationMatchingDataBoolean(parentColumn,childColumn,childTable,name);
+        return this;
+    }
+
+    @Override
+    public Table createAssociationMatchingDataBoolean(String parentColumn, String childColumn, Select childTable, String name, boolean rearrangeAssociationsByChildTableCount, boolean reverseArray) {
+        super.createAssociationMatchingDataBoolean(parentColumn,childColumn,childTable,name,rearrangeAssociationsByChildTableCount,reverseArray);
         return this;
     }
 
