@@ -38,6 +38,11 @@ public class Row extends HashMap<String,Object> implements Comparable<Row> {
                         }
                     }
                 }
+            } else if (associationObject instanceof Row) {
+                Row row = (Row) associationObject;
+                if (row.get(column).equals(value)) {
+                    return true;
+                }
             }
             return false;
         } catch (Exception e) {

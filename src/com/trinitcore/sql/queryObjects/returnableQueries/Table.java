@@ -21,6 +21,12 @@ public class Table extends Select {
         super(table);
     }
 
+    @Override
+    public Table resetUponWhereChange() {
+        super.resetUponWhereChange();
+        return this;
+    }
+
     public Table insert(Map... maps) {
         new Insert(this.table, maps);
         reset(false);
@@ -132,6 +138,12 @@ public class Table extends Select {
     @Override
     public Table whereAnd(Map... expectedLocations) {
         super.whereAnd(expectedLocations);
+        return this;
+    }
+
+    @Override
+    public Table whereNot(String column, Object value) {
+        super.whereNot(column, value);
         return this;
     }
 

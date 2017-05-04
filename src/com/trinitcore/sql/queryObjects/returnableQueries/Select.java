@@ -25,6 +25,7 @@ public class Select extends QueryObject {
 
     public List<Association> associationList = new ArrayList<>();
     private boolean reverseArray;
+    private boolean resetUponWhereChange = false;
 
     public Select (String table, String... columns) {
         super(table, columns);
@@ -45,6 +46,11 @@ public class Select extends QueryObject {
         super(table);
         this.initialQuery = "SELECT ";
         this.initialQuery += "* FROM " + table;
+    }
+
+    public Select resetUponWhereChange() {
+        resetUponWhereChange = true;
+        return this;
     }
 
     public Select setAssociation(String parentColumn, String childColumn, Select table) {
@@ -101,6 +107,9 @@ public class Select extends QueryObject {
     }
 
     public Select where(String type, String equalityType, Map... expectedLocations) {
+        if (resetUponWhereChange) {
+            reset(true);
+        }
         String startOfString = " AND ";
         if (this.whereQuery.equals("")) startOfString = "WHERE";
         int count = 1;
@@ -180,6 +189,22 @@ public class Select extends QueryObject {
 
     public Select whereLike(String column, Object value) {
         where("","LIKE", new Map(column,value));
+        return this;
+    }
+
+    // Where not
+    public Select whereNot(String column, Object value) {
+        whereNotOr(new Map(column,value));
+        return this;
+    }
+
+    public Select whereNotOr(Map... expectedLocations) {
+        where("OR","<>", expectedLocations);
+        return this;
+    }
+
+    public Select whereNotAnd(Map... expectedLocations) {
+        where("AND","<>", expectedLocations);
         return this;
     }
 
@@ -326,6 +351,8 @@ public class Select extends QueryObject {
         return (int) get(column);
     }
 
+    public long getLong(String column) {return (long) get(column); }
+
     public double getDouble(String column) {
         return (double) get(column);
     }
@@ -337,6 +364,5 @@ public class Select extends QueryObject {
     public boolean hasResults() {
         return rowCount() != 0;
     }
-
 
 }
