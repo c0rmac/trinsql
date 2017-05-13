@@ -141,16 +141,20 @@ public class Select extends QueryObject {
 
     public Row[] getRowsWhere(String column, Object value) {
             List<Row> rows = new ArrayList<Row>(Arrays.asList(getRows()));
-            List<Row> newRowsList = rows.stream().filter(row -> row.get(column).equals(value)).collect(Collectors.toList());
-            // System.out.println("New row size: " + newRowsList.size()+" VS. Old row size: "+rows.size());
-            Row[] newRows = new Row[newRowsList.size()];
+            try {
+                List<Row> newRowsList = rows.stream().filter(row -> row.get(column).equals(value)).collect(Collectors.toList());
+                // System.out.println("New row size: " + newRowsList.size()+" VS. Old row size: "+rows.size());
+                Row[] newRows = new Row[newRowsList.size()];
 
-            int position = 0;
-            for (Row row : newRowsList) {
-                newRows[position] = row;
-                position += 1;
+                int position = 0;
+                for (Row row : newRowsList) {
+                    newRows[position] = row;
+                    position += 1;
+                }
+                return newRows;
+            } catch (NullPointerException e) {
+                return new Row[0];
             }
-            return newRows;
     }
 
     public boolean hasRowsWhere(String column, Object value) {
@@ -236,6 +240,23 @@ public class Select extends QueryObject {
         if (parameters){ this.parameters = new ArrayList<>();
         this.whereQuery = "";
         }
+    }
+
+    public static Map[] utilMapToSQLMap(java.util.Map<String,String[]> parameters, String... excluded) {
+        List<Map> sqlParameters = new ArrayList<>();
+        for (String key : parameters.keySet()) {
+            boolean continueMapping = true;
+            for (String exclude : excluded) {
+                if (key.equals(exclude)) {
+                    continueMapping = false;
+                    break;
+                }
+            }
+            if (!continueMapping) continue;
+            String value = parameters.get(key)[0];
+            sqlParameters.add(new Map(key,value));
+        }
+        return sqlParameters.toArray(new Map[0]);
     }
 
     public static JSONObject mapJSONObject(Row row) {
