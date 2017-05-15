@@ -116,15 +116,30 @@ public class Select extends QueryObject {
 
         for (Map location : expectedLocations) {
             if (count == 1)
-                this.whereQuery += " "+startOfString+" "+location.key+" "+equalityType+" ? ";
+                this.whereQuery += " "+startOfString+" \""+location.key+"\" "+equalityType+" ? ";
              else
-                 this.whereQuery += " "+type+" "+location.key+" = ? ";
+                 this.whereQuery += " "+type+" \""+location.key+"\" = ? ";
             parameters.add(location.value);
             count++;
         }
         return this;
     }
 
+    public Row lastRow(String identifyByRow) {
+        try {
+            order(identifyByRow,"DESC");
+            limit(1);
+            return getRow();
+        } finally {
+            this.limitQuery = "";
+            this.orderQuery = "";
+        }
+    }
+
+    public Row lastRowInTable(String identifyByRow) {
+        reset(true);
+        return lastRow(identifyByRow);
+    }
 
     public Row getWhere(String column, Object value) {
         try {
@@ -214,7 +229,7 @@ public class Select extends QueryObject {
 
     public Select order(Map order) {
         this.orderQuery = "";
-        this.orderQuery += " ORDER BY "+order.key+" "+order.string();
+        this.orderQuery += " ORDER BY \""+order.key+"\" "+order.string();
         return this;
     }
 

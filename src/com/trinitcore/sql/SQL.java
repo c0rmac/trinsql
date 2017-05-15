@@ -19,6 +19,7 @@ public class SQL {
     public ResultSet resultSet = null;
     public PreparedStatement preparedStmt = null;
     public static Configuration configuration;
+    public Connection conn = null;
 
     public static void setConfiguration(Configuration extendedConfiguration) {
         configuration = extendedConfiguration;
@@ -42,7 +43,8 @@ public class SQL {
 
     public SQL query(boolean returnable) {
         try {
-            this.preparedStmt = configuration.getConnection().prepareStatement(query);
+            conn = configuration.getConnection();
+            this.preparedStmt = conn.prepareStatement(query);
             int count = 1;
             for (Object value : this.parameters){
                 this.preparedStmt.setObject(count,value);
@@ -61,7 +63,9 @@ public class SQL {
 
     public SQL close() {
         try {
-            if (preparedStmt.isClosed()) return this;
+            if (conn == null) return this;
+            else if (conn.isClosed()) return this;
+            this.conn.close();
             this.preparedStmt.close();
         } catch (SQLException e) {
             e.printStackTrace();

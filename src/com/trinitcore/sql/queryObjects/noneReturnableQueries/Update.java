@@ -11,7 +11,7 @@ public class Update extends NoneReturnableQuery {
     public Update(String table, String whereColumn, Object value, Map... values) {
         super(table, values);
         genericConstructor(values);
-        this.query += "WHERE "+whereColumn+" = ?";
+        this.query += "WHERE \""+whereColumn+"\" = ?";
         this.parameters.add(value);
         System.out.println(this.query);
         query(false);
@@ -32,11 +32,11 @@ public class Update extends NoneReturnableQuery {
         int count = 1;
         for (Map column : values) {
             if (count == 1) {
-                this.query += "SET " + column.key + " = ? ";
+                this.query += "SET \"" + column.key + "\" = ? ";
             }else {
-                this.query += " "+column.key+" = ? ";
+                this.query += " \""+column.key+"\" = ? ";
             }
-            this.parameters.add(column.value);
+            this.parameters.add(column.getValue());
             if (count == values.length) break;
             this.query += ", ";
             count++;
@@ -47,7 +47,7 @@ public class Update extends NoneReturnableQuery {
         String where = "WHERE ";
         int count = 1;
         for (Map map:whereColumnsValues) {
-            where += map.key+" = ?";
+            where += "\""+map.key+"\" = ?";
             this.parameters.add(map.value);
             if (count == whereColumnsValues.length) break;
             where += " "+seperator+" ";

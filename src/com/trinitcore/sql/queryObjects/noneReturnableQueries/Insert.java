@@ -13,7 +13,7 @@ public class Insert extends NoneReturnableQuery {
         this.query = "INSERT INTO "+table+" (";
         int count = 1;
         for (Map column : values) {
-            this.query += column.key;
+            this.query += "\""+column.key+"\"";
             if (count == values.length) break;
             this.query += ", ";
             count++;
@@ -22,7 +22,7 @@ public class Insert extends NoneReturnableQuery {
         int count2 = 1;
         for (Map column : values) {
             this.query += "?";
-            this.parameters.add(column.value);
+            this.parameters.add(column.getValue());
             if (count2 == values.length) break;
             this.query += ", ";
             count2++;

@@ -8,7 +8,7 @@ import com.trinitcore.sql.Map;
 public class Delete extends NoneReturnableQuery {
     public Delete(String table, String whereColumn, Object whereValue) {
         super(table);
-        this.query = "DELETE FROM "+table+" WHERE "+whereColumn+" = ?";
+        this.query = "DELETE FROM "+table+" WHERE \""+whereColumn+"\" = ?";
         this.parameters.add(whereValue);
         query(false);
         close();
