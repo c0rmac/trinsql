@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 /**
  * Created by cormacpjkinsella on 10/9/16.
  */
-public class Select extends QueryObject {
+public class Select extends QueryObject implements Association.Listener{
     public Row[] rows = null;
     public String initialQuery = null;
     public String whereQuery = "";
@@ -26,6 +26,7 @@ public class Select extends QueryObject {
     public List<Association> associationList = new ArrayList<>();
     private boolean reverseArray;
     private boolean resetUponWhereChange = false;
+    private Association.Listener masterTableListener = null;
 
     public Select (String table, String... columns) {
         super(table, columns);
@@ -67,38 +68,38 @@ public class Select extends QueryObject {
     }
 
     public Select createAssociation(String parentColumn, String childColumn, Select childTable, String name, boolean forceArray, boolean rearrangeAssociationsByChildTableCount) {
-        associationList.add(new Association(parentColumn, this, childColumn, childTable, name,forceArray,rearrangeAssociationsByChildTableCount,false,false,false));
+        associationList.add(new Association(this,parentColumn, this, childColumn, childTable, name,forceArray,rearrangeAssociationsByChildTableCount,false,false,false));
         return this;
     }
 
     public Select createAssociation(String parentColumn, String childColumn, Select childTable, String name, boolean forceArray, boolean rearrangeAssociationsByChildTableCount, boolean reverseArray) {
-        associationList.add(new Association(parentColumn, this, childColumn, childTable, name,forceArray,rearrangeAssociationsByChildTableCount,reverseArray,false,false));
+        associationList.add(new Association(this,parentColumn, this, childColumn, childTable, name,forceArray,rearrangeAssociationsByChildTableCount,reverseArray,false,false));
         return this;
     }
 
     public Select createAssociationCounter(String parentColumn, String childColumn, Select childTable, String counterName) {
-        associationList.add(new Association(parentColumn, this, childColumn, childTable, counterName,false,false,false,true,false));
+        associationList.add(new Association(this,parentColumn, this, childColumn, childTable, counterName,false,false,false,true,false));
         return this;
     }
 
     public Select createAssociationCounter(String parentColumn, String childColumn, Select childTable, String counterName, boolean rearrangeAssociationsByChildTableCount, boolean reverseArray) {
-        associationList.add(new Association(parentColumn, this, childColumn, childTable, counterName,false,rearrangeAssociationsByChildTableCount,reverseArray,true,false));
+        associationList.add(new Association(this,parentColumn, this, childColumn, childTable, counterName,false,rearrangeAssociationsByChildTableCount,reverseArray,true,false));
         return this;
     }
 
     public Select createAssociationMatchingDataBoolean(String parentColumn, String childColumn, Select childTable, String name) {
-        associationList.add(new Association(parentColumn, this, childColumn, childTable, name,false,false,false,false,true));
+        associationList.add(new Association(this,parentColumn, this, childColumn, childTable, name,false,false,false,false,true));
         return this;
     }
 
     public Select createAssociationMatchingDataBoolean(String parentColumn, String childColumn, Select childTable, String name, boolean rearrangeAssociationsByChildTableCount, boolean reverseArray) {
-        associationList.add(new Association(parentColumn, this, childColumn, childTable, name,false,rearrangeAssociationsByChildTableCount,reverseArray,false,true));
+        associationList.add(new Association(this,parentColumn, this, childColumn, childTable, name,false,rearrangeAssociationsByChildTableCount,reverseArray,false,true));
         return this;
     }
 
     public Select createAssociation(String parentColumn, String childColumn, Select childTable, String name) {
         System.out.println("made an assoc");
-        associationList.add(new Association(parentColumn, this, childColumn, childTable, name,false, false,false,false,false));
+        associationList.add(new Association(this,parentColumn, this, childColumn, childTable, name,false, false,false,false,false));
         return this;
     }
 
@@ -157,7 +158,13 @@ public class Select extends QueryObject {
     public Row[] getRowsWhere(String column, Object value) {
             List<Row> rows = new ArrayList<Row>(Arrays.asList(getRows()));
             try {
-                List<Row> newRowsList = rows.stream().filter(row -> row.get(column).equals(value)).collect(Collectors.toList());
+                List<Row> newRowsList = new ArrayList<>();
+                for (Row row : rows) {
+                    if (row.get(column) != null && row.get(column).equals(value)) {
+                        newRowsList.add(row);
+                    }
+                }
+
                 // System.out.println("New row size: " + newRowsList.size()+" VS. Old row size: "+rows.size());
                 Row[] newRows = new Row[newRowsList.size()];
 
@@ -168,6 +175,7 @@ public class Select extends QueryObject {
                 }
                 return newRows;
             } catch (NullPointerException e) {
+                System.out.println("NullPointerException for value :" + value + " Table :" + table);
                 return new Row[0];
             }
     }
@@ -254,6 +262,10 @@ public class Select extends QueryObject {
         this.resultSet = null;
         if (parameters){ this.parameters = new ArrayList<>();
         this.whereQuery = "";
+        }
+
+        if (masterTableListener != null) {
+            masterTableListener.associatingTableDidChange();
         }
     }
 
@@ -401,4 +413,18 @@ public class Select extends QueryObject {
         return rowCount() != 0;
     }
 
+    @Override
+    public void associatingTableDidChange() {
+        System.out.println(table + " :: One of my association changed. I better reiterate... or reset");
+        //processAssociations();
+        reset(false);
+    }
+
+    public Association.Listener getMasterTableListener() {
+        return masterTableListener;
+    }
+
+    public void setMasterTableListener(Association.Listener masterTableListener) {
+        this.masterTableListener = masterTableListener;
+    }
 }

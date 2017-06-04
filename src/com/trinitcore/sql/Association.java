@@ -8,12 +8,19 @@ import java.util.*;
  * Created by cormacpjkinsella on 10/12/16.
  */
 public class Association {
+
+    public interface Listener {
+        public void associatingTableDidChange();
+    }
+
     public String parentColumn; public Select parentTable; public String childColumn; public Select childTable; public String name; public boolean forceArray = false; public boolean rearrangeAssociationsByChildTableCount = false; public boolean reverseRearrangement = false;
     public boolean counter; public boolean matchingDataBoolean;
 
-    public Association(String parentColumn, Select parentTable, String childColumn, Select childTable, String name, boolean forceArray, boolean rearrangeAssociationsByChildTableCount, boolean reverseRearrangement, boolean useCounter, boolean useMatchingDataBoolean) {
+    public Association(Association.Listener listener, String parentColumn, Select parentTable, String childColumn, Select childTable, String name, boolean forceArray, boolean rearrangeAssociationsByChildTableCount, boolean reverseRearrangement, boolean useCounter, boolean useMatchingDataBoolean) {
         this.parentColumn = parentColumn; this.parentTable = parentTable; this.childColumn = childColumn; this.childTable = childTable; this.name = name; this.forceArray = forceArray; this.rearrangeAssociationsByChildTableCount = rearrangeAssociationsByChildTableCount; this.counter = useCounter;
         this.reverseRearrangement = reverseRearrangement; this.matchingDataBoolean = useMatchingDataBoolean;
+
+        this.childTable.setMasterTableListener(listener);
     }
 
     public void rearrangeAssociationsByChildTableCount() {
@@ -35,6 +42,7 @@ public class Association {
         // System.out.println("Processing: "+parentTable.getRows().length);
         for (Row parentRow : parentTable.getRows()) {
             Row[] relevantRows = childTable.getRowsWhere(childColumn,parentRow.get(parentColumn));
+            // System.out.println(parentColumn + " --> " + childColumn + " :: " + parentRow.get(parentColumn) + " :: " + relevantRows.length);
             if (counter) {
                 parentRow.put(name, relevantRows.length);
             } else if (matchingDataBoolean) {
