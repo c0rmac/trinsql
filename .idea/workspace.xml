@@ -39,29 +39,29 @@
       <file leaf-file-name="Select.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sql/queryObjects/returnableQueries/Select.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="475">
-              <caret line="338" column="27" lean-forward="false" selection-start-line="338" selection-start-column="27" selection-end-line="338" selection-end-column="27" />
+            <state relative-caret-position="118">
+              <caret line="172" column="23" lean-forward="false" selection-start-line="172" selection-start-column="23" selection-end-line="172" selection-end-column="23" />
               <folding>
-                <element signature="e#11644#11645#0" expanded="true" />
-                <element signature="e#11690#11691#0" expanded="true" />
-                <element signature="e#13232#13233#0" expanded="true" />
-                <element signature="e#13271#13272#0" expanded="true" />
-                <element signature="e#13298#13299#0" expanded="true" />
-                <element signature="e#13333#13334#0" expanded="true" />
-                <element signature="e#13364#13365#0" expanded="true" />
-                <element signature="e#13410#13411#0" expanded="true" />
-                <element signature="e#14017#14018#0" expanded="true" />
-                <element signature="e#14067#14068#0" expanded="true" />
-                <element signature="e#14107#14108#0" expanded="true" />
-                <element signature="e#14147#14148#0" expanded="true" />
-                <element signature="e#14263#14264#0" expanded="true" />
-                <element signature="e#14306#14307#0" expanded="true" />
-                <element signature="e#14346#14347#0" expanded="true" />
-                <element signature="e#14389#14390#0" expanded="true" />
-                <element signature="e#14424#14425#0" expanded="true" />
-                <element signature="e#14462#14463#0" expanded="true" />
-                <element signature="e#14749#14750#0" expanded="true" />
-                <element signature="e#14791#14792#0" expanded="true" />
+                <element signature="e#12693#12694#0" expanded="true" />
+                <element signature="e#12739#12740#0" expanded="true" />
+                <element signature="e#14281#14282#0" expanded="true" />
+                <element signature="e#14320#14321#0" expanded="true" />
+                <element signature="e#14347#14348#0" expanded="true" />
+                <element signature="e#14382#14383#0" expanded="true" />
+                <element signature="e#14413#14414#0" expanded="true" />
+                <element signature="e#14459#14460#0" expanded="true" />
+                <element signature="e#15066#15067#0" expanded="true" />
+                <element signature="e#15116#15117#0" expanded="true" />
+                <element signature="e#15156#15157#0" expanded="true" />
+                <element signature="e#15196#15197#0" expanded="true" />
+                <element signature="e#15312#15313#0" expanded="true" />
+                <element signature="e#15355#15356#0" expanded="true" />
+                <element signature="e#15395#15396#0" expanded="true" />
+                <element signature="e#15438#15439#0" expanded="true" />
+                <element signature="e#15473#15474#0" expanded="true" />
+                <element signature="e#15511#15512#0" expanded="true" />
+                <element signature="e#15798#15799#0" expanded="true" />
+                <element signature="e#15840#15841#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -71,7 +71,7 @@
         <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sql/queryObjects/QueryObject.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
-              <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+              <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -80,7 +80,7 @@
       <file leaf-file-name="Row.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sql/Row.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
+            <state relative-caret-position="-212">
               <caret line="40" column="44" lean-forward="false" selection-start-line="40" selection-start-column="44" selection-end-line="40" selection-end-column="44" />
               <folding />
             </state>
@@ -103,8 +103,8 @@
       <file leaf-file-name="Association.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sql/Association.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="42" column="32" lean-forward="false" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="32" />
+            <state relative-caret-position="493">
+              <caret line="43" column="25" lean-forward="false" selection-start-line="43" selection-start-column="25" selection-end-line="43" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -113,7 +113,7 @@
       <file leaf-file-name="SQL.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sql/SQL.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
+            <state relative-caret-position="-76">
               <caret line="29" column="5" lean-forward="false" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
               <folding>
                 <element signature="e#364#372#0" expanded="true" />
@@ -186,10 +186,15 @@
       <find>getInt</find>
       <find>getRowsWhere</find>
       <find>resetUponWhereChange</find>
-      <find>reset</find>
       <find>resetWhere</find>
-      <find>reset(</find>
       <find>parameters</find>
+      <find>reset(bo</find>
+      <find>reset(</find>
+      <find>lastRow</find>
+      <find>reset</find>
+      <find>getLast</find>
+      <find>order</find>
+      <find>limit</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -214,8 +219,8 @@
         <option value="$PROJECT_DIR$/src/com/trinitcore/sql/queryObjects/noneReturnableQueries/Delete.java" />
         <option value="$PROJECT_DIR$/src/com/trinitcore/sql/queryObjects/noneReturnableQueries/Update.java" />
         <option value="$PROJECT_DIR$/src/com/trinitcore/sql/Row.java" />
-        <option value="$PROJECT_DIR$/src/com/trinitcore/sql/Association.java" />
         <option value="$PROJECT_DIR$/src/com/trinitcore/sql/SQL.java" />
+        <option value="$PROJECT_DIR$/src/com/trinitcore/sql/Association.java" />
         <option value="$PROJECT_DIR$/src/com/trinitcore/sql/queryObjects/returnableQueries/Select.java" />
       </list>
     </option>
@@ -231,10 +236,10 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="2576" />
-    <option name="height" value="1056" />
+    <option name="x" value="2552" />
+    <option name="y" value="19" />
+    <option name="width" value="1696" />
+    <option name="height" value="1026" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -1028,20 +1033,27 @@
       <option name="project" value="LOCAL" />
       <updated>1493929369557</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Fixed association updating and refreshing">
+      <created>1496585813121</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1496585813121</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="88707000" />
+    <option name="totallyTimeSpent" value="93405000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="2576" height="1056" extended-state="6" />
+    <frame x="2552" y="19" width="1696" height="1026" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29577464" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2956327" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1053,7 +1065,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14745627" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1680929" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32928804" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1140,7 +1152,8 @@
     <MESSAGE value="Fixed minor parametrise issues" />
     <MESSAGE value="New association features" />
     <MESSAGE value="Included new where functions" />
-    <option name="LAST_COMMIT_MESSAGE" value="Included new where functions" />
+    <MESSAGE value="Fixed association updating and refreshing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed association updating and refreshing" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1163,26 +1176,26 @@
         <state relative-caret-position="1005">
           <caret line="80" column="39" lean-forward="false" selection-start-line="79" selection-start-column="24" selection-end-line="80" selection-end-column="39" />
           <folding>
-            <element signature="e#11644#11645#0" expanded="true" />
-            <element signature="e#11690#11691#0" expanded="true" />
-            <element signature="e#13232#13233#0" expanded="true" />
-            <element signature="e#13271#13272#0" expanded="true" />
-            <element signature="e#13298#13299#0" expanded="true" />
-            <element signature="e#13333#13334#0" expanded="true" />
-            <element signature="e#13364#13365#0" expanded="true" />
-            <element signature="e#13410#13411#0" expanded="true" />
-            <element signature="e#14017#14018#0" expanded="true" />
-            <element signature="e#14067#14068#0" expanded="true" />
-            <element signature="e#14107#14108#0" expanded="true" />
-            <element signature="e#14147#14148#0" expanded="true" />
-            <element signature="e#14263#14264#0" expanded="true" />
-            <element signature="e#14306#14307#0" expanded="true" />
-            <element signature="e#14346#14347#0" expanded="true" />
-            <element signature="e#14389#14390#0" expanded="true" />
-            <element signature="e#14424#14425#0" expanded="true" />
-            <element signature="e#14462#14463#0" expanded="true" />
-            <element signature="e#14749#14750#0" expanded="true" />
-            <element signature="e#14791#14792#0" expanded="true" />
+            <element signature="e#12693#12694#0" expanded="true" />
+            <element signature="e#12739#12740#0" expanded="true" />
+            <element signature="e#14281#14282#0" expanded="true" />
+            <element signature="e#14320#14321#0" expanded="true" />
+            <element signature="e#14347#14348#0" expanded="true" />
+            <element signature="e#14382#14383#0" expanded="true" />
+            <element signature="e#14413#14414#0" expanded="true" />
+            <element signature="e#14459#14460#0" expanded="true" />
+            <element signature="e#15066#15067#0" expanded="true" />
+            <element signature="e#15116#15117#0" expanded="true" />
+            <element signature="e#15156#15157#0" expanded="true" />
+            <element signature="e#15196#15197#0" expanded="true" />
+            <element signature="e#15312#15313#0" expanded="true" />
+            <element signature="e#15355#15356#0" expanded="true" />
+            <element signature="e#15395#15396#0" expanded="true" />
+            <element signature="e#15438#15439#0" expanded="true" />
+            <element signature="e#15473#15474#0" expanded="true" />
+            <element signature="e#15511#15512#0" expanded="true" />
+            <element signature="e#15798#15799#0" expanded="true" />
+            <element signature="e#15840#15841#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1269,26 +1282,26 @@
         <state relative-caret-position="1005">
           <caret line="80" column="39" lean-forward="false" selection-start-line="79" selection-start-column="24" selection-end-line="80" selection-end-column="39" />
           <folding>
-            <element signature="e#11644#11645#0" expanded="true" />
-            <element signature="e#11690#11691#0" expanded="true" />
-            <element signature="e#13232#13233#0" expanded="true" />
-            <element signature="e#13271#13272#0" expanded="true" />
-            <element signature="e#13298#13299#0" expanded="true" />
-            <element signature="e#13333#13334#0" expanded="true" />
-            <element signature="e#13364#13365#0" expanded="true" />
-            <element signature="e#13410#13411#0" expanded="true" />
-            <element signature="e#14017#14018#0" expanded="true" />
-            <element signature="e#14067#14068#0" expanded="true" />
-            <element signature="e#14107#14108#0" expanded="true" />
-            <element signature="e#14147#14148#0" expanded="true" />
-            <element signature="e#14263#14264#0" expanded="true" />
-            <element signature="e#14306#14307#0" expanded="true" />
-            <element signature="e#14346#14347#0" expanded="true" />
-            <element signature="e#14389#14390#0" expanded="true" />
-            <element signature="e#14424#14425#0" expanded="true" />
-            <element signature="e#14462#14463#0" expanded="true" />
-            <element signature="e#14749#14750#0" expanded="true" />
-            <element signature="e#14791#14792#0" expanded="true" />
+            <element signature="e#12693#12694#0" expanded="true" />
+            <element signature="e#12739#12740#0" expanded="true" />
+            <element signature="e#14281#14282#0" expanded="true" />
+            <element signature="e#14320#14321#0" expanded="true" />
+            <element signature="e#14347#14348#0" expanded="true" />
+            <element signature="e#14382#14383#0" expanded="true" />
+            <element signature="e#14413#14414#0" expanded="true" />
+            <element signature="e#14459#14460#0" expanded="true" />
+            <element signature="e#15066#15067#0" expanded="true" />
+            <element signature="e#15116#15117#0" expanded="true" />
+            <element signature="e#15156#15157#0" expanded="true" />
+            <element signature="e#15196#15197#0" expanded="true" />
+            <element signature="e#15312#15313#0" expanded="true" />
+            <element signature="e#15355#15356#0" expanded="true" />
+            <element signature="e#15395#15396#0" expanded="true" />
+            <element signature="e#15438#15439#0" expanded="true" />
+            <element signature="e#15473#15474#0" expanded="true" />
+            <element signature="e#15511#15512#0" expanded="true" />
+            <element signature="e#15798#15799#0" expanded="true" />
+            <element signature="e#15840#15841#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1375,26 +1388,26 @@
         <state relative-caret-position="1170">
           <caret line="80" column="39" lean-forward="false" selection-start-line="79" selection-start-column="24" selection-end-line="80" selection-end-column="39" />
           <folding>
-            <element signature="e#11644#11645#0" expanded="true" />
-            <element signature="e#11690#11691#0" expanded="true" />
-            <element signature="e#13232#13233#0" expanded="true" />
-            <element signature="e#13271#13272#0" expanded="true" />
-            <element signature="e#13298#13299#0" expanded="true" />
-            <element signature="e#13333#13334#0" expanded="true" />
-            <element signature="e#13364#13365#0" expanded="true" />
-            <element signature="e#13410#13411#0" expanded="true" />
-            <element signature="e#14017#14018#0" expanded="true" />
-            <element signature="e#14067#14068#0" expanded="true" />
-            <element signature="e#14107#14108#0" expanded="true" />
-            <element signature="e#14147#14148#0" expanded="true" />
-            <element signature="e#14263#14264#0" expanded="true" />
-            <element signature="e#14306#14307#0" expanded="true" />
-            <element signature="e#14346#14347#0" expanded="true" />
-            <element signature="e#14389#14390#0" expanded="true" />
-            <element signature="e#14424#14425#0" expanded="true" />
-            <element signature="e#14462#14463#0" expanded="true" />
-            <element signature="e#14749#14750#0" expanded="true" />
-            <element signature="e#14791#14792#0" expanded="true" />
+            <element signature="e#12693#12694#0" expanded="true" />
+            <element signature="e#12739#12740#0" expanded="true" />
+            <element signature="e#14281#14282#0" expanded="true" />
+            <element signature="e#14320#14321#0" expanded="true" />
+            <element signature="e#14347#14348#0" expanded="true" />
+            <element signature="e#14382#14383#0" expanded="true" />
+            <element signature="e#14413#14414#0" expanded="true" />
+            <element signature="e#14459#14460#0" expanded="true" />
+            <element signature="e#15066#15067#0" expanded="true" />
+            <element signature="e#15116#15117#0" expanded="true" />
+            <element signature="e#15156#15157#0" expanded="true" />
+            <element signature="e#15196#15197#0" expanded="true" />
+            <element signature="e#15312#15313#0" expanded="true" />
+            <element signature="e#15355#15356#0" expanded="true" />
+            <element signature="e#15395#15396#0" expanded="true" />
+            <element signature="e#15438#15439#0" expanded="true" />
+            <element signature="e#15473#15474#0" expanded="true" />
+            <element signature="e#15511#15512#0" expanded="true" />
+            <element signature="e#15798#15799#0" expanded="true" />
+            <element signature="e#15840#15841#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1481,26 +1494,26 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#11644#11645#0" expanded="true" />
-            <element signature="e#11690#11691#0" expanded="true" />
-            <element signature="e#13232#13233#0" expanded="true" />
-            <element signature="e#13271#13272#0" expanded="true" />
-            <element signature="e#13298#13299#0" expanded="true" />
-            <element signature="e#13333#13334#0" expanded="true" />
-            <element signature="e#13364#13365#0" expanded="true" />
-            <element signature="e#13410#13411#0" expanded="true" />
-            <element signature="e#14017#14018#0" expanded="true" />
-            <element signature="e#14067#14068#0" expanded="true" />
-            <element signature="e#14107#14108#0" expanded="true" />
-            <element signature="e#14147#14148#0" expanded="true" />
-            <element signature="e#14263#14264#0" expanded="true" />
-            <element signature="e#14306#14307#0" expanded="true" />
-            <element signature="e#14346#14347#0" expanded="true" />
-            <element signature="e#14389#14390#0" expanded="true" />
-            <element signature="e#14424#14425#0" expanded="true" />
-            <element signature="e#14462#14463#0" expanded="true" />
-            <element signature="e#14749#14750#0" expanded="true" />
-            <element signature="e#14791#14792#0" expanded="true" />
+            <element signature="e#12693#12694#0" expanded="true" />
+            <element signature="e#12739#12740#0" expanded="true" />
+            <element signature="e#14281#14282#0" expanded="true" />
+            <element signature="e#14320#14321#0" expanded="true" />
+            <element signature="e#14347#14348#0" expanded="true" />
+            <element signature="e#14382#14383#0" expanded="true" />
+            <element signature="e#14413#14414#0" expanded="true" />
+            <element signature="e#14459#14460#0" expanded="true" />
+            <element signature="e#15066#15067#0" expanded="true" />
+            <element signature="e#15116#15117#0" expanded="true" />
+            <element signature="e#15156#15157#0" expanded="true" />
+            <element signature="e#15196#15197#0" expanded="true" />
+            <element signature="e#15312#15313#0" expanded="true" />
+            <element signature="e#15355#15356#0" expanded="true" />
+            <element signature="e#15395#15396#0" expanded="true" />
+            <element signature="e#15438#15439#0" expanded="true" />
+            <element signature="e#15473#15474#0" expanded="true" />
+            <element signature="e#15511#15512#0" expanded="true" />
+            <element signature="e#15798#15799#0" expanded="true" />
+            <element signature="e#15840#15841#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1627,33 +1640,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sql/Association.java">
+    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sql/queryObjects/QueryObject.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="42" column="32" lean-forward="false" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="32" />
+        <state relative-caret-position="255">
+          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sql/Row.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
+        <state relative-caret-position="-212">
           <caret line="40" column="44" lean-forward="false" selection-start-line="40" selection-start-column="44" selection-end-line="40" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sql/queryObjects/QueryObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sql/SQL.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
+        <state relative-caret-position="-76">
           <caret line="29" column="5" lean-forward="false" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
           <folding>
             <element signature="e#364#372#0" expanded="true" />
@@ -1661,31 +1666,39 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sql/Association.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="43" column="25" lean-forward="false" selection-start-line="43" selection-start-column="25" selection-end-line="43" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sql/queryObjects/returnableQueries/Select.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="338" column="27" lean-forward="false" selection-start-line="338" selection-start-column="27" selection-end-line="338" selection-end-column="27" />
+        <state relative-caret-position="118">
+          <caret line="172" column="23" lean-forward="false" selection-start-line="172" selection-start-column="23" selection-end-line="172" selection-end-column="23" />
           <folding>
-            <element signature="e#11644#11645#0" expanded="true" />
-            <element signature="e#11690#11691#0" expanded="true" />
-            <element signature="e#13232#13233#0" expanded="true" />
-            <element signature="e#13271#13272#0" expanded="true" />
-            <element signature="e#13298#13299#0" expanded="true" />
-            <element signature="e#13333#13334#0" expanded="true" />
-            <element signature="e#13364#13365#0" expanded="true" />
-            <element signature="e#13410#13411#0" expanded="true" />
-            <element signature="e#14017#14018#0" expanded="true" />
-            <element signature="e#14067#14068#0" expanded="true" />
-            <element signature="e#14107#14108#0" expanded="true" />
-            <element signature="e#14147#14148#0" expanded="true" />
-            <element signature="e#14263#14264#0" expanded="true" />
-            <element signature="e#14306#14307#0" expanded="true" />
-            <element signature="e#14346#14347#0" expanded="true" />
-            <element signature="e#14389#14390#0" expanded="true" />
-            <element signature="e#14424#14425#0" expanded="true" />
-            <element signature="e#14462#14463#0" expanded="true" />
-            <element signature="e#14749#14750#0" expanded="true" />
-            <element signature="e#14791#14792#0" expanded="true" />
+            <element signature="e#12693#12694#0" expanded="true" />
+            <element signature="e#12739#12740#0" expanded="true" />
+            <element signature="e#14281#14282#0" expanded="true" />
+            <element signature="e#14320#14321#0" expanded="true" />
+            <element signature="e#14347#14348#0" expanded="true" />
+            <element signature="e#14382#14383#0" expanded="true" />
+            <element signature="e#14413#14414#0" expanded="true" />
+            <element signature="e#14459#14460#0" expanded="true" />
+            <element signature="e#15066#15067#0" expanded="true" />
+            <element signature="e#15116#15117#0" expanded="true" />
+            <element signature="e#15156#15157#0" expanded="true" />
+            <element signature="e#15196#15197#0" expanded="true" />
+            <element signature="e#15312#15313#0" expanded="true" />
+            <element signature="e#15355#15356#0" expanded="true" />
+            <element signature="e#15395#15396#0" expanded="true" />
+            <element signature="e#15438#15439#0" expanded="true" />
+            <element signature="e#15473#15474#0" expanded="true" />
+            <element signature="e#15511#15512#0" expanded="true" />
+            <element signature="e#15798#15799#0" expanded="true" />
+            <element signature="e#15840#15841#0" expanded="true" />
           </folding>
         </state>
       </provider>

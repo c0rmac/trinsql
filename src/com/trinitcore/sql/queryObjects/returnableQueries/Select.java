@@ -33,6 +33,7 @@ public class Select extends QueryObject implements Association.Listener{
     private boolean reverseArray;
     private boolean resetUponWhereChange = false;
     private Association.Listener masterTableListener = null;
+    private boolean masterTableListenerEnabled = true;
 
     public Select (String table, String... columns) {
         super(table, columns);
@@ -118,9 +119,31 @@ public class Select extends QueryObject implements Association.Listener{
     }
 
     public void resetWhere() {
-        this.whereQuery = "";
-        this.whereParameters.clear();
-        reset(false);
+        System.out.println("Resetting where in table " + table + " " + this.whereQuery);
+        // Wrapping it in this to prevent the Association Listener delegate from calling associatingTableDidChange
+        if (!this.whereQuery.equals("")) {
+            this.whereQuery = "";
+            this.whereParameters.clear();
+            reset(false);
+        }
+    }
+
+    public void resetOrder() {
+        if (!this.orderQuery.equals("")) {
+            this.orderQuery = "";
+            this.orderParameters.clear();
+            reset(false);
+        }
+    }
+
+    public void resetLimit() {
+        System.out.println("Resetting limit in table " + table + " " + this.limitQuery);
+        // Wrapping it in this to prevent the Association Listener delegate from calling associatingTableDidChange
+        if (!this.limitQuery.equals("")) {
+            this.limitQuery = "";
+            this.limitParameters.clear();
+            reset(false);
+        }
     }
 
     public Select where(String type, String equalityType, Map... expectedLocations) {
@@ -144,12 +167,15 @@ public class Select extends QueryObject implements Association.Listener{
 
     public Row lastRow(String identifyByRow) {
         try {
+            masterTableListenerEnabled = false;
             order(identifyByRow,"DESC");
             limit(1);
+            reset(false);
             return getRow();
         } finally {
-            this.limitQuery = "";
-            this.orderQuery = "";
+            resetLimit();
+            resetOrder();
+            masterTableListenerEnabled = true;
         }
     }
 
@@ -281,7 +307,7 @@ public class Select extends QueryObject implements Association.Listener{
             this.whereParameters = new ArrayList<>();
         }
 
-        if (masterTableListener != null) {
+        if (masterTableListener != null && masterTableListenerEnabled) {
             masterTableListener.associatingTableDidChange();
         }
     }
@@ -434,8 +460,8 @@ public class Select extends QueryObject implements Association.Listener{
     @Override
     public void associatingTableDidChange() {
         System.out.println(table + " :: One of my association changed. I better reiterate... or reset");
-        //processAssociations();
-        reset(false);
+        processAssociations();
+        //reset(false);
     }
 
     public Association.Listener getMasterTableListener() {
