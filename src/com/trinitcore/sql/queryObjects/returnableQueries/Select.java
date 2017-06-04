@@ -19,9 +19,15 @@ import java.util.stream.Collectors;
 public class Select extends QueryObject implements Association.Listener{
     public Row[] rows = null;
     public String initialQuery = null;
+
     public String whereQuery = "";
+    public List<Object> whereParameters = new ArrayList<>();
+
     public String orderQuery = "";
+    public List<Object> orderParameters = new ArrayList<>();
+
     public String limitQuery = "";
+    public List<Object> limitParameters = new ArrayList<>();
 
     public List<Association> associationList = new ArrayList<>();
     private boolean reverseArray;
@@ -67,6 +73,14 @@ public class Select extends QueryObject implements Association.Listener{
         return null;
     }
 
+    public List<Object> compileParameters() {
+        List<Object> parameters = new ArrayList<>();
+        parameters.addAll(whereParameters);
+        parameters.addAll(orderParameters);
+        parameters.addAll(limitParameters);
+        return parameters;
+    }
+
     public Select createAssociation(String parentColumn, String childColumn, Select childTable, String name, boolean forceArray, boolean rearrangeAssociationsByChildTableCount) {
         associationList.add(new Association(this,parentColumn, this, childColumn, childTable, name,forceArray,rearrangeAssociationsByChildTableCount,false,false,false));
         return this;
@@ -105,6 +119,8 @@ public class Select extends QueryObject implements Association.Listener{
 
     public void resetWhere() {
         this.whereQuery = "";
+        this.whereParameters.clear();
+        reset(false);
     }
 
     public Select where(String type, String equalityType, Map... expectedLocations) {
@@ -120,7 +136,7 @@ public class Select extends QueryObject implements Association.Listener{
                 this.whereQuery += " "+startOfString+" \""+location.key+"\" "+equalityType+" ? ";
              else
                  this.whereQuery += " "+type+" \""+location.key+"\" = ? ";
-            parameters.add(location.value);
+            whereParameters.add(location.value);
             count++;
         }
         return this;
@@ -260,8 +276,9 @@ public class Select extends QueryObject implements Association.Listener{
     public void reset(boolean parameters){
         this.rows = null;
         this.resultSet = null;
-        if (parameters){ this.parameters = new ArrayList<>();
-        this.whereQuery = "";
+        if (parameters){
+            this.whereQuery = "";
+            this.whereParameters = new ArrayList<>();
         }
 
         if (masterTableListener != null) {
@@ -319,6 +336,7 @@ public class Select extends QueryObject implements Association.Listener{
     public Row[] getRows() {
         if (this.rows != null) return this.rows;
         try {
+            this.parameters = compileParameters();
             if (this.resultSet == null) {
                 this.query = this.initialQuery + this.whereQuery + this.orderQuery + this.limitQuery;
                 query(true);
