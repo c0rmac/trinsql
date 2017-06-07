@@ -29,27 +29,27 @@ public class Table extends Select {
 
     public Table insert(Map... maps) {
         new Insert(this.table, maps);
-        reset(false);
+        reset(false, true);
         return this;
     }
 
     public Table update(String whereColumn, Object value, Map... maps){
        // if (!checkValidRow(whereColumn, value)) return this;
         new Update(this.table,whereColumn,value,maps);
-        reset(false);
+        reset(false, true);
         return this;
     }
 
     public Table update(String seperator, Map[] whereColumnsValues, Map... maps) {
         new Update(table,seperator,whereColumnsValues,maps);
-        reset(false);
+        reset(false, true);
         return this;
     }
 
     public Table delete(String whereColumn, Object value){
         // if (!checkValidRow(whereColumn, value))return this;
         new Delete(this.table,whereColumn,value);
-        reset(false);
+        reset(false, true);
         return this;
     }
 

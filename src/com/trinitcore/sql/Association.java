@@ -40,7 +40,8 @@ public class Association {
 
     public void process() {
         // System.out.println("Processing: "+parentTable.getRows().length);
-        childTable.resetWhere();
+        //childTable.resetWhere();
+        childTable.reset(true);
         // childTable.resetLimit();
         for (Row parentRow : parentTable.getRows()) {
             Row[] relevantRows = childTable.getRowsWhere(childColumn,parentRow.get(parentColumn));

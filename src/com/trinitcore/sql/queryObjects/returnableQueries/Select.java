@@ -33,7 +33,6 @@ public class Select extends QueryObject implements Association.Listener{
     private boolean reverseArray;
     private boolean resetUponWhereChange = false;
     private Association.Listener masterTableListener = null;
-    private boolean masterTableListenerEnabled = true;
 
     public Select (String table, String... columns) {
         super(table, columns);
@@ -167,7 +166,6 @@ public class Select extends QueryObject implements Association.Listener{
 
     public Row lastRow(String identifyByRow) {
         try {
-            masterTableListenerEnabled = false;
             order(identifyByRow,"DESC");
             limit(1);
             reset(false);
@@ -175,7 +173,6 @@ public class Select extends QueryObject implements Association.Listener{
         } finally {
             resetLimit();
             resetOrder();
-            masterTableListenerEnabled = true;
         }
     }
 
@@ -299,7 +296,11 @@ public class Select extends QueryObject implements Association.Listener{
         return this;
     }
 
-    public void reset(boolean parameters){
+    public void reset(boolean parameters) {
+        reset(parameters, false);
+    }
+
+    public void reset(boolean parameters, boolean notifyDelegate){
         this.rows = null;
         this.resultSet = null;
         if (parameters){
@@ -307,7 +308,7 @@ public class Select extends QueryObject implements Association.Listener{
             this.whereParameters = new ArrayList<>();
         }
 
-        if (masterTableListener != null && masterTableListenerEnabled) {
+        if (masterTableListener != null && notifyDelegate) {
             masterTableListener.associatingTableDidChange();
         }
     }
@@ -460,8 +461,8 @@ public class Select extends QueryObject implements Association.Listener{
     @Override
     public void associatingTableDidChange() {
         System.out.println(table + " :: One of my association changed. I better reiterate... or reset");
-        processAssociations();
-        //reset(false);
+        // processAssociations();
+        reset(false);
     }
 
     public Association.Listener getMasterTableListener() {
