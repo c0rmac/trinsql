@@ -54,7 +54,7 @@ public class Select extends QueryObject implements Association.Listener{
     public Select (String table, Map... columnsKeyAndType) {
         super(table);
         String createTableQuery = "CREATE TABLE IF NOT EXISTS public."+table+" (\n" +
-                "  \"ID\" INTEGER PRIMARY KEY NOT NULL DEFAULT nextval('\"cars_ID_seq\"'::regclass),\n";
+                "  \"ID\" INTEGER PRIMARY KEY NOT NULL DEFAULT nextval('\""+table+"_ID_seq\"'::regclass),\n";
         int i = 0;
         for (Map column : columnsKeyAndType) {
             createTableQuery += "  \""+column.key+"\" "+column.value;
@@ -63,8 +63,7 @@ public class Select extends QueryObject implements Association.Listener{
             }
             i++;
         }
-        createTableQuery += ");\n" +
-                "CREATE UNIQUE INDEX \""+table+"\"\"ID\"\"_uindex\" ON cars USING BTREE (\"ID\");";
+        createTableQuery += ");\n";
         System.out.println("Create table query: "+createTableQuery);
         SQL createTable = new SQL(createTableQuery, new ArrayList<>());
         createTable.query(false);
