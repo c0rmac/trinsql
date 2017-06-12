@@ -38,8 +38,8 @@
       <file leaf-file-name="Select.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sql/queryObjects/returnableQueries/Select.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="78" column="5" lean-forward="true" selection-start-line="78" selection-start-column="5" selection-end-line="78" selection-end-column="5" />
+            <state relative-caret-position="425">
+              <caret line="395" column="41" lean-forward="false" selection-start-line="395" selection-start-column="41" selection-end-line="395" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -186,6 +186,7 @@
       <find>getLast</find>
       <find>order</find>
       <find>limit</find>
+      <find>last</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -866,7 +867,7 @@
       <workItem from="1496677956526" duration="3134000" />
       <workItem from="1496820580595" duration="15000" />
       <workItem from="1497266301912" duration="2552000" />
-      <workItem from="1497275899924" duration="631000" />
+      <workItem from="1497275899924" duration="911000" />
     </task>
     <task id="LOCAL-00001" summary="Include apache common lang jar">
       <created>1481473730582</created>
@@ -945,11 +946,18 @@
       <option name="project" value="LOCAL" />
       <updated>1497270268190</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Fixed ID incremation #2">
+      <created>1497277877189</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1497277877189</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="100994000" />
+    <option name="totallyTimeSpent" value="101274000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1031,7 +1039,8 @@
     <MESSAGE value="Fixed last row method" />
     <MESSAGE value="Select and Table can create table if not exist" />
     <MESSAGE value="Fixed ID incremation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed ID incremation" />
+    <MESSAGE value="Fixed ID incremation #2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed ID incremation #2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1496,8 +1505,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sql/queryObjects/returnableQueries/Select.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="78" column="5" lean-forward="true" selection-start-line="78" selection-start-column="5" selection-end-line="78" selection-end-column="5" />
+        <state relative-caret-position="425">
+          <caret line="395" column="41" lean-forward="false" selection-start-line="395" selection-start-column="41" selection-end-line="395" selection-end-column="41" />
           <folding />
         </state>
       </provider>

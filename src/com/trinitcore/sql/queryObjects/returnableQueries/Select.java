@@ -35,6 +35,9 @@ public class Select extends QueryObject implements Association.Listener{
     private boolean resetUponWhereChange = false;
     private Association.Listener masterTableListener = null;
 
+    private boolean requiresNewTable = false;
+    private Map[] columnsKeyAndType;
+
     public Select (String table, String... columns) {
         super(table, columns);
 
@@ -53,21 +56,9 @@ public class Select extends QueryObject implements Association.Listener{
 
     public Select (String table, Map... columnsKeyAndType) {
         super(table);
-        String createTableQuery = "CREATE TABLE IF NOT EXISTS public."+table+" (\n" +
-                "  \"ID\" SERIAL PRIMARY KEY NOT NULL,\n";
-        int i = 0;
-        for (Map column : columnsKeyAndType) {
-            createTableQuery += "  \""+column.key+"\" "+column.value;
-            if (i+1 != columnsKeyAndType.length) {
-                createTableQuery += ",\n";
-            }
-            i++;
-        }
-        createTableQuery += ");\n";
-        System.out.println("Create table query: "+createTableQuery);
-        SQL createTable = new SQL(createTableQuery, new ArrayList<>());
-        createTable.query(false);
-        createTable.close();
+        this.requiresNewTable = true;
+        this.columnsKeyAndType = columnsKeyAndType;
+
         this.initialQuery = "SELECT ";
         this.initialQuery += "* FROM " + table;
     }
@@ -386,6 +377,24 @@ public class Select extends QueryObject implements Association.Listener{
     public Row[] getRows() {
         if (this.rows != null) return this.rows;
         try {
+            if (requiresNewTable) {
+                String createTableQuery = "CREATE TABLE IF NOT EXISTS public."+table+" (\n" +
+                        "  \"ID\" SERIAL PRIMARY KEY NOT NULL,\n";
+                int i = 0;
+                for (Map column : columnsKeyAndType) {
+                    createTableQuery += "  \""+column.key+"\" "+column.value;
+                    if (i+1 != columnsKeyAndType.length) {
+                        createTableQuery += ",\n";
+                    }
+                    i++;
+                }
+                createTableQuery += ");\n";
+                System.out.println("Create table query: "+createTableQuery);
+                SQL createTable = new SQL(createTableQuery, new ArrayList<>());
+                createTable.query(false);
+                createTable.close();
+                requiresNewTable = false;
+            }
             this.parameters = compileParameters();
             if (this.resultSet == null) {
                 this.query = this.initialQuery + this.whereQuery + this.orderQuery + this.limitQuery;
