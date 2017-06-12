@@ -54,7 +54,7 @@ public class Select extends QueryObject implements Association.Listener{
     public Select (String table, Map... columnsKeyAndType) {
         super(table);
         String createTableQuery = "CREATE TABLE IF NOT EXISTS public."+table+" (\n" +
-                "  \"ID\" INTEGER PRIMARY KEY NOT NULL DEFAULT nextval('\""+table+"_ID_seq\"'::regclass),\n";
+                "  \"ID\" SERIAL PRIMARY KEY NOT NULL,\n";
         int i = 0;
         for (Map column : columnsKeyAndType) {
             createTableQuery += "  \""+column.key+"\" "+column.value;
@@ -67,7 +67,7 @@ public class Select extends QueryObject implements Association.Listener{
         System.out.println("Create table query: "+createTableQuery);
         SQL createTable = new SQL(createTableQuery, new ArrayList<>());
         createTable.query(false);
-
+        createTable.close();
         this.initialQuery = "SELECT ";
         this.initialQuery += "* FROM " + table;
     }
