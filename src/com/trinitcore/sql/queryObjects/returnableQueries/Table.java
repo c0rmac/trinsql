@@ -21,6 +21,10 @@ public class Table extends Select {
         super(table);
     }
 
+    public Table(String table, Map... columnsKeyAndType) {
+        super(table, columnsKeyAndType);
+    }
+
     @Override
     public Table resetUponWhereChange() {
         super.resetUponWhereChange();

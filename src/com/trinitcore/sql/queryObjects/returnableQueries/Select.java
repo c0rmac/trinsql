@@ -3,6 +3,7 @@ package com.trinitcore.sql.queryObjects.returnableQueries;
 import com.trinitcore.sql.Association;
 import com.trinitcore.sql.Map;
 import com.trinitcore.sql.Row;
+import com.trinitcore.sql.SQL;
 import com.trinitcore.sql.queryObjects.QueryObject;
 import org.apache.commons.lang.ArrayUtils;
 import org.json.simple.JSONArray;
@@ -36,6 +37,7 @@ public class Select extends QueryObject implements Association.Listener{
 
     public Select (String table, String... columns) {
         super(table, columns);
+
         this.initialQuery = "SELECT ";
         int count = 1;
         for (String column : columns) {
@@ -47,6 +49,28 @@ public class Select extends QueryObject implements Association.Listener{
             count++;
         }
         this.initialQuery += " FROM " + table;
+    }
+
+    public Select (String table, Map... columnsKeyAndType) {
+        super(table);
+        String createTableQuery = "CREATE TABLE IF NOT EXISTS public."+table+" (\n" +
+                "  \"ID\" INTEGER PRIMARY KEY NOT NULL DEFAULT nextval('\"cars_ID_seq\"'::regclass),\n";
+        int i = 0;
+        for (Map column : columnsKeyAndType) {
+            createTableQuery += "  \""+column.key+"\" "+column.value;
+            if (i+1 != columnsKeyAndType.length) {
+                createTableQuery += ",\n";
+            }
+            i++;
+        }
+        createTableQuery += ");\n" +
+                "CREATE UNIQUE INDEX \""+table+"\"\"ID\"\"_uindex\" ON cars USING BTREE (\"ID\");";
+        System.out.println("Create table query: "+createTableQuery);
+        SQL createTable = new SQL(createTableQuery, new ArrayList<>());
+        createTable.query(false);
+
+        this.initialQuery = "SELECT ";
+        this.initialQuery += "* FROM " + table;
     }
 
     public Select(String table) {

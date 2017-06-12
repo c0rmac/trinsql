@@ -65,26 +65,6 @@ public class Association {
             parentRow.associationColumn = name;
             parentRow.containsAssociation = true;
             parentRow.associationRowCount = relevantRows.length;
-                /*
-            int childRowsCount = 0;
-            for (Row childRows : childTable.getRows()) {
-                if (childRows.get(childColumn).equals(parentRow.get(parentColumn))) {
-                    parentRow.put(name,childRows);
-                    childRowsCount++;
-                    // break;
-                }
-            }
-            // Use an array
-            if (childRowsCount >= 2) {
-                // childTable.resetWhere();
-                // childTable.where(childColumn,parentRow.get(parentColumn));
-                // parentRow.put(name, childTable.getRows());
-                // childTable.reset(false);
-                parentRow.put(name,childTable.getRowsWhere(childColumn,parentRow.get(parentColumn)));
-                // break;
-                System.out.println("Dumped array");
-            }
-            */
         }
         if (rearrangeAssociationsByChildTableCount) {
             rearrangeAssociationsByChildTableCount();
