@@ -8,6 +8,8 @@ import com.trinitcore.sql.queryObjects.noneReturnableQueries.Insert;
 import com.trinitcore.sql.queryObjects.noneReturnableQueries.Update;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by cormacpjkinsella on 10/10/16.
@@ -35,6 +37,16 @@ public class Table extends Select {
         new Insert(this.table, maps);
         reset(false, true);
         return this;
+    }
+
+    public Table insert(Row row) {
+        List<Map> maps = new ArrayList<>();
+        row.iterateColumns((key, value) -> {
+            if (!key.equals("ID") || !(value instanceof Row)) {
+                maps.add(new Map(key, value));
+            }
+        });
+        return insert((Map[]) maps.toArray());
     }
 
     public Table update(String whereColumn, Object value, Map... maps){
