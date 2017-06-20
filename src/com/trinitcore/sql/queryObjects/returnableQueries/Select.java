@@ -67,8 +67,7 @@ public class Select extends QueryObject implements Association.Listener{
             createTableQuery += ");\n";
             System.out.println("Create table query: "+createTableQuery);
             SQL createTable = new SQL(createTableQuery, new ArrayList<>());
-            createTable.query(false);
-            createTable.close();
+            createTable.query(false).close();
 
         this.initialQuery = "SELECT ";
         this.initialQuery += "* FROM " + table;

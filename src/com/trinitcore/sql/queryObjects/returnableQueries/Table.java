@@ -42,11 +42,11 @@ public class Table extends Select {
     public Table insert(Row row) {
         List<Map> maps = new ArrayList<>();
         row.iterateColumns((key, value) -> {
-            if (!key.equals("ID") || !(value instanceof Row)) {
+            if (!key.equals("ID") && !(value instanceof Row)) {
                 maps.add(new Map(key, value));
             }
         });
-        return insert((Map[]) maps.toArray());
+        return insert(maps.toArray(new Map[0]));
     }
 
     public Table update(String whereColumn, Object value, Map... maps){
