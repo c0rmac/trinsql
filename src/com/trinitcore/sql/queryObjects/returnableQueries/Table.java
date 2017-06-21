@@ -163,6 +163,44 @@ public class Table extends Select {
         return this;
     }
 
+    // Where greater
+    @Override
+    public Select whereGreaterAnd(Map... expectedLocations) {
+        super.whereGreaterAnd(expectedLocations);
+        return this;
+    }
+
+    @Override
+    public Select whereGreaterOr(Map... expectedLocations) {
+        super.whereGreaterOr(expectedLocations);
+        return this;
+    }
+
+    @Override
+    public Select whereGreater(String column, Object value) {
+        super.whereGreater(column, value);
+        return this;
+    }
+
+    // Where lesser
+    @Override
+    public Select whereLesserAnd(Map... expectedLocations) {
+        super.whereLesserAnd(expectedLocations);
+        return this;
+    }
+
+    @Override
+    public Select whereLesserOr(Map... expectedLocations) {
+        super.whereLesserOr(expectedLocations);
+        return this;
+    }
+
+    @Override
+    public Select whereLesser(String column, Object value) {
+        super.whereLesser(column,value);
+        return this;
+    }
+
     @Override
     public Table order(Map order) {
         super.order(order);

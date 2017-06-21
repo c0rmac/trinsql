@@ -298,6 +298,38 @@ public class Select extends QueryObject implements Association.Listener{
         return this;
     }
 
+    // Where greater
+    public Select whereGreaterAnd(Map... expectedLocations) {
+        where("AND",">", expectedLocations);
+        return this;
+    }
+
+    public Select whereGreaterOr(Map... expectedLocations) {
+        where("OR",">", expectedLocations);
+        return this;
+    }
+
+    public Select whereGreater(String column, Object value) {
+        whereGreaterOr(new Map(column,value));
+        return this;
+    }
+
+    // Where lesser
+    public Select whereLesserAnd(Map... expectedLocations) {
+        where("AND","<", expectedLocations);
+        return this;
+    }
+
+    public Select whereLesserOr(Map... expectedLocations) {
+        where("OR","<", expectedLocations);
+        return this;
+    }
+
+    public Select whereLesser(String column, Object value) {
+        whereLesserOr(new Map(column,value));
+        return this;
+    }
+
     public Select order(Map order) {
         this.orderQuery = "";
         this.orderQuery += " ORDER BY \""+order.key+"\" "+order.string();
