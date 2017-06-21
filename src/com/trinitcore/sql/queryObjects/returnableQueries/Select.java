@@ -519,6 +519,14 @@ public class Select extends QueryObject implements Association.Listener{
         return rowCount() != 0;
     }
 
+    public int additionOfRows(String column) {
+        int totalAddition = 0;
+        for (Row appointment : getRows()) {
+            totalAddition = totalAddition + (int) appointment.get(column);
+        }
+        return totalAddition;
+    }
+
     @Override
     public void associatingTableDidChange() {
         System.out.println(table + " :: One of my association changed. I better reiterate... or reset");

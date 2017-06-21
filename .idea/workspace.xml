@@ -9,7 +9,6 @@
     <list default="true" id="f94f2a41-c5ac-47eb-85fb-61856aa17cc4" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/trinitcore/sql/queryObjects/returnableQueries/Select.java" afterPath="$PROJECT_DIR$/src/com/trinitcore/sql/queryObjects/returnableQueries/Select.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/trinitcore/sql/queryObjects/returnableQueries/Table.java" afterPath="$PROJECT_DIR$/src/com/trinitcore/sql/queryObjects/returnableQueries/Table.java" />
     </list>
     <ignored path=".idea/dataSources.local.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -39,8 +38,8 @@
       <file leaf-file-name="Select.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sql/queryObjects/returnableQueries/Select.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
-              <caret line="329" column="20" lean-forward="false" selection-start-line="329" selection-start-column="20" selection-end-line="329" selection-end-column="20" />
+            <state relative-caret-position="-279">
+              <caret line="469" column="5" lean-forward="false" selection-start-line="469" selection-start-column="5" selection-end-line="469" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -173,6 +172,7 @@
       <find>limit</find>
       <find>last</find>
       <find>toArray</find>
+      <find>count</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -857,7 +857,7 @@
       <workItem from="1497275899924" duration="5118000" />
       <workItem from="1497712255403" duration="596000" />
       <workItem from="1497872822567" duration="594000" />
-      <workItem from="1497949610197" duration="3403000" />
+      <workItem from="1497949610197" duration="3706000" />
     </task>
     <task id="LOCAL-00001" summary="Include apache common lang jar">
       <created>1481473730582</created>
@@ -964,11 +964,18 @@
       <option name="project" value="LOCAL" />
       <updated>1497957465752</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Where greater and lesser functions added">
+      <created>1498041563518</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1498041563518</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="110074000" />
+    <option name="totallyTimeSpent" value="110377000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1932" height="1056" extended-state="0" />
@@ -1054,7 +1061,8 @@
     <MESSAGE value="Instead of creating a new table on the constructor. Create one when a query is requested." />
     <MESSAGE value="Reverted table creation back to original." />
     <MESSAGE value="Made table var final" />
-    <option name="LAST_COMMIT_MESSAGE" value="Made table var final" />
+    <MESSAGE value="Where greater and lesser functions added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Where greater and lesser functions added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1477,8 +1485,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sql/queryObjects/returnableQueries/Select.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="329" column="20" lean-forward="false" selection-start-line="329" selection-start-column="20" selection-end-line="329" selection-end-column="20" />
+        <state relative-caret-position="-279">
+          <caret line="469" column="5" lean-forward="false" selection-start-line="469" selection-start-column="5" selection-end-line="469" selection-end-column="5" />
           <folding />
         </state>
       </provider>
