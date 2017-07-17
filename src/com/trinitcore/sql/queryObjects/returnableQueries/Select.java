@@ -5,6 +5,7 @@ import com.trinitcore.sql.Map;
 import com.trinitcore.sql.Row;
 import com.trinitcore.sql.SQL;
 import com.trinitcore.sql.queryObjects.QueryObject;
+import com.trinitcore.sql.queryObjects.Where;
 import org.apache.commons.lang.ArrayUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -34,6 +35,7 @@ public class Select extends QueryObject implements Association.Listener{
     private boolean reverseArray;
     private boolean resetUponWhereChange = false;
     private Association.Listener masterTableListener = null;
+    private boolean resetUponQuery = false;
 
 
     public Select (String table, String... columns) {
@@ -42,7 +44,7 @@ public class Select extends QueryObject implements Association.Listener{
         this.initialQuery = "SELECT ";
         int count = 1;
         for (String column : columns) {
-            this.initialQuery += column;
+            this.initialQuery += "\"" + column + "\"";
 
             if (!(count == columns.length)) {
                 this.initialQuery += ", ";
@@ -81,6 +83,11 @@ public class Select extends QueryObject implements Association.Listener{
 
     public Select resetUponWhereChange() {
         resetUponWhereChange = true;
+        return this;
+    }
+
+    public Select resetUponQuery() {
+        resetUponQuery = true;
         return this;
     }
 
@@ -181,10 +188,18 @@ public class Select extends QueryObject implements Association.Listener{
             if (count == 1)
                 this.whereQuery += " "+startOfString+" \""+location.key+"\" "+equalityType+" ? ";
              else
-                 this.whereQuery += " "+type+" \""+location.key+"\" = ? ";
+                 this.whereQuery += " "+type+" \""+location.key+"\" "+equalityType+" ? ";
             whereParameters.add(location.value);
             count++;
         }
+        return this;
+    }
+
+    public Select where(Where content) {
+        if (this.whereQuery.equals("")) this.whereQuery += content.getFullWhereQuery();
+        else this.whereQuery += " AND " + content.query;
+
+        this.whereParameters.addAll(content.whereParameters);
         return this;
     }
 
@@ -218,29 +233,27 @@ public class Select extends QueryObject implements Association.Listener{
         return null;
     }
 
-    public Row[] getRowsWhere(String column, Object value) {
-            List<Row> rows = new ArrayList<Row>(Arrays.asList(getRows()));
-            try {
-                List<Row> newRowsList = new ArrayList<>();
-                for (Row row : rows) {
-                    if (row.get(column) != null && row.get(column).equals(value)) {
-                        newRowsList.add(row);
-                    }
+    public Row[] getRowsWhere(Map... parameters) {
+        Row[] rows = getRows();
+        try {
+            List<Row> newRowsList = new ArrayList<>();
+            for (Row row : rows) {
+                boolean allParametersSatisfied = false;
+                for (Map parameter : parameters) {
+                    allParametersSatisfied = row.get(parameter.key) != null && row.get(parameter.key).equals(parameter.value);
                 }
-
-                // System.out.println("New row size: " + newRowsList.size()+" VS. Old row size: "+rows.size());
-                Row[] newRows = new Row[newRowsList.size()];
-
-                int position = 0;
-                for (Row row : newRowsList) {
-                    newRows[position] = row;
-                    position += 1;
-                }
-                return newRows;
-            } catch (NullPointerException e) {
-                System.out.println("NullPointerException for value :" + value + " Table :" + table);
-                return new Row[0];
+                if (allParametersSatisfied) newRowsList.add(row);
             }
+
+            // System.out.println("New row size: " + newRowsList.size()+" VS. Old row size: "+rows.size());
+            return newRowsList.toArray(new Row[0]);
+        } catch (NullPointerException e) {
+            return new Row[0];
+        }
+    }
+
+    public Row[] getRowsWhere(String column, Object value) {
+        return getRowsWhere(new Map(column, value));
     }
 
     public boolean hasRowsWhere(String column, Object value) {
@@ -277,8 +290,19 @@ public class Select extends QueryObject implements Association.Listener{
         return this;
     }
 
+
     public Select whereLike(String column, Object value) {
         where("","LIKE", new Map(column,value));
+        return this;
+    }
+
+    public Select whereLikeAnd(Map... expectedLocations) {
+        where("AND", "LIKE", expectedLocations);
+        return this;
+    }
+
+    public Select whereLikeOr(Map... expectedLocations) {
+        where("OR", "LIKE", expectedLocations);
         return this;
     }
 
@@ -433,7 +457,7 @@ public class Select extends QueryObject implements Association.Listener{
             ResultSetMetaData rsmd = this.resultSet.getMetaData();
             List<Row> rows = new ArrayList<>();
             while (resultSet.next()) {
-                Row map = new Row();
+                Row map = new Row(this);
                 for (int i = 1; i <= rsmd.getColumnCount(); i++) {
                     String name = rsmd.getColumnName(i);
                     final Object result = this.resultSet.getObject(name);
@@ -453,6 +477,9 @@ public class Select extends QueryObject implements Association.Listener{
                 ArrayUtils.reverse(this.rows);
             }
             processAssociations();
+            if (resetUponQuery) {
+                reset(true);
+            }
             return total;
         } catch (SQLException exception) {
             return null;
@@ -491,7 +518,7 @@ public class Select extends QueryObject implements Association.Listener{
         int position = 0;
         for (Row row : getRows()) {
             Iterator it = row.entrySet().iterator();
-            column[position] = it.next();
+            column[position] = ((java.util.Map.Entry) it.next()).getValue();
             position++;
         }
         return column;

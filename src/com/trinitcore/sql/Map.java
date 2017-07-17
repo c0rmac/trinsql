@@ -1,5 +1,7 @@
 package com.trinitcore.sql;
 
+import java.util.ArrayList;
+
 /**
  * Created by cormacpjkinsella on 10/9/16.
  */
@@ -27,4 +29,7 @@ public class Map {
         return (String) this.value;
     }
 
+    public static class Wrapper extends ArrayList<Map>{
+
+    }
 }

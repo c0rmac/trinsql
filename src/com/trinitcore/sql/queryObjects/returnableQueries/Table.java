@@ -33,6 +33,12 @@ public class Table extends Select {
         return this;
     }
 
+    @Override
+    public Table resetUponQuery() {
+        super.resetUponQuery();
+        return this;
+    }
+
     public Table insert(Map... maps) {
         new Insert(this.table, maps);
         reset(false, true);
@@ -160,6 +166,18 @@ public class Table extends Select {
     @Override
     public Table whereNot(String column, Object value) {
         super.whereNot(column, value);
+        return this;
+    }
+
+    @Override
+    public Table whereLikeAnd(Map... expectedLocations) {
+        super.whereLikeAnd(expectedLocations);
+        return this;
+    }
+
+    @Override
+    public Table whereLikeOr(Map... expectedLocations) {
+        super.whereLikeOr(expectedLocations);
         return this;
     }
 

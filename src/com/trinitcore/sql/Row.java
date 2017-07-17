@@ -1,12 +1,10 @@
 package com.trinitcore.sql;
 
+import com.trinitcore.sql.queryObjects.noneReturnableQueries.Update;
 import com.trinitcore.sql.queryObjects.returnableQueries.Select;
 import org.json.simple.JSONObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import static java.lang.System.out;
 
@@ -20,6 +18,12 @@ public class Row extends HashMap<String,Object> implements Comparable<Row> {
     public int associationRowCount;
     public boolean associationCounter;
     public boolean associationMatchingDataBoolean;
+
+    public Select parentSelect;
+
+    public Row(Select parentSelect) {
+        this.parentSelect = parentSelect;
+    }
 
     public JSONObject toJSONObject() {
         return Select.mapJSONObject(this);
@@ -56,6 +60,14 @@ public class Row extends HashMap<String,Object> implements Comparable<Row> {
             java.util.Map.Entry pair = (java.util.Map.Entry) it.next();
             e.iterate((String) pair.getKey(),pair.getValue());
         }
+    }
+
+    public Date getDate(String column) {
+        return new Date((Long) get(column));
+    }
+
+    public void update(Map... parameters) {
+        new Update(parentSelect.table, "ID", get("ID"), parameters);
     }
 
     @Override
