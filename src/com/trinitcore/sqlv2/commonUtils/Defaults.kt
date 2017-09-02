@@ -1,4 +1,4 @@
-package com.trinitcore.v2.commonUtils
+package com.trinitcore.sqlv2.commonUtils
 
 /**
  * Created by Cormac on 19/08/2017.

@@ -1,8 +1,8 @@
-package com.trinitcore.v2.queryObjects
+package com.trinitcore.sqlv2.queryObjects
 
-import com.trinitcore.v2.commonUtils.Defaults
-import com.trinitcore.v2.commonUtils.then
-import com.trinitcore.v2.queryUtils.connection.ConnectionManager
+import com.trinitcore.sqlv2.commonUtils.Defaults
+import com.trinitcore.sqlv2.commonUtils.then
+import com.trinitcore.sqlv2.queryUtils.connection.ConnectionManager
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 

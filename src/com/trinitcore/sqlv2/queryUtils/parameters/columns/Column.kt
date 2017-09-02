@@ -1,8 +1,7 @@
-package com.trinitcore.v2.queryUtils.parameters.columns
+package com.trinitcore.sqlv2.queryUtils.parameters.columns
 
-import com.trinitcore.v2.commonUtils.then
-import com.trinitcore.v2.queryObjects.SQL
-import com.trinitcore.v2.queryUtils.builders.Query
+import com.trinitcore.sqlv2.commonUtils.then
+import com.trinitcore.sqlv2.queryUtils.builders.Query
 
 /**
  * Created by Cormac on 28/08/2017.
@@ -23,7 +22,7 @@ public open class Column<T>(public val name: String, public val type: String) {
     }
 
     override public fun toString(): String {
-        return "$name $type " + (notNull then Query.NOTNULL ?: "") + ((defaultValue != null) then Query.DEFAULT + defaultValue ?: "")
+        return "\"$name\" $type " + (notNull then Query.NOTNULL ?: "") + ((defaultValue != null) then Query.DEFAULT + defaultValue ?: "")
     }
 
 }

@@ -1,4 +1,4 @@
-package com.trinitcore.v2.queryUtils.connection
+package com.trinitcore.sqlv2.queryUtils.connection
 
 import java.sql.Connection
 

@@ -1,6 +1,6 @@
-package com.trinitcore.v2.queryUtils.parameters
+package com.trinitcore.sqlv2.queryUtils.parameters
 
-import com.trinitcore.v2.queryUtils.builders.Association
+import com.trinitcore.sqlv2.queryUtils.builders.Association
 
 /**
  * Created by Cormac on 19/08/2017.

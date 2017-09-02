@@ -1,6 +1,4 @@
-package com.trinitcore.v2.queryUtils.parameters.columns
-
-import com.trinitcore.v2.queryUtils.parameters.columns.Column
+package com.trinitcore.sqlv2.queryUtils.parameters.columns
 
 /**
  * Created by Cormac on 28/08/2017.

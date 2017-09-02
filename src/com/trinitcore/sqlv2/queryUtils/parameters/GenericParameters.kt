@@ -1,6 +1,6 @@
-package com.trinitcore.v2.queryUtils.parameters
+package com.trinitcore.sqlv2.queryUtils.parameters
 
-import com.trinitcore.v2.commonUtils.QMap
+import com.trinitcore.sqlv2.commonUtils.QMap
 
 /**
  * Created by Cormac on 17/08/2017.

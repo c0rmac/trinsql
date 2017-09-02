@@ -1,12 +1,12 @@
-package com.trinitcore.v2.commonUtils.row
+package com.trinitcore.sqlv2.commonUtils.row
 
-import com.trinitcore.v2.queryObjects.Table
+import com.trinitcore.sqlv2.queryObjects.Table
 import org.json.simple.JSONObject
 
 /**
  * Created by Cormac on 17/08/2017.
  */
-class Row(public val parentTable: Table) : HashMap<String, Any>(), RowType {
+class Row(public val parentTable: Table) : HashMap<String, Any?>(), RowType {
 
     fun toJSONObject(): JSONObject {
         val jsonObject = JSONObject()

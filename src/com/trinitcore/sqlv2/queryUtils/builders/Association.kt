@@ -1,12 +1,12 @@
-package com.trinitcore.v2.queryUtils.builders
+package com.trinitcore.sqlv2.queryUtils.builders
 
-import com.trinitcore.v2.commonUtils.QMap
-import com.trinitcore.v2.commonUtils.row.Row
-import com.trinitcore.v2.commonUtils.row.Rows
-import com.trinitcore.v2.queryObjects.Table
-import com.trinitcore.v2.queryUtils.parameters.Associating
-import com.trinitcore.v2.queryUtils.parameters.GenericAssociationsManager
-import com.trinitcore.v2.queryUtils.parameters.Where
+import com.trinitcore.sqlv2.commonUtils.QMap
+import com.trinitcore.sqlv2.commonUtils.row.Row
+import com.trinitcore.sqlv2.commonUtils.row.Rows
+import com.trinitcore.sqlv2.queryObjects.Table
+import com.trinitcore.sqlv2.queryUtils.parameters.Associating
+import com.trinitcore.sqlv2.queryUtils.parameters.GenericAssociationsManager
+import com.trinitcore.sqlv2.queryUtils.parameters.Where
 
 /**
  * Created by Cormac on 17/08/2017.
@@ -17,7 +17,7 @@ class Association : GenericAssociationsManager {
     private val notArray: Boolean
 
     public val indexQueryParameters: Where = Where()
-    private var queryTable: Table
+    val queryTable: Table
     private var queryRows: Rows? = null
 
     constructor(tableName: String, notArray: Boolean = false, parameters: Associating) {

@@ -1,17 +1,16 @@
-import com.trinitcore.v2.commonUtils.QMap
-import com.trinitcore.v2.commonUtils.row.Rows
-import com.trinitcore.v2.queryObjects.SQL
-import com.trinitcore.v2.queryObjects.Table
-import com.trinitcore.v2.queryUtils.connection.ConnectionManager
-import com.trinitcore.v2.queryUtils.builders.Association
-import com.trinitcore.v2.queryUtils.connection.PostgresConnectionManager
-import com.trinitcore.v2.queryUtils.parameters.Associating
-import com.trinitcore.v2.queryUtils.parameters.Where
-import com.trinitcore.v2.queryUtils.parameters.columns.IntegerColumn
-import com.trinitcore.v2.queryUtils.parameters.columns.TextColumn
+import com.trinitcore.sqlv2.commonUtils.AssociatingQMap
+import com.trinitcore.sqlv2.commonUtils.MultiAssociatingQMap
+import com.trinitcore.sqlv2.commonUtils.QMap
+import com.trinitcore.sqlv2.commonUtils.row.Rows
+import com.trinitcore.sqlv2.queryObjects.SQL
+import com.trinitcore.sqlv2.queryObjects.Table
+import com.trinitcore.sqlv2.queryUtils.builders.Association
+import com.trinitcore.sqlv2.queryUtils.connection.PostgresConnectionManager
+import com.trinitcore.sqlv2.queryUtils.parameters.Associating
+import com.trinitcore.sqlv2.queryUtils.parameters.Where
+import com.trinitcore.sqlv2.queryUtils.parameters.columns.IntegerColumn
+import com.trinitcore.sqlv2.queryUtils.parameters.columns.TextColumn
 import java.security.SecureRandom
-import java.sql.Connection
-import java.sql.DriverManager
 import java.util.Random
 import java.util.Objects
 import java.util.Locale
@@ -32,23 +31,26 @@ fun measureOperation(stream: () -> Unit) : Long {
 
 fun main(args: Array<String>) {
 
-    SQL.sharedConnection = PostgresConnectionManager("trinsqltest", "postgres", "@C[]4m9c17")
+    SQL.sharedConnection = PostgresConnectionManager("localhost","trinsqltest", "postgres", "@C[]4m9c17")
 
     SQL.session {
-        val table = Table("products_lel", TextColumn("name").default("Hello"), TextColumn("description"), IntegerColumn("age").notNull(76))
+        val table = Table("products", TextColumn("name"), TextColumn("description"), IntegerColumn("age").notNull(76))
+                .permanentTransactionParameters(QMap("age", 94))
+                .permanentQueryParameters(Where().andEqualValues(QMap("ID", 1)))
                 .addAssociation(
-                        Association("comments", parameters = Associating("ID", columnTitle = "comments", childColumnName = "productID"))
+                        Association("comments", parameters = Associating("ID", columnTitle = "userComments", childColumnName = "productID"))
                                 .addAssociation(
-                                        Association("users", notArray = true, parameters = Associating("userID", columnTitle = "userDetails", childColumnName = "ID"))
+                                        Association("commentsofcomments", parameters = Associating("ID", childColumnName = "commentID", columnTitle = "commentsofcomments"))
                                 )
                 )
+
         var r: Rows? = null
         println("Getting every single value: " + measureOperation {
             r = table.find(Where())
-            println(r?.toJSONArray())
+            println(r?.toJSONArray()?.toJSONString())
         })
 
-
+/*
         var array: MutableList<Array<QMap>> = mutableListOf()
         val gen = RandomString(8, ThreadLocalRandom.current())
 
@@ -65,6 +67,22 @@ fun main(args: Array<String>) {
         println("Inserting multiple values: " + measureOperation {
             // r?.multiValueInsert(typedArray)
         })
+        */
+
+        /*
+        val gen = RandomString(8, ThreadLocalRandom.current())
+        table.insert(
+                QMap("name", gen.nextString()),
+                QMap("description", gen.nextString()),
+                MultiAssociatingQMap("userComments",
+                        arrayOf(QMap("data", gen.nextString()), QMap("title", "lalalal"), MultiAssociatingQMap("commentsofcomments",
+                                arrayOf(QMap("data", "bluh")),
+                                arrayOf(QMap("data","heyyy"))
+                        )),
+                        arrayOf(QMap("data", gen.nextString()), QMap("title", "lalalal"))
+                )
+        )
+*/
     }
 }
 

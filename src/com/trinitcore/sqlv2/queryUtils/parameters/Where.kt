@@ -1,8 +1,8 @@
-package com.trinitcore.v2.queryUtils.parameters
+package com.trinitcore.sqlv2.queryUtils.parameters
 
-import com.trinitcore.v2.commonUtils.QMap
-import com.trinitcore.v2.commonUtils.then
-import com.trinitcore.v2.queryUtils.builders.Query
+import com.trinitcore.sqlv2.commonUtils.QMap
+import com.trinitcore.sqlv2.commonUtils.then
+import com.trinitcore.sqlv2.queryUtils.builders.Query
 
 /**
  * Created by Cormac on 17/08/2017.
@@ -53,6 +53,15 @@ class Where : GenericParameters {
 
     public fun getQueryParameters(): List<Any> {
         return queryParameters.toList()
+    }
+
+    public fun join(where: Where, separator: String) : Where {
+        if (queryString != Query.WHERE) queryString += separator
+        queryString += where.toString().removePrefix(Query.WHERE)
+
+        queryParameters.addAll(where.queryParameters)
+
+        return this
     }
 
 }

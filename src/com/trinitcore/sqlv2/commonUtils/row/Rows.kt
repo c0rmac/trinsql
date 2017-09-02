@@ -1,11 +1,11 @@
-package com.trinitcore.v2.commonUtils.row
+package com.trinitcore.sqlv2.commonUtils.row
 
-import com.trinitcore.v2.commonUtils.Defaults
-import com.trinitcore.v2.commonUtils.QMap
-import com.trinitcore.v2.commonUtils.then
-import com.trinitcore.v2.queryObjects.Table
-import com.trinitcore.v2.queryUtils.builders.Associations
-import com.trinitcore.v2.queryUtils.parameters.Where
+import com.trinitcore.sqlv2.commonUtils.Defaults
+import com.trinitcore.sqlv2.commonUtils.QMap
+import com.trinitcore.sqlv2.commonUtils.then
+import com.trinitcore.sqlv2.queryObjects.Table
+import com.trinitcore.sqlv2.queryUtils.builders.Associations
+import com.trinitcore.sqlv2.queryUtils.parameters.Where
 import org.json.simple.JSONArray
 import java.util.*
 
