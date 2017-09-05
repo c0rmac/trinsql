@@ -1,6 +1,7 @@
 import com.trinitcore.sqlv2.commonUtils.AssociatingQMap
 import com.trinitcore.sqlv2.commonUtils.MultiAssociatingQMap
 import com.trinitcore.sqlv2.commonUtils.QMap
+import com.trinitcore.sqlv2.commonUtils.row.Row
 import com.trinitcore.sqlv2.commonUtils.row.Rows
 import com.trinitcore.sqlv2.queryObjects.SQL
 import com.trinitcore.sqlv2.queryObjects.Table
@@ -49,6 +50,8 @@ fun main(args: Array<String>) {
             r = table.find(Where())
             println(r?.toJSONArray()?.toJSONString())
         })
+
+        (r!![1] as Row).update(QMap("name", "hehehe"))
 
 /*
         var array: MutableList<Array<QMap>> = mutableListOf()

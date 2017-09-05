@@ -24,7 +24,7 @@ import java.sql.ResultSet
 
 class Table : GenericAssociationsManager {
 
-    private var tableName: String
+    public val tableName: String
     private var tableColumns: Array<out String>
 
     private var permanentTransactionParameters: Array<out QMap> = emptyArray()
@@ -112,6 +112,12 @@ class Table : GenericAssociationsManager {
 
     public fun update(where: Where, vararg values: QMap): Rows? {
         return updateValues(where, values)
+    }
+
+    public fun updateByID(ID: Int, vararg values: QMap): Row? {
+        return updateValues(Where().andEqualValues(
+                QMap(indexColumnKey, ID)
+        ), values)?.indexAsRow(0)
     }
 
     public fun deleteRow(where: Where): Row? {
@@ -218,6 +224,10 @@ class Table : GenericAssociationsManager {
         return insertValues(values = values)
     }
 
+    public fun findRow(): Row? {
+        return findRow(Where())
+    }
+
     public fun findRow(where: Where): Row? {
         return find(where).firstEntry()?.value as? Row?
     }
@@ -226,6 +236,18 @@ class Table : GenericAssociationsManager {
         return SQL.session {
             return SQL.returnable(SELECT(this.tableName, this.tableColumns) + where.toString(), where.getQueryParameters().toTypedArray())?.next() ?: false
         } as Boolean
+    }
+
+    public fun findRowByID(key: Any): Row? {
+        return findRow(Where().andEqualValues(QMap(indexColumnKey, key)))
+    }
+
+    public fun findByID(key: Any): Rows {
+        return find(Where().andEqualValues(QMap(indexColumnKey, key)))
+    }
+
+    public fun find(): Rows {
+        return find(where = Where())
     }
 
     public fun find(where: Where = Where()): Rows {
@@ -246,7 +268,7 @@ class Table : GenericAssociationsManager {
 
                 val metaData = resultSet.metaData
                 while (resultSet.next()) {
-                    val row = Row(this)
+                    val row = Row(this, rows)
                     var i = 1
                     while (i <= metaData.columnCount) {
                         val name = metaData.getColumnName(i++)

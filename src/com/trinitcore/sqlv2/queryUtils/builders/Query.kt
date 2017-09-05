@@ -9,7 +9,7 @@ import com.trinitcore.sqlv2.queryUtils.parameters.columns.Column
 /**
  * Created by Cormac on 17/08/2017.
  */
-object Query {
+public object Query {
     private fun multiply(line: String, count: Int, separation: String = ""): String {
         var string = ""
         for (i in 1..count) {
@@ -35,7 +35,7 @@ object Query {
             multiply(" (" + columns.joinToString(separator = ",") { "?" } + ") ", rowsToInsert, ",") +
             "; "
 
-    public fun UPDATE(table: String, columns: Array<out String>): String = "UPDATE $table SET " + columns.joinToString(separator = ",") { it + " = ?" } + "; "
+    public fun UPDATE(table: String, columns: Array<out String>): String = "UPDATE $table SET " + columns.joinToString(separator = ",") { "\""+it+"\"" + " = ?" } + " "
     public fun DELETE(table: String): String = "DELETE FROM $table; "
 
     public fun DROP(table: String): String = "DROP TABLE $table"

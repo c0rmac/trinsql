@@ -22,12 +22,12 @@ class Where : GenericParameters {
         this.queryString = this.queryString.removeSuffix(suffix = nameSpace)
     }
 
-    override fun andLikeValues(vararg parameters: QMap): GenericParameters {
+    override fun andLikeValues(vararg parameters: QMap): Where {
         values(nameSpace = Query.AND, equalizer = Query.LIKE, parameters = parameters)
         return this
     }
 
-    override fun orLikeValues(vararg parameters: QMap): GenericParameters {
+    override fun orLikeValues(vararg parameters: QMap): Where {
         values(nameSpace = Query.OR, equalizer = Query.LIKE, parameters = parameters)
         return this
     }
@@ -37,6 +37,7 @@ class Where : GenericParameters {
         return this
     }
 
+    // AND =
     override fun andEqualValues(vararg parameters: QMap): Where {
         values(nameSpace = Query.AND, equalizer = Query.EQUALS, parameters = parameters)
         return this
