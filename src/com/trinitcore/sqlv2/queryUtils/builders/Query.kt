@@ -36,7 +36,7 @@ public object Query {
             "; "
 
     public fun UPDATE(table: String, columns: Array<out String>): String = "UPDATE $table SET " + columns.joinToString(separator = ",") { "\""+it+"\"" + " = ?" } + " "
-    public fun DELETE(table: String): String = "DELETE FROM $table; "
+    public fun DELETE(table: String): String = "DELETE FROM $table "
 
     public fun DROP(table: String): String = "DROP TABLE $table"
 

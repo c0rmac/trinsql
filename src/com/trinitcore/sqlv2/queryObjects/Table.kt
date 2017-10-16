@@ -39,9 +39,9 @@ class Table : GenericAssociationsManager {
     constructor(named: String, vararg columns: Column<out Any>) {
         this.tableName = named
         // this.tableColumns = columns.map { it.name }.toTypedArray()
-        SQL.session {
+        SQL.session({
             SQL.noneReturnable(Query.CREATE(named, columns))
-        }
+        })
         tableColumns = emptyArray()
     }
 
@@ -98,12 +98,12 @@ class Table : GenericAssociationsManager {
     }
 
     public fun updateValues(where: Where, values: Array<out QMap>): Rows? {
-        return SQL.session {
+        return SQL.session({
             val sqlString = UPDATE(tableName, values.map { it.key }.toTypedArray()) + where.toString()
             return SQL.returnable(sqlString, values.map { it.value }.plus(elements = where.getQueryParameters()).toTypedArray(), returnColumnKey = true)?.let { resultSet ->
                 getCreatedRows(resultSet)
             }
-        } as Rows
+        }) as Rows
     }
 
     public fun updateRow(where: Where, vararg values: QMap): Row? {
@@ -125,16 +125,16 @@ class Table : GenericAssociationsManager {
     }
 
     public fun delete(where: Where): Rows? {
-        return SQL.session {
+        return SQL.session({
             val sqlString = DELETE(tableName) + where.toString()
-            val rowsToDelete = find(where)
+            val rowsToDelete = find(where,false)
             if (rowsToDelete.size != 0) {
                 if (SQL.noneReturnable(sqlString, where.getQueryParameters().toTypedArray())) {
                     return rowsToDelete
                 }
             }
             return null
-        } as Rows
+        }) as Rows
     }
 
     private fun dealWithSubValueInsertTransactions(subValues: MutableList<AssociatingQMap>, subMultiValues: MutableList<MultiAssociatingQMap>, createdRow: Row) {
@@ -161,7 +161,7 @@ class Table : GenericAssociationsManager {
     }
 
     public fun insertValues(values: Array<out QMap>): Row? {
-        return SQL.session {
+        return SQL.session(){
             val topValues = mutableListOf<QMap>()
             val subValues = mutableListOf<AssociatingQMap>()
             val subMultiValues = mutableListOf<MultiAssociatingQMap>()
@@ -182,7 +182,7 @@ class Table : GenericAssociationsManager {
     }
 
     fun multiValueInsert(values: Array<out Array<QMap>>): Rows? {
-        return SQL.session {
+        return SQL.session({
             /*
 
             val allSubValues = mutableListOf<MutableList<AssociatingQMap>>()
@@ -217,7 +217,7 @@ class Table : GenericAssociationsManager {
 
                 return rows
             }
-        } as Rows?
+        }) as Rows?
     }
 
     public fun insert(vararg values: QMap): Row? {
@@ -233,9 +233,9 @@ class Table : GenericAssociationsManager {
     }
 
     public fun exists(where: Where) : Boolean {
-        return SQL.session {
+        return SQL.session({
             return SQL.returnable(SELECT(this.tableName, this.tableColumns) + where.toString(), where.getQueryParameters().toTypedArray())?.next() ?: false
-        } as Boolean
+        }) as Boolean
     }
 
     public fun findRowByID(key: Any): Row? {
@@ -251,6 +251,10 @@ class Table : GenericAssociationsManager {
     }
 
     public fun find(where: Where = Where()): Rows {
+        return find(where, true)
+    }
+
+    public fun find(where: Where = Where(), associations: Boolean): Rows {
         permanentQueryParameters?.let {
             where.join(it, permanentQueryParametersSeparator!!)
         }
@@ -260,7 +264,7 @@ class Table : GenericAssociationsManager {
         val rows = Rows(indexColumnKey, this)
         rows.associations = this.associations
 
-        SQL.session {
+        SQL.session({
             val results = SQL.returnable(sqlString, where.getQueryParameters().toTypedArray())
             val systemTime1 = System.currentTimeMillis()
             results?.let { resultSet ->
@@ -280,8 +284,8 @@ class Table : GenericAssociationsManager {
                 val systemTime2 = System.currentTimeMillis()
                 println("Query took: " + (systemTime2 - systemTime1) + " milliseconds")
             }
-            rows.addAllAssociations()
-        }
+            if (associations) rows.addAllAssociations()
+        })
 
         return rows
     }

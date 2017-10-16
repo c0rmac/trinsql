@@ -4,6 +4,7 @@ import com.trinitcore.sqlv2.commonUtils.Defaults
 import com.trinitcore.sqlv2.commonUtils.QMap
 import com.trinitcore.sqlv2.commonUtils.then
 import com.trinitcore.sqlv2.queryObjects.Table
+import com.trinitcore.sqlv2.queryUtils.builders.Association
 import com.trinitcore.sqlv2.queryUtils.builders.Associations
 import com.trinitcore.sqlv2.queryUtils.parameters.Where
 import org.json.simple.JSONArray
@@ -16,6 +17,10 @@ class Rows(public val indexColumnKey: String, public val parentTable: Table) : T
 
     public var associations: Associations = Associations()
     public var associationsAdded = false
+
+    public val dispatchedUpdates = mutableListOf<(rows: Rows) -> Unit>()
+
+    private var canRunDispatchedUpdates: Boolean = true
 
     public fun index(i: Int): RowType {
         return this.values.toTypedArray()[i]
@@ -35,6 +40,37 @@ class Rows(public val indexColumnKey: String, public val parentTable: Table) : T
 
     public fun rowsValues(): List<Rows> {
         return this.values.map { it as Rows }
+    }
+
+    public fun findRowsByColumnValue(column: String, value: Any) : Rows {
+        return findRowsByColumnValue(arrayOf(QMap(column, value)))
+    }
+
+    public fun findRowsByColumnValue(parameterMap: Array<QMap>) : Rows {
+        val rows = Rows(indexColumnKey = indexColumnKey, parentTable = parentTable)
+        this.values.forEach {
+            when (it) {
+                is Rows -> {
+                    val foundRows = it.findRowsByColumnValue(parameterMap)
+                    if (!rows.isEmpty()) {
+                        rows.putAll(foundRows)
+                    }
+                }
+                is Row -> {
+                    var allParametersSatisfied = false
+                    for (parameter in parameterMap) {
+                        allParametersSatisfied = it[parameter.key] == parameter.value
+                    }
+
+                    if (allParametersSatisfied) rows.put(it[indexColumnKey]!!, it)
+                }
+                else -> {
+
+                }
+            }
+        }
+
+        return rows
     }
 
     override fun put(key: Any, value: RowType): RowType? {
@@ -134,30 +170,44 @@ class Rows(public val indexColumnKey: String, public val parentTable: Table) : T
 
     }
 
+    // These methods must run runDispatchedUpdates()
     fun addAllAssociations() {
+        fun dealWithEmptyAssociations(association: Association, assocRow: Any?, row: Row) {
+            if (association.parameters.deleteRowIfNotFound && assocRow == null)
+                row.delete()
+        }
+
         for (row in this.values) {
             for (association in associations.values) {
                 if (row is Row) {
-                    association.findAssociatingRows(row)?.let { assocRows ->
-                        row.put(association.parameters.columnTitle!!, assocRows)
+                    val assocRow = association.findAssociatingRows(row)?.let { assocRows ->
+                        row.put(association.parameters.columnTitle, assocRows)
+                        assocRows
                     }
+
+                    dealWithEmptyAssociations(association, assocRow, row)
                 } else if (row is Rows) {
                     row.values
                             .filterIsInstance<Row>()
                             .forEach {
-                                association.findAssociatingRows(it)?.let { assocRows ->
-                                    it.put(association.parameters.columnTitle!!, assocRows)
+                                val assocRow = association.findAssociatingRows(it)?.let { assocRows ->
+                                    it.put(association.parameters.columnTitle, assocRows)
+                                    assocRows
                                 }
+
+                                dealWithEmptyAssociations(association, assocRow, it)
                             }
                 }
             }
         }
         associationsAdded = true
+        runDispatchedUpdates()
     }
 
     fun toJSONArray(): JSONArray {
         // addAllAssociationsIfNotAdded()
         // NOTE: Key values of this tree should not be outputted!
+        runDispatchedUpdates()
         val jsonArray = JSONArray()
         for (value in this.values.toList()) {
             if (value is Row) {
@@ -170,6 +220,7 @@ class Rows(public val indexColumnKey: String, public val parentTable: Table) : T
     }
 
     fun remove(key: Any, row: Row) {
+        runDispatchedUpdates()
         get(key)?.let { value ->
             when (value) {
                 is Rows -> {
@@ -184,6 +235,22 @@ class Rows(public val indexColumnKey: String, public val parentTable: Table) : T
     }
 
     override fun get(key: Any): RowType? {
+        runDispatchedUpdates()
         return super.get(key)
     }
+
+    private fun runDispatchedUpdates() {
+            if (dispatchedUpdates.size != 0 && canRunDispatchedUpdates) {
+                synchronized(this) {
+                    canRunDispatchedUpdates = false
+                    dispatchedUpdates.forEach {
+                        it(this)
+                    }
+                    canRunDispatchedUpdates = true
+
+                    dispatchedUpdates.clear()
+                }
+            }
+    }
+
 }

@@ -22,19 +22,34 @@ class Where : GenericParameters {
         this.queryString = this.queryString.removeSuffix(suffix = nameSpace)
     }
 
+    // AND LIKE
     override fun andLikeValues(vararg parameters: QMap): Where {
         values(nameSpace = Query.AND, equalizer = Query.LIKE, parameters = parameters)
         return this
     }
 
+    fun andLikeValue(key: String, value: Any): Where {
+        return andLikeValues(QMap(key, value))
+    }
+
+    // OR LIKE
     override fun orLikeValues(vararg parameters: QMap): Where {
         values(nameSpace = Query.OR, equalizer = Query.LIKE, parameters = parameters)
         return this
     }
 
+    fun orLikeValue(key: String, value: Any): Where {
+        return orLikeValues(QMap(key, value))
+    }
+
+    // OR =
     override fun orEqualValues(vararg parameters: QMap): Where {
         values(nameSpace = Query.OR, equalizer = Query.EQUALS, parameters = parameters)
         return this
+    }
+
+    fun orEqualValue(key: String, value: Any): Where {
+        return orEqualValues(QMap(key,value))
     }
 
     // AND =
@@ -43,9 +58,18 @@ class Where : GenericParameters {
         return this
     }
 
+    fun andEqualValue(key: String, value: Any): Where {
+        return andEqualValues(QMap(key, value))
+    }
+
+    // Plain
     override fun value(key: String, value: Any): Where {
-        orLikeValues(QMap(key = key, value = value))
+        andEqualValues(QMap(key = key, value = value))
         return this
+    }
+
+    fun orderBy(column: String, rotation: String) {
+
     }
 
     override fun toString(): String {

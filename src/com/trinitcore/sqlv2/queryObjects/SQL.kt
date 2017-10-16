@@ -3,6 +3,7 @@ package com.trinitcore.sqlv2.queryObjects
 import com.trinitcore.sqlv2.commonUtils.Defaults
 import com.trinitcore.sqlv2.commonUtils.then
 import com.trinitcore.sqlv2.queryUtils.connection.ConnectionManager
+import org.postgresql.util.PSQLException
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 
@@ -15,23 +16,41 @@ object SQL {
     public lateinit var sharedConnection: ConnectionManager
 
     public fun returnable(query: String, parameters: Array<Any>, returnColumnKey: Boolean = false): ResultSet? {
-        val updateParams = arrayOf(Defaults.indexColumnKey)
-        val statement = getStatement(query = query, parameters = parameters,
-                resultSetParameters = returnColumnKey then updateParams ?: emptyArray()
-        )
-        if (returnColumnKey) {
-            statement?.executeUpdate()
-            return statement?.generatedKeys
-        }
-        return statement?.executeQuery()
+            val updateParams = arrayOf(Defaults.indexColumnKey)
+            var statement: PreparedStatement? = null
+            statement = getStatement(query = query, parameters = parameters,
+                    resultSetParameters = returnColumnKey then updateParams ?: emptyArray()
+            )
+
+            //try {
+                if (returnColumnKey) {
+                    statement.executeUpdate()
+                    return statement.generatedKeys
+                }
+                return statement.executeQuery()
+            /*} catch (e: PSQLException) {
+                println("Reopening connection")
+                return SQL.session {
+                    return returnable(query, parameters, returnColumnKey)
+                } as ResultSet?
+            }*/
+
     }
 
     public fun noneReturnable(query: String, parameters: Array<Any> = emptyArray()): Boolean {
-        return !(getStatement(query, parameters)?.execute() ?: true)
+            return !(getStatement(query, parameters).execute() ?: true)
     }
 
-    private fun getStatement(query: String, parameters: Array<Any>, resultSetParameters: Array<String> = emptyArray()): PreparedStatement? {
-        val statement = sharedConnection.currentConnection?.prepareStatement(query, resultSetParameters) ?: throw RuntimeException("No open connection found.")
+    private fun getStatement(query: String, parameters: Array<Any>, resultSetParameters: Array<String> = emptyArray()): PreparedStatement {
+
+        /*
+        if (sharedConnection.currentConnection == null || sharedConnection.currentConnection?.isClosed == true) {
+            return SQL.session {
+                return getStatement(query, parameters, resultSetParameters)
+            } as PreparedStatement
+        }
+        */
+        val statement = sharedConnection.currentConnection!!.prepareStatement(query, resultSetParameters)
 
         var count = 0
         for (p in parameters) statement.setObject(++count, p)
@@ -41,13 +60,12 @@ object SQL {
 
     public inline fun session(stream: () -> Unit): Any? {
         var shouldCloseConnection = true
-        try {
-            shouldCloseConnection = sharedConnection.open()
-            return stream()
-        } finally {
-            if (shouldCloseConnection) {
-                sharedConnection.close()
-            }
-        }
+        shouldCloseConnection = sharedConnection.open()
+
+        val s = stream()
+        // if (shouldCloseConnection) {
+            // sharedConnection.close()
+        // }
+        return s
     }
 }

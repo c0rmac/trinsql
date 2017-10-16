@@ -32,60 +32,20 @@ fun measureOperation(stream: () -> Unit) : Long {
 
 fun main(args: Array<String>) {
 
-    SQL.sharedConnection = PostgresConnectionManager("localhost","trinsqltest", "postgres", "@C[]4m9c17")
+    //SQL.sharedConnection = PostgresConnectionManager("localhost","trinsqltest", "postgres", "@C[]4m9c17")
+    SQL.sharedConnection = PostgresConnectionManager("ec2-23-23-220-163.compute-1.amazonaws.com", "dali3p5b9n1bn", "kkrjxuzslvuuqh", "d14d0dd9116a0be25834fe489e56a8409cd6e51d9a7fcbd84fff91b3672dc401", true)
 
-    SQL.session {
-        val table = Table("products", TextColumn("name"), TextColumn("description"), IntegerColumn("age").notNull(76))
-                .permanentTransactionParameters(QMap("age", 94))
-                .permanentQueryParameters(Where().andEqualValues(QMap("ID", 1)))
-                .addAssociation(
-                        Association("comments", parameters = Associating("ID", columnTitle = "userComments", childColumnName = "productID"))
-                                .addAssociation(
-                                        Association("commentsofcomments", parameters = Associating("ID", childColumnName = "commentID", columnTitle = "commentsofcomments"))
-                                )
-                )
+    val appointments = Table("appointments")
+    for (i in 1..60) {
+        Thread(Runnable {
+            Thread.sleep((1000 * i).toLong())
+            appointments.find()
+        }).start()
 
-        var r: Rows? = null
-        println("Getting every single value: " + measureOperation {
-            r = table.find(Where())
-            println(r?.toJSONArray()?.toJSONString())
-        })
-
-        (r!![1] as Row).update(QMap("name", "hehehe"))
-
-/*
-        var array: MutableList<Array<QMap>> = mutableListOf()
-        val gen = RandomString(8, ThreadLocalRandom.current())
-
-        println("Make mutable list operation: " + measureOperation {
-            for (i in 1..3000) {
-                array.add(arrayOf(QMap("name", gen.nextString()), QMap("description", gen.nextString())))
-            }
-        })
-        var typedArray:Array<Array<QMap>> = emptyArray()
-        println("Make typed array: " + measureOperation {
-            typedArray = array.toTypedArray()
-        })
-
-        println("Inserting multiple values: " + measureOperation {
-            // r?.multiValueInsert(typedArray)
-        })
-        */
-
-        /*
-        val gen = RandomString(8, ThreadLocalRandom.current())
-        table.insert(
-                QMap("name", gen.nextString()),
-                QMap("description", gen.nextString()),
-                MultiAssociatingQMap("userComments",
-                        arrayOf(QMap("data", gen.nextString()), QMap("title", "lalalal"), MultiAssociatingQMap("commentsofcomments",
-                                arrayOf(QMap("data", "bluh")),
-                                arrayOf(QMap("data","heyyy"))
-                        )),
-                        arrayOf(QMap("data", gen.nextString()), QMap("title", "lalalal"))
-                )
-        )
-*/
+        Thread(Runnable {
+            Thread.sleep((1000 * i).toLong())
+            appointments.find()
+        }).start()
     }
 }
 

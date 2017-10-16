@@ -47,12 +47,19 @@ class Row(public val parentTable: Table, public val parentRows: Rows? = null) : 
                 put(t, u)
             }
         }
-        parentRows?.remove(get(parentRows.indexColumnKey), this)
-        parentRows?.put(get(parentRows.indexColumnKey)!!, this)
+        refreshParentRows()
     }
 
     public fun delete() {
         this.parentTable.delete(getUniqueWhere())
+        refreshParentRows(true)
+    }
+
+    private fun refreshParentRows(delete: Boolean = false) {
+        parentRows?.dispatchedUpdates!!.add({
+            it.remove(get(it.indexColumnKey), this)
+            if (!delete) it.put(get(it.indexColumnKey)!!, this)
+        })
     }
 
 }

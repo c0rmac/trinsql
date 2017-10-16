@@ -8,9 +8,13 @@ import java.sql.DriverManager
  * Created by Cormac on 28/08/2017.
  */
 
-class PostgresConnectionManager(public val hostURL: String = "localhost", public val dbName: String, public val username: String, public val password: String, public val requireSSL:Boolean = false) : ConnectionManager() {
+public open class PostgresConnectionManager(public val hostURL: String = "localhost", public val dbName: String, public val username: String, public val password: String, public val requireSSL:Boolean = false) : ConnectionManager() {
     override fun getDatabaseName(): String {
         return dbName
+    }
+
+    override open fun open(): Boolean {
+        return super.open()
     }
 
     override fun getNewConnection(): Connection {

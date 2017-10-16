@@ -11,4 +11,10 @@ class Associating(columnName: String, columnTitle: String? = null, childColumnNa
 
     public val childColumnName = childColumnName
 
+    public var deleteRowIfNotFound = false
+    fun deleteRowIfNotFound(): Associating {
+        this.deleteRowIfNotFound = true
+        return this
+    }
+
 }

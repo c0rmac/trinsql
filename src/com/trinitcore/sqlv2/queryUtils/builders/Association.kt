@@ -29,9 +29,11 @@ class Association : GenericAssociationsManager {
     }
 
     public fun addQueryIndex(row: Row) {
-        indexQueryParameters.orEqualValues(
-                QMap(parameters.childColumnName, row[parameters.columnName]!!)
-        )
+        row[parameters.columnName]?.let {
+            indexQueryParameters.orEqualValues(
+                    QMap(parameters.childColumnName, it)
+            )
+        }
     }
 
     public fun findAssociatingRows(matchingRow: Row): Any? {
