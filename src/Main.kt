@@ -36,6 +36,7 @@ fun main(args: Array<String>) {
     SQL.sharedConnection = PostgresConnectionManager("ec2-23-23-220-163.compute-1.amazonaws.com", "dali3p5b9n1bn", "kkrjxuzslvuuqh", "d14d0dd9116a0be25834fe489e56a8409cd6e51d9a7fcbd84fff91b3672dc401", true)
 
     val appointments = Table("appointments")
+    /*
     for (i in 1..60) {
         Thread(Runnable {
             Thread.sleep((1000 * i).toLong())
@@ -47,6 +48,7 @@ fun main(args: Array<String>) {
             appointments.find()
         }).start()
     }
+    */var appointment = appointments.find().findRowsByColumnValue(arrayOf(QMap("isAssigned", true), QMap("completed", false)))
 }
 
 class RandomString @JvmOverloads constructor(length: Int = 21, random: Random = SecureRandom(), symbols: String = alphanum) {

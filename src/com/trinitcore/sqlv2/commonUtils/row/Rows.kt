@@ -60,6 +60,7 @@ class Rows(public val indexColumnKey: String, public val parentTable: Table) : T
                     var allParametersSatisfied = false
                     for (parameter in parameterMap) {
                         allParametersSatisfied = it[parameter.key] == parameter.value
+                        if (!allParametersSatisfied) return@forEach
                     }
 
                     if (allParametersSatisfied) rows.put(it[indexColumnKey]!!, it)
