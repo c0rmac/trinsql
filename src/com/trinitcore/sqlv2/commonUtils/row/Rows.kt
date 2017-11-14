@@ -4,8 +4,8 @@ import com.trinitcore.sqlv2.commonUtils.Defaults
 import com.trinitcore.sqlv2.commonUtils.QMap
 import com.trinitcore.sqlv2.commonUtils.then
 import com.trinitcore.sqlv2.queryObjects.Table
-import com.trinitcore.sqlv2.queryUtils.builders.Association
-import com.trinitcore.sqlv2.queryUtils.builders.Associations
+import com.trinitcore.sqlv2.queryUtils.associations.Association
+import com.trinitcore.sqlv2.queryUtils.associations.Associations
 import com.trinitcore.sqlv2.queryUtils.parameters.Where
 import org.json.simple.JSONArray
 import java.util.*
@@ -33,6 +33,15 @@ class Rows(public val indexColumnKey: String, public val parentTable: Table) : T
     public fun indexAsRow(i: Int): Row {
         return index(i) as Row
     }
+/*
+    public fun rowValues(): List<Row> {
+        return this.values.filterIsInstance<Row>()
+    }
+
+    public fun rowsValues(): List<Rows> {
+        return this.values.filterIsInstance<Rows>()
+    }
+    */
 
     public fun rowValues(): List<Row> {
         return this.values.map { it as Row }
@@ -77,7 +86,7 @@ class Rows(public val indexColumnKey: String, public val parentTable: Table) : T
     override fun put(key: Any, value: RowType): RowType? {
         if (value is Row) {
             for (association in associations.values) {
-                association.addQueryIndex(row = value)
+                if (association is Association) association.addQueryIndex(row = value)
             }
         }
         var multiValuedReturn = handleMultipleValues(key, value)
@@ -173,30 +182,57 @@ class Rows(public val indexColumnKey: String, public val parentTable: Table) : T
 
     // These methods must run runDispatchedUpdates()
     fun addAllAssociations() {
-        fun dealWithEmptyAssociations(association: Association, assocRow: Any?, row: Row) {
-            if (association.parameters.deleteRowIfNotFound && assocRow == null)
-                row.delete()
+        fun dealWithEmptyAssociations(association: Association, assocObject: Any?, row: Row) {
+            if (association.parameters.deleteRowIfNotFound && assocObject == null)
+                dispatchedUpdates.add({
+                    remove(row.getID(), row)
+                })
+            else if (association.parameters.skipRowIfExcludedMatchFound && assocObject == null) {
+                dispatchedUpdates.add({
+                    remove(row.getID(), row)
+                })
+            }
+            /*
+            else if (association.parameters.shouldMatches.isNotEmpty() && association.parameters.skipRowIfExcludedMatchFound) {
+                association.parameters.shouldMatches.forEach { column, value ->
+                    if (assocObject is Row) {
+                        if (assocObject[column] == value) {
+                            dispatchedUpdates.add({
+                                remove(row.getID(), row)
+                            })
+                        }
+                    } else if (assocObject is Rows) {
+                        for (assocRow in assocObject.rowValues()) {
+                            if (assocObject[column] == value) {
+                                dispatchedUpdates.add({
+                                    remove(row.getID(), row)
+                                })
+                            }
+                        }
+                    }
+                }
+            }*/
         }
 
         for (row in this.values) {
             for (association in associations.values) {
                 if (row is Row) {
                     val assocRow = association.findAssociatingRows(row)?.let { assocRows ->
-                        row.put(association.parameters.columnTitle, assocRows)
+                        row.put(association.getColumnTitle(), assocRows)
                         assocRows
                     }
 
-                    dealWithEmptyAssociations(association, assocRow, row)
+                    if (association is Association) dealWithEmptyAssociations(association, assocRow, row)
                 } else if (row is Rows) {
                     row.values
                             .filterIsInstance<Row>()
                             .forEach {
                                 val assocRow = association.findAssociatingRows(it)?.let { assocRows ->
-                                    it.put(association.parameters.columnTitle, assocRows)
+                                    it.put(association.getColumnTitle(), assocRows)
                                     assocRows
                                 }
 
-                                dealWithEmptyAssociations(association, assocRow, it)
+                                if (association is Association) dealWithEmptyAssociations(association, assocRow, it)
                             }
                 }
             }

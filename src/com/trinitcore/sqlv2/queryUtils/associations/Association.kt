@@ -1,17 +1,22 @@
-package com.trinitcore.sqlv2.queryUtils.builders
+package com.trinitcore.sqlv2.queryUtils.associations
 
 import com.trinitcore.sqlv2.commonUtils.QMap
 import com.trinitcore.sqlv2.commonUtils.row.Row
+import com.trinitcore.sqlv2.commonUtils.row.RowType
 import com.trinitcore.sqlv2.commonUtils.row.Rows
 import com.trinitcore.sqlv2.queryObjects.Table
-import com.trinitcore.sqlv2.queryUtils.parameters.Associating
-import com.trinitcore.sqlv2.queryUtils.parameters.GenericAssociationsManager
+import com.trinitcore.sqlv2.queryUtils.builders.AssociationBuilder
+import com.trinitcore.sqlv2.queryUtils.builders.Query
 import com.trinitcore.sqlv2.queryUtils.parameters.Where
 
 /**
  * Created by Cormac on 17/08/2017.
  */
-class Association : GenericAssociationsManager {
+class Association : GenericAssociation, GenericAssociationsManager {
+    override fun getColumnTitle(): String {
+        return parameters.columnTitle
+    }
+
     private val tableName: String
     public val parameters: Associating
     private val notArray: Boolean
@@ -36,8 +41,8 @@ class Association : GenericAssociationsManager {
         }
     }
 
-    public fun findAssociatingRows(matchingRow: Row): Any? {
-        if (queryRows == null) this.queryRows = queryTable.find(where = indexQueryParameters)
+    override fun findAssociatingRows(matchingRow: Row): RowType? {
+        if (queryRows == null) this.queryRows = queryTable.find(where = Where().join(indexQueryParameters, Query.AND, true).join(parameters.generateWhereParameters(), Query.AND))
         val child = this.queryRows!![matchingRow[parameters.columnName]]
         if (child is Rows) {
             if (this.notArray) return child.firstEntry().value
@@ -53,7 +58,12 @@ class Association : GenericAssociationsManager {
         return null
     }
 
-    override public fun addAssociation(association: Association): Association {
+    override public fun addAssociation(association: GenericAssociation): Association {
+        this.queryTable.addAssociation(association)
+        return this
+    }
+
+    override public fun addAssociation(association: AssociationBuilder): Association {
         this.queryTable.addAssociation(association)
         return this
     }

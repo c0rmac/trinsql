@@ -62,4 +62,8 @@ class Row(public val parentTable: Table, public val parentRows: Rows? = null) : 
         })
     }
 
+    fun getID() : Any? {
+        return get(parentTable.indexColumnKey)
+    }
+
 }

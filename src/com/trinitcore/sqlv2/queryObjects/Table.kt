@@ -6,14 +6,17 @@ import com.trinitcore.sqlv2.commonUtils.MultiAssociatingQMap
 import com.trinitcore.sqlv2.commonUtils.QMap
 import com.trinitcore.sqlv2.commonUtils.row.Row
 import com.trinitcore.sqlv2.commonUtils.row.Rows
-import com.trinitcore.sqlv2.queryUtils.builders.Association
-import com.trinitcore.sqlv2.queryUtils.builders.Associations
+import com.trinitcore.sqlv2.queryUtils.associations.Association
+import com.trinitcore.sqlv2.queryUtils.associations.Associations
+import com.trinitcore.sqlv2.queryUtils.associations.GenericAssociation
 import com.trinitcore.sqlv2.queryUtils.builders.Query
 import com.trinitcore.sqlv2.queryUtils.builders.Query.DELETE
 import com.trinitcore.sqlv2.queryUtils.builders.Query.INSERT
 import com.trinitcore.sqlv2.queryUtils.builders.Query.SELECT
 import com.trinitcore.sqlv2.queryUtils.builders.Query.UPDATE
-import com.trinitcore.sqlv2.queryUtils.parameters.GenericAssociationsManager
+import com.trinitcore.sqlv2.queryUtils.associations.GenericAssociationsManager
+import com.trinitcore.sqlv2.queryUtils.builders.AssociationBuilder
+import com.trinitcore.sqlv2.queryUtils.builders.Query.SELECT_COUNT
 import com.trinitcore.sqlv2.queryUtils.parameters.Where
 import com.trinitcore.sqlv2.queryUtils.parameters.columns.Column
 import java.sql.ResultSet
@@ -49,8 +52,14 @@ class Table : GenericAssociationsManager {
     public var indexColumnKey = Defaults.indexColumnKey
     public var associations = Associations()
 
-    public override fun addAssociation(association: Association): Table {
-        this.associations.put(association.parameters.columnTitle, association)
+    public override fun addAssociation(association: GenericAssociation): Table {
+        this.associations.put(association.getColumnTitle(), association)
+        return this
+    }
+
+    override fun addAssociation(association: AssociationBuilder): Table {
+        val build = association.build()
+        this.associations.put(build.getColumnTitle(),build)
         return this
     }
 
@@ -140,39 +149,52 @@ class Table : GenericAssociationsManager {
     private fun dealWithSubValueInsertTransactions(subValues: MutableList<AssociatingQMap>, subMultiValues: MutableList<MultiAssociatingQMap>, createdRow: Row) {
         for (subValue in subValues) {
             val association = associations[subValue.key]
-            val associationParameters = association?.parameters!!
-            association.queryTable.insertValues(
-                    subValue.getValueAsQMapArray().toList()
-                            .plus(element = QMap(associationParameters.childColumnName, createdRow[associationParameters.columnName]!!))
-                            .toTypedArray())
+            if (association is Association) {
+                val associationParameters = association.parameters
+                association.queryTable.insertValues(
+                        subValue.getValueAsQMapArray().toList()
+                                .plus(element = QMap(associationParameters.childColumnName, createdRow[associationParameters.columnName]!!))
+                                .toTypedArray())
+            }
         }
 
         for (subMultiValue in subMultiValues) {
             val association = associations[subMultiValue.key]
-            val associationParameters = association?.parameters!!
+            if (association is Association) {
+                val associationParameters = association?.parameters!!
 
-            val preparedSubValues = subMultiValue.getValueAsQMapArrays().map {
-                it.toList()
-                        .plus(element = QMap(associationParameters.childColumnName, createdRow[associationParameters.columnName]!!))
-                        .toTypedArray()
+                val preparedSubValues = subMultiValue.getValueAsQMapArrays().map {
+                    it.toList()
+                            .plus(element = QMap(associationParameters.childColumnName, createdRow[associationParameters.columnName]!!))
+                            .toTypedArray()
+                }
+                association.queryTable.multiValueInsert(preparedSubValues.toTypedArray())
             }
-            association.queryTable.multiValueInsert(preparedSubValues.toTypedArray())
         }
     }
 
     public fun insertValues(values: Array<out QMap>): Row? {
-        return SQL.session(){
+        return SQL.session {
             val topValues = mutableListOf<QMap>()
             val subValues = mutableListOf<AssociatingQMap>()
             val subMultiValues = mutableListOf<MultiAssociatingQMap>()
 
             sortTransactionQMapValues(values, topValues, subValues, subMultiValues)
 
-            val sqlString = INSERT(tableName, topValues.map { it.key }.toTypedArray())
-            return SQL.returnable(sqlString, topValues.map { it.value }.toTypedArray(), returnColumnKey = true)?.let { resultSet ->
-                val createdRow = getCreatedRows(resultSet)?.indexAsRow(0)
-                dealWithSubValueInsertTransactions(subValues, subMultiValues, createdRow!!)
-                return createdRow
+            if (topValues.count() != 0) {
+                val sqlString = INSERT(tableName, topValues.map { it.key }.toTypedArray())
+                return SQL.returnable(sqlString, topValues.map { it.value }.toTypedArray(), returnColumnKey = true)?.let { resultSet ->
+                    val createdRow = getCreatedRows(resultSet)?.indexAsRow(0)
+                    dealWithSubValueInsertTransactions(subValues, subMultiValues, createdRow!!)
+                    return createdRow
+                }
+            } else if (topValues.count() == 1 && topValues[0].key == Defaults.indexColumnKey) {
+                return findRowByID(topValues[0].value)?.let {
+                    dealWithSubValueInsertTransactions(subValues, subMultiValues, it)
+                    it
+                }
+            } else {
+                throw RuntimeException("No top insert parameters given.")
             }
         } as Row
     }
@@ -252,6 +274,24 @@ class Table : GenericAssociationsManager {
 
     public fun find(where: Where = Where()): Rows {
         return find(where, true)
+    }
+
+    public fun getCount(where: Where = Where()): Int {
+        permanentQueryParameters?.let {
+            where.join(it, permanentQueryParametersSeparator!!)
+        }
+
+        val sqlString = SELECT_COUNT(this.tableName) + where.toString()
+        return SQL.session {
+            val results = SQL.returnable(sqlString, where.getQueryParameters().toTypedArray())
+            results?.let { resultSet ->
+                println(results.statement.toString())
+
+                while (resultSet.next()) {
+                    return resultSet.getInt(1)
+                }
+            }
+        } as Int
     }
 
     public fun find(where: Where = Where(), associations: Boolean): Rows {

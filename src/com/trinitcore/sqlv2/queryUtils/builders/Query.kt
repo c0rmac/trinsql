@@ -19,6 +19,10 @@ public object Query {
     }
 
     public val EQUALS = " = "
+    public val GREATER_THAN_OR_EQUALS = " >= "
+    public val GREATER_THAN = " > "
+    public val LESS_THAN_OR_EQUALS = " <= "
+    public val LESS_THAN = " < "
     public val LIKE = " LIKE "
     public val WHERE = " WHERE "
     public val AND = " AND "
@@ -49,6 +53,7 @@ public object Query {
     }
     public fun CREATE(table: String, columns: Array<out Column<out Any>>): String = " CREATE TABLE IF NOT EXISTS public.$table (\"ID\" SERIAL PRIMARY KEY," + columns.joinToString(separator = ",") { it.toString() } + "); "
 
+    public fun SELECT_COUNT(table: String): String = " SELECT COUNT(*) FROM $table "
     public fun SELECT(table: String): String = " SELECT * FROM $table "
     public fun SELECT(table: String, columns: Array<out String>): String = columns.isEmpty() then SELECT(table = table) ?: " SELECT " + columns.joinToString(separator = ",") + " FROM $table "
 }

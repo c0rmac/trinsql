@@ -1,21 +1,14 @@
 import com.trinitcore.sqlv2.commonUtils.AssociatingQMap
-import com.trinitcore.sqlv2.commonUtils.MultiAssociatingQMap
 import com.trinitcore.sqlv2.commonUtils.QMap
-import com.trinitcore.sqlv2.commonUtils.row.Row
-import com.trinitcore.sqlv2.commonUtils.row.Rows
 import com.trinitcore.sqlv2.queryObjects.SQL
 import com.trinitcore.sqlv2.queryObjects.Table
-import com.trinitcore.sqlv2.queryUtils.builders.Association
+import com.trinitcore.sqlv2.queryUtils.associations.Association
 import com.trinitcore.sqlv2.queryUtils.connection.PostgresConnectionManager
-import com.trinitcore.sqlv2.queryUtils.parameters.Associating
+import com.trinitcore.sqlv2.queryUtils.associations.Associating
+import com.trinitcore.sqlv2.queryUtils.builders.AssociationBuilder
 import com.trinitcore.sqlv2.queryUtils.parameters.Where
-import com.trinitcore.sqlv2.queryUtils.parameters.columns.IntegerColumn
-import com.trinitcore.sqlv2.queryUtils.parameters.columns.TextColumn
 import java.security.SecureRandom
-import java.util.Random
-import java.util.Objects
-import java.util.Locale
-import java.util.concurrent.ThreadLocalRandom
+import java.util.*
 
 
 /**
@@ -36,19 +29,20 @@ fun main(args: Array<String>) {
     SQL.sharedConnection = PostgresConnectionManager("ec2-23-23-220-163.compute-1.amazonaws.com", "dali3p5b9n1bn", "kkrjxuzslvuuqh", "d14d0dd9116a0be25834fe489e56a8409cd6e51d9a7fcbd84fff91b3672dc401", true)
 
     val appointments = Table("appointments")
-    /*
-    for (i in 1..60) {
-        Thread(Runnable {
-            Thread.sleep((1000 * i).toLong())
-            appointments.find()
-        }).start()
+            .addAssociation(
+                    AssociationBuilder("messages", false, Associating("ID", "messages", "appointmentID"))
+                            .addAssociation(
+                                    AssociationBuilder("users", true, Associating("senderUserID", "userDetails", "ID"))
+                            )
+            )
 
-        Thread(Runnable {
-            Thread.sleep((1000 * i).toLong())
-            appointments.find()
-        }).start()
-    }
-    */var appointment = appointments.find().findRowsByColumnValue(arrayOf(QMap("isAssigned", true), QMap("completed", false)))
+    appointments.insert(
+            AssociatingQMap("messages",
+                    QMap("content", "lah"),
+                    QMap("senderUserID", 55),
+                    QMap("dateTime", Date().time)
+            )
+    )
 }
 
 class RandomString @JvmOverloads constructor(length: Int = 21, random: Random = SecureRandom(), symbols: String = alphanum) {
