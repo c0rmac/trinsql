@@ -181,17 +181,17 @@ class Table : GenericAssociationsManager {
 
             sortTransactionQMapValues(values, topValues, subValues, subMultiValues)
 
-            if (topValues.count() != 0) {
+            if (topValues.count() == 1 && topValues[0].key == Defaults.indexColumnKey) {
+                return findRowByID(topValues[0].value)?.let {
+                    dealWithSubValueInsertTransactions(subValues, subMultiValues, it)
+                    it
+                }
+            } else if (topValues.count() != 0) {
                 val sqlString = INSERT(tableName, topValues.map { it.key }.toTypedArray())
                 return SQL.returnable(sqlString, topValues.map { it.value }.toTypedArray(), returnColumnKey = true)?.let { resultSet ->
                     val createdRow = getCreatedRows(resultSet)?.indexAsRow(0)
                     dealWithSubValueInsertTransactions(subValues, subMultiValues, createdRow!!)
                     return createdRow
-                }
-            } else if (topValues.count() == 1 && topValues[0].key == Defaults.indexColumnKey) {
-                return findRowByID(topValues[0].value)?.let {
-                    dealWithSubValueInsertTransactions(subValues, subMultiValues, it)
-                    it
                 }
             } else {
                 throw RuntimeException("No top insert parameters given.")

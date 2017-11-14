@@ -37,6 +37,7 @@ fun main(args: Array<String>) {
             )
 
     appointments.insert(
+            QMap("ID", 184),
             AssociatingQMap("messages",
                     QMap("content", "lah"),
                     QMap("senderUserID", 55),
