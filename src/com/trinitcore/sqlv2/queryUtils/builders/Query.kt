@@ -31,6 +31,10 @@ public object Query {
     public val NOTNULL = " NOT NULL "
     public val DEFAULT = " DEFAULT "
 
+    public val ASC = " ASC "
+    public val DESC = " DESC "
+
+    public fun ORDER_BY(column: String, rotation: String): String = " ORDER BY \"$column\" $rotation "
     public fun WHERE(column: String, equalizer: String, value: String = "?"): String = " \"$column\" $equalizer $value "
     public fun RETURNING(tableName: String): String = " RETURNING \"ID\"; "
     // fun RETURNING(tableName: String): String = " SELECT currval(pg_get_serial_sequence('$tableName', '"+Defaults.indexColumnKey+"')); "

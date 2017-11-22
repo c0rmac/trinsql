@@ -11,6 +11,8 @@ class Where : GenericParameters {
     private var queryString: String = Query.WHERE
     private var queryParameters: MutableList<Any> = mutableListOf()
 
+    private var orderQueryString: String = ""
+
     private fun values(nameSpace: String, equalizer: String, parameters: Array<out QMap>) {
         when (this.queryString != Query.WHERE) { true -> this.queryString += nameSpace
         }
@@ -148,12 +150,19 @@ class Where : GenericParameters {
         return this
     }
 
-    fun orderBy(column: String, rotation: String) {
+    // Ordering
+    fun ascendingOrderBy(column: String) : Where {
+        this.orderQueryString += Query.ORDER_BY(column, Query.ASC)
+        return this
+    }
 
+    fun descendingOrderBy(column: String): Where {
+        this.orderQueryString += Query.ORDER_BY(column, Query.DESC)
+        return this
     }
 
     override fun toString(): String {
-        return (queryString == Query.WHERE) then "" ?: this.queryString
+        return (queryString == Query.WHERE) then "" ?: this.queryString + this.orderQueryString
     }
 
     public fun getQueryParameters(): List<Any> {
