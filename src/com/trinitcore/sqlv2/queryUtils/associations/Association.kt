@@ -19,11 +19,10 @@ class Association : GenericAssociation, GenericAssociationsManager {
 
     private val tableName: String
     public val parameters: Associating
-    private val notArray: Boolean
+    internal val notArray: Boolean
 
     public val indexQueryParameters: Where = Where()
     val queryTable: Table
-    private var queryRows: Rows? = null
 
     constructor(tableName: String, notArray: Boolean = false, parameters: Associating) {
         this.tableName = tableName
@@ -41,21 +40,8 @@ class Association : GenericAssociation, GenericAssociationsManager {
         }
     }
 
-    override fun findAssociatingRows(matchingRow: Row): RowType? {
-        if (queryRows == null) this.queryRows = queryTable.find(where = Where().join(indexQueryParameters, Query.AND, true).join(parameters.generateWhereParameters(), Query.AND))
-        val child = this.queryRows!![matchingRow[parameters.columnName]]
-        if (child is Rows) {
-            if (this.notArray) return child.firstEntry().value
-            return child
-        } else if (child is Row) {
-            // This usually happens when child indexColumnKey = ID for the queryTable
-            if (this.notArray) return child
-
-            val childRows = Rows(parameters.childColumnName, child.parentTable)
-            childRows.put(matchingRow[parameters.columnName]!!, child)
-            return childRows
-        }
-        return null
+    override fun findAssociatingResults(): AssociatingResults {
+        return AssociatingResults(queryTable.find(where = Where().join(indexQueryParameters, Query.AND, true).join(parameters.generateWhereParameters(), Query.AND)), this)
     }
 
     override public fun addAssociation(association: GenericAssociation): Association {

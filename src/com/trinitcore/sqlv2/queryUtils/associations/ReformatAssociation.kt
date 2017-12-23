@@ -16,8 +16,8 @@ open class ReformatAssociation : GenericAssociation {
         this.reformationHandler = reformationHandler
     }
 
-    override fun findAssociatingRows(matchingRow: Row): Any? {
-        return this.reformationHandler(matchingRow)
+    override fun findAssociatingResults(): ReformatAssociatingResults {
+        return ReformatAssociatingResults(this.reformationHandler)
     }
 
     override fun getColumnTitle(): String {

@@ -216,8 +216,9 @@ class Rows(public val indexColumnKey: String, public val parentTable: Table) : T
 
         for (row in this.values) {
             for (association in associations.values) {
+                val assocResults = association.findAssociatingResults()
                 if (row is Row) {
-                    val assocRow = association.findAssociatingRows(row)?.let { assocRows ->
+                    val assocRow = assocResults.match(row)?.let { assocRows ->
                         row.put(association.getColumnTitle(), assocRows)
                         assocRows
                     }
@@ -227,7 +228,7 @@ class Rows(public val indexColumnKey: String, public val parentTable: Table) : T
                     row.values
                             .filterIsInstance<Row>()
                             .forEach {
-                                val assocRow = association.findAssociatingRows(it)?.let { assocRows ->
+                                val assocRow = assocResults.match(it)?.let { assocRows ->
                                     it.put(association.getColumnTitle(), assocRows)
                                     assocRows
                                 }
