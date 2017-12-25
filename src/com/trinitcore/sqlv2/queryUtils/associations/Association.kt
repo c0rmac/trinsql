@@ -2,10 +2,7 @@ package com.trinitcore.sqlv2.queryUtils.associations
 
 import com.trinitcore.sqlv2.commonUtils.QMap
 import com.trinitcore.sqlv2.commonUtils.row.Row
-import com.trinitcore.sqlv2.commonUtils.row.RowType
-import com.trinitcore.sqlv2.commonUtils.row.Rows
 import com.trinitcore.sqlv2.queryObjects.Table
-import com.trinitcore.sqlv2.queryUtils.builders.AssociationBuilder
 import com.trinitcore.sqlv2.queryUtils.builders.Query
 import com.trinitcore.sqlv2.queryUtils.parameters.Where
 
@@ -21,7 +18,7 @@ class Association : GenericAssociation, GenericAssociationsManager {
     public val parameters: Associating
     internal val notArray: Boolean
 
-    public val indexQueryParameters: Where = Where()
+
     val queryTable: Table
 
     constructor(tableName: String, notArray: Boolean = false, parameters: Associating) {
@@ -32,6 +29,7 @@ class Association : GenericAssociation, GenericAssociationsManager {
         queryTable.indexColumnKey = parameters.childColumnName
     }
 
+    public val indexQueryParameters: Where = Where()
     public fun addQueryIndex(row: Row) {
         row[parameters.columnName]?.let {
             indexQueryParameters.orEqualValues(

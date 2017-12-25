@@ -4,8 +4,9 @@ import com.trinitcore.sqlv2.commonUtils.Defaults
 import com.trinitcore.sqlv2.commonUtils.QMap
 import com.trinitcore.sqlv2.commonUtils.then
 import com.trinitcore.sqlv2.queryObjects.Table
-import com.trinitcore.sqlv2.queryUtils.associations.Association
-import com.trinitcore.sqlv2.queryUtils.associations.Associations
+import com.trinitcore.sqlv2.queryUtils.associationV2.Associations
+import com.trinitcore.sqlv2.queryUtils.associationV2.GenericAssociationHandler
+import com.trinitcore.sqlv2.queryUtils.associationV2.table.handler.TableAssociationHandler
 import com.trinitcore.sqlv2.queryUtils.parameters.Where
 import org.json.simple.JSONArray
 import java.util.*
@@ -16,6 +17,8 @@ import java.util.*
 class Rows(public val indexColumnKey: String, public val parentTable: Table) : TreeMap<Any, RowType>(), RowType {
 
     public var associations: Associations = Associations()
+    public lateinit var associationHandlers: Map<String, GenericAssociationHandler>
+
     public var associationsAdded = false
 
     public val dispatchedUpdates = mutableListOf<(rows: Rows) -> Unit>()
@@ -85,8 +88,8 @@ class Rows(public val indexColumnKey: String, public val parentTable: Table) : T
 
     override fun put(key: Any, value: RowType): RowType? {
         if (value is Row) {
-            for (association in associations.values) {
-                if (association is Association) association.addQueryIndex(row = value)
+            for (association in associationHandlers.values) {
+                if (association is TableAssociationHandler) association.addQueryIndex(row = value)
             }
         }
         var multiValuedReturn = handleMultipleValues(key, value)
@@ -182,7 +185,9 @@ class Rows(public val indexColumnKey: String, public val parentTable: Table) : T
 
     // These methods must run runDispatchedUpdates()
     fun addAllAssociations() {
-        fun dealWithEmptyAssociations(association: Association, assocObject: Any?, row: Row) {
+        associationHandlers = associations.handlers()
+
+        fun dealWithEmptyAssociations(association: TableAssociationHandler, assocObject: Any?, row: Row) {
             if (association.parameters.deleteRowIfNotFound && assocObject == null)
                 dispatchedUpdates.add({
                     remove(row.getID(), row)
@@ -215,25 +220,24 @@ class Rows(public val indexColumnKey: String, public val parentTable: Table) : T
         }
 
         for (row in this.values) {
-            for (association in associations.values) {
-                val assocResults = association.findAssociatingResults()
+            for (associationHandler in associationHandlers.values) {
                 if (row is Row) {
-                    val assocRow = assocResults.match(row)?.let { assocRows ->
-                        row.put(association.getColumnTitle(), assocRows)
+                    val assocRow = associationHandler.match(row)?.let { assocRows ->
+                        row.put(associationHandler.tableAssociation.getColumnTitle(), assocRows)
                         assocRows
                     }
 
-                    if (association is Association) dealWithEmptyAssociations(association, assocRow, row)
+                    if (associationHandler is TableAssociationHandler) dealWithEmptyAssociations(associationHandler, assocRow, row)
                 } else if (row is Rows) {
                     row.values
                             .filterIsInstance<Row>()
                             .forEach {
-                                val assocRow = assocResults.match(it)?.let { assocRows ->
-                                    it.put(association.getColumnTitle(), assocRows)
+                                val assocRow = associationHandler.match(it)?.let { assocRows ->
+                                    it.put(associationHandler.tableAssociation.getColumnTitle(), assocRows)
                                     assocRows
                                 }
 
-                                if (association is Association) dealWithEmptyAssociations(association, assocRow, it)
+                                if (associationHandler is TableAssociationHandler) dealWithEmptyAssociations(associationHandler, assocRow, it)
                             }
                 }
             }

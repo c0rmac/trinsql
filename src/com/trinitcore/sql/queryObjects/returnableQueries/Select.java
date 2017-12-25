@@ -150,7 +150,7 @@ public class Select extends QueryObject implements Association.Listener{
 
     public void resetWhere() {
         System.out.println("Resetting where in table " + table + " " + this.whereQuery);
-        // Wrapping it in this to prevent the Association Listener delegate from calling associatingTableDidChange
+        // Wrapping it in this to prevent the GenericAssociation Listener delegate from calling associatingTableDidChange
         if (!this.whereQuery.equals("")) {
             this.whereQuery = "";
             this.whereParameters.clear();
@@ -168,7 +168,7 @@ public class Select extends QueryObject implements Association.Listener{
 
     public void resetLimit() {
         System.out.println("Resetting limit in table " + table + " " + this.limitQuery);
-        // Wrapping it in this to prevent the Association Listener delegate from calling associatingTableDidChange
+        // Wrapping it in this to prevent the GenericAssociation Listener delegate from calling associatingTableDidChange
         if (!this.limitQuery.equals("")) {
             this.limitQuery = "";
             this.limitParameters.clear();

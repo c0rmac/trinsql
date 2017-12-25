@@ -2,11 +2,8 @@ import com.trinitcore.sqlv2.commonUtils.AssociatingQMap
 import com.trinitcore.sqlv2.commonUtils.QMap
 import com.trinitcore.sqlv2.queryObjects.SQL
 import com.trinitcore.sqlv2.queryObjects.Table
-import com.trinitcore.sqlv2.queryUtils.associations.Association
 import com.trinitcore.sqlv2.queryUtils.connection.PostgresConnectionManager
 import com.trinitcore.sqlv2.queryUtils.associations.Associating
-import com.trinitcore.sqlv2.queryUtils.builders.AssociationBuilder
-import com.trinitcore.sqlv2.queryUtils.parameters.Where
 import java.security.SecureRandom
 import java.util.*
 

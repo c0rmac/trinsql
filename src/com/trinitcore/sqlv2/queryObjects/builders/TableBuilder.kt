@@ -1,10 +1,9 @@
 package com.trinitcore.sqlv2.queryObjects.builders
 
 import com.trinitcore.sqlv2.queryObjects.Table
-import com.trinitcore.sqlv2.queryUtils.associations.Associations
+import com.trinitcore.sqlv2.queryUtils.associationV2.Associations
 import com.trinitcore.sqlv2.queryUtils.associations.GenericAssociation
 import com.trinitcore.sqlv2.queryUtils.associations.GenericAssociationsManager
-import com.trinitcore.sqlv2.queryUtils.builders.AssociationBuilder
 
 class TableBuilder(public val tableName: String,
                        private var tableColumns: Array<out String> = arrayOf()) : GenericAssociationsManager {

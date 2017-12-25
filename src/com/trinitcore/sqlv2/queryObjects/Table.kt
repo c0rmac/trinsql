@@ -6,16 +6,16 @@ import com.trinitcore.sqlv2.commonUtils.MultiAssociatingQMap
 import com.trinitcore.sqlv2.commonUtils.QMap
 import com.trinitcore.sqlv2.commonUtils.row.Row
 import com.trinitcore.sqlv2.commonUtils.row.Rows
-import com.trinitcore.sqlv2.queryUtils.associations.Association
-import com.trinitcore.sqlv2.queryUtils.associations.Associations
-import com.trinitcore.sqlv2.queryUtils.associations.GenericAssociation
+import com.trinitcore.sqlv2.queryUtils.associationV2.Associations
+import com.trinitcore.sqlv2.queryUtils.associationV2.GenericAssociation
+import com.trinitcore.sqlv2.queryUtils.associationV2.GenericAssociationsManager
+import com.trinitcore.sqlv2.queryUtils.associationV2.table.TableAssociation
+import com.trinitcore.sqlv2.queryUtils.associationV2.table.handler.TableAssociationHandler
 import com.trinitcore.sqlv2.queryUtils.builders.Query
 import com.trinitcore.sqlv2.queryUtils.builders.Query.DELETE
 import com.trinitcore.sqlv2.queryUtils.builders.Query.INSERT
 import com.trinitcore.sqlv2.queryUtils.builders.Query.SELECT
 import com.trinitcore.sqlv2.queryUtils.builders.Query.UPDATE
-import com.trinitcore.sqlv2.queryUtils.associations.GenericAssociationsManager
-import com.trinitcore.sqlv2.queryUtils.builders.AssociationBuilder
 import com.trinitcore.sqlv2.queryUtils.builders.Query.SELECT_COUNT
 import com.trinitcore.sqlv2.queryUtils.parameters.Where
 import com.trinitcore.sqlv2.queryUtils.parameters.columns.Column
@@ -54,12 +54,6 @@ class Table : GenericAssociationsManager {
 
     public override fun addAssociation(association: GenericAssociation): Table {
         this.associations.put(association.getColumnTitle(), association)
-        return this
-    }
-
-    override fun addAssociation(association: AssociationBuilder): Table {
-        val build = association.build()
-        this.associations.put(build.getColumnTitle(),build)
         return this
     }
 
@@ -147,9 +141,10 @@ class Table : GenericAssociationsManager {
     }
 
     private fun dealWithSubValueInsertTransactions(subValues: MutableList<AssociatingQMap>, subMultiValues: MutableList<MultiAssociatingQMap>, createdRow: Row) {
+        val associationHandlers = associations.handlers()
         for (subValue in subValues) {
-            val association = associations[subValue.key]
-            if (association is Association) {
+            val association = associationHandlers[subValue.key]
+            if (association is TableAssociationHandler) {
                 val associationParameters = association.parameters
                 association.queryTable.insertValues(
                         subValue.getValueAsQMapArray().toList()
@@ -159,9 +154,9 @@ class Table : GenericAssociationsManager {
         }
 
         for (subMultiValue in subMultiValues) {
-            val association = associations[subMultiValue.key]
-            if (association is Association) {
-                val associationParameters = association?.parameters!!
+            val association = associationHandlers[subMultiValue.key]
+            if (association is TableAssociationHandler) {
+                val associationParameters = association.parameters
 
                 val preparedSubValues = subMultiValue.getValueAsQMapArrays().map {
                     it.toList()

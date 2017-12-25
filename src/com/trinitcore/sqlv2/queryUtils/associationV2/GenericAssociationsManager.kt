@@ -1,4 +1,4 @@
-package com.trinitcore.sqlv2.queryUtils.associations
+package com.trinitcore.sqlv2.queryUtils.associationV2
 
 /**
  * Created by Cormac on 19/08/2017.
