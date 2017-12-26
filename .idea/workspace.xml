@@ -10,30 +10,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f94f2a41-c5ac-47eb-85fb-61856aa17cc4" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/Associating.kt" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/Associations.kt" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/GenericAssociation.kt" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/GenericAssociationHandler.kt" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/GenericAssociationsManager.kt" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/format/ReformatAssociation.kt" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/format/handler/ReformatAssociationHandler.kt" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/RowAssociation.kt" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/RowsAssociation.kt" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/TableAssociation.kt" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/handler/TableAssociationHandler.kt" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/Main.kt" afterPath="$PROJECT_DIR$/src/Main.kt" />
-      <change beforePath="$PROJECT_DIR$/src/com/trinitcore/sql/queryObjects/returnableQueries/Select.java" afterPath="$PROJECT_DIR$/src/com/trinitcore/sql/queryObjects/returnableQueries/Select.java" />
       <change beforePath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/commonUtils/row/Rows.kt" afterPath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/commonUtils/row/Rows.kt" />
       <change beforePath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryObjects/Table.kt" afterPath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryObjects/Table.kt" />
       <change beforePath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryObjects/builders/TableBuilder.kt" afterPath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryObjects/builders/TableBuilder.kt" />
-      <change beforePath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/AssociatingResults.kt" afterPath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/AssociatingResults.kt" />
-      <change beforePath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/Association.kt" afterPath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/Association.kt" />
-      <change beforePath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/Associations.kt" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/GenericAssociatingResults.kt" afterPath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/GenericAssociatingResults.kt" />
-      <change beforePath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/GenericAssociationsManager.kt" afterPath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/GenericAssociationsManager.kt" />
-      <change beforePath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/ReformatAssociatingResults.kt" afterPath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/ReformatAssociatingResults.kt" />
-      <change beforePath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/builders/AssociationBuilder.kt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/GenericAssociation.kt" afterPath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/GenericAssociation.kt" />
+      <change beforePath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/TableAssociation.kt" afterPath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/TableAssociation.kt" />
+      <change beforePath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/handler/TableAssociationHandler.kt" afterPath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/handler/TableAssociationHandler.kt" />
+      <change beforePath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/Associating.kt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/AssociatingResults.kt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/Association.kt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/DateReformatAssociation.kt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/GenericAssociatingResults.kt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/GenericAssociation.kt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/GenericAssociationsManager.kt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/ReformatAssociatingResults.kt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/ReformatAssociation.kt" afterPath="" />
     </list>
     <ignored path=".idea/dataSources.local.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -48,113 +41,78 @@
     <option name="PATCH_PATH" value="" />
   </component>
   <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
     <option name="GROUP_SCHEMA" value="true" />
     <option name="GROUP_CONTENTS" value="false" />
     <option name="SORT_POSITIONED" value="false" />
     <option name="SHOW_TABLE_DETAILS" value="true" />
     <option name="SHOW_EMPTY_GROUPS" value="false" />
     <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
-    <PATH>
-      <PATH_ELEMENT>
-        <option name="myItemId" />
-        <option name="myItemType" value="com.intellij.database.view.DatabaseStructure$Root" />
-      </PATH_ELEMENT>
-      <PATH_ELEMENT>
-        <option name="myItemId" value="trinsqltest@localhost" />
-        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
-      </PATH_ELEMENT>
-    </PATH>
-    <PATH>
-      <PATH_ELEMENT>
-        <option name="myItemId" />
-        <option name="myItemType" value="com.intellij.database.view.DatabaseStructure$Root" />
-      </PATH_ELEMENT>
-      <PATH_ELEMENT>
-        <option name="myItemId" value="trinsqltest@localhost" />
-        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
-      </PATH_ELEMENT>
-      <PATH_ELEMENT>
-        <option name="myItemId" />
-        <option name="myItemType" value="com.intellij.database.view.DatabaseStructure$GroupNode" />
-      </PATH_ELEMENT>
-    </PATH>
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="Sqlite (Xerial) - identifier.sqlite" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="trinsqltest@localhost" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="trinsqltest@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="trinsqltest: database" type="6d9b600a:PostgresImplModel$Database" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="trinsqltest@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="trinsqltest: database" type="6d9b600a:PostgresImplModel$Database" />
+        <item name="public: schema" type="a16502c0:PostgresImplModel$Schema" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="trinsqltest@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="trinsqltest: database" type="6d9b600a:PostgresImplModel$Database" />
+        <item name="public: schema" type="a16502c0:PostgresImplModel$Schema" />
+        <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+    </expand>
+    <select />
   </component>
   <component name="FavoritesManager">
     <favorites_list name="trinsql" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ReformatAssociation.kt" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/format/ReformatAssociation.kt">
+      <file leaf-file-name="Main.kt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Main.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="29" lean-forward="false" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
+            <state relative-caret-position="366">
+              <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
               <folding>
-                <element signature="e#62#355#0" expanded="true" />
+                <element signature="e#0#517#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ReformatAssociationHandler.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/format/handler/ReformatAssociationHandler.kt">
+      <file leaf-file-name="TableBuilder.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryObjects/builders/TableBuilder.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="109" lean-forward="true" selection-start-line="7" selection-start-column="109" selection-end-line="7" selection-end-column="109" />
+            <state relative-caret-position="357">
+              <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
               <folding>
-                <element signature="e#70#344#0" expanded="true" />
+                <element signature="e#52#316#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TableAssociationHandler.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/handler/TableAssociationHandler.kt">
+      <file leaf-file-name="GenericAssociation.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/GenericAssociation.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="12" column="139" lean-forward="false" selection-start-line="12" selection-start-column="139" selection-end-line="12" selection-end-column="139" />
-              <folding>
-                <element signature="e#69#587#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ReformatAssociatingResults.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/ReformatAssociatingResults.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ReformatAssociation.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/ReformatAssociation.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="5" lean-forward="true" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GenericAssociatingResults.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/GenericAssociatingResults.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="7" column="1" lean-forward="true" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GenericAssociationsManager.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/GenericAssociationsManager.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+            <state relative-caret-position="34">
+              <caret line="2" column="33" lean-forward="false" selection-start-line="2" selection-start-column="33" selection-end-line="2" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -163,20 +121,52 @@
       <file leaf-file-name="TableAssociation.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/TableAssociation.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="1" lean-forward="true" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
+            <state relative-caret-position="85">
+              <caret line="9" column="11" lean-forward="false" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
               <folding>
-                <element signature="e#61#367#0" expanded="true" />
+                <element signature="e#61#447#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GenericAssociationHandler.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/GenericAssociationHandler.kt">
+      <file leaf-file-name="RowAssociation.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/RowAssociation.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+            <state relative-caret-position="85">
+              <caret line="5" column="41" lean-forward="false" selection-start-line="4" selection-start-column="38" selection-end-line="5" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TableAssociationHandler.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/handler/TableAssociationHandler.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="492">
+              <caret line="32" column="45" lean-forward="false" selection-start-line="32" selection-start-column="45" selection-end-line="32" selection-end-column="45" />
+              <folding>
+                <element signature="e#69#587#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RowsAssociation.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/RowsAssociation.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" column="29" lean-forward="false" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Rows.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/commonUtils/row/Rows.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="19" column="84" lean-forward="false" selection-start-line="19" selection-start-column="84" selection-end-line="19" selection-end-column="84" />
               <folding />
             </state>
           </provider>
@@ -185,11 +175,19 @@
       <file leaf-file-name="Table.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryObjects/Table.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="300" column="0" lean-forward="true" selection-start-line="300" selection-start-column="0" selection-end-line="300" selection-end-column="0" />
-              <folding>
-                <element signature="e#43#1247#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="242">
+              <caret line="300" column="51" lean-forward="false" selection-start-line="300" selection-start-column="51" selection-end-line="300" selection-end-column="51" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GenericAssociationsManager.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/GenericAssociationsManager.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -208,7 +206,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>commentsofcomments</find>
       <find>findBYid</find>
       <find>4235</find>
       <find>toJSON</find>
@@ -238,6 +235,7 @@
       <find>addAllAssociations</find>
       <find>dealWithSubValueInsertTransactions</find>
       <find>associations</find>
+      <find>associationHandlers</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -271,11 +269,9 @@
         <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/parameters/Associating.kt" />
         <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/builders/GenericBuilder.kt" />
         <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/parameters/GenericParameters.kt" />
-        <option value="$PROJECT_DIR$/src/Main.kt" />
         <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/parameters/Where.kt" />
         <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/builders/Query.kt" />
         <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/commonUtils/QMap.kt" />
-        <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryObjects/builders/TableBuilder.kt" />
         <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/commonUtils/row/Row.kt" />
         <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/builders/AssociationBuilder.kt" />
         <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/GenericAssociation.kt" />
@@ -289,22 +285,24 @@
         <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/module/ModulesAssociation.kt" />
         <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/module/ModuleAssociation.kt" />
         <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/module/GenericModuleAssociation.kt" />
-        <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/Association.kt" />
         <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/Associating.kt" />
-        <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/TableAssociation.kt" />
         <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/RowAssociation.kt" />
         <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/RowsAssociation.kt" />
         <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/Associations.kt" />
-        <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/GenericAssociation.kt" />
-        <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/handler/TableAssociationHandler.kt" />
         <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/GenericAssociationsManager.kt" />
-        <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/commonUtils/row/Rows.kt" />
-        <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryObjects/Table.kt" />
         <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/Associations.kt" />
         <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/GenericAssociationsManager.kt" />
         <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/format/ReformatAssociation.kt" />
         <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/format/handler/ReformatAssociationHandler.kt" />
         <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/GenericAssociationHandler.kt" />
+        <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/GenericAssociation.kt" />
+        <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/TableAssociation.kt" />
+        <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryObjects/builders/TableBuilder.kt" />
+        <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/Association.kt" />
+        <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryObjects/Table.kt" />
+        <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/commonUtils/row/Rows.kt" />
+        <option value="$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/handler/TableAssociationHandler.kt" />
+        <option value="$PROJECT_DIR$/src/Main.kt" />
       </list>
     </option>
   </component>
@@ -338,7 +336,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="AndroidView" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -422,15 +423,6 @@
               <item name="trinitcore" type="462c0819:PsiDirectoryNode" />
               <item name="sqlv2" type="462c0819:PsiDirectoryNode" />
               <item name="queryUtils" type="462c0819:PsiDirectoryNode" />
-              <item name="associations" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="trinsql" type="b2602c69:ProjectViewProjectNode" />
-              <item name="trinsql" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="trinitcore" type="462c0819:PsiDirectoryNode" />
-              <item name="sqlv2" type="462c0819:PsiDirectoryNode" />
-              <item name="queryUtils" type="462c0819:PsiDirectoryNode" />
               <item name="associationV2" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -477,9 +469,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1113,7 +1102,8 @@
       <workItem from="1514057193340" duration="207000" />
       <workItem from="1514058432885" duration="155000" />
       <workItem from="1514058619954" duration="4415000" />
-      <workItem from="1514197695145" duration="15537000" />
+      <workItem from="1514197695145" duration="16827000" />
+      <workItem from="1514305721342" duration="900000" />
     </task>
     <task id="LOCAL-00001" summary="Include apache common lang jar">
       <created>1481473730582</created>
@@ -1311,11 +1301,18 @@
       <option name="project" value="LOCAL" />
       <updated>1514066839441</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Reformed associations as V2">
+      <created>1514222517480</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1514222517480</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="360371000" />
+    <option name="totallyTimeSpent" value="362561000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1328,34 +1325,35 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="974" height="1047" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2766191" sideWeight="0.49786553" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27929902" sideWeight="0.50213444" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3274918" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32827735" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3274918" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3501094" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2001224" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35776806" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19912472" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35784853" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35886675" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27826086" sideWeight="0.49786553" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Floobits" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -1395,7 +1393,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Forced array in assocaition parameters" />
     <MESSAGE value="Fixed minor parametrise issues" />
     <MESSAGE value="New association features" />
     <MESSAGE value="Included new where functions" />
@@ -1420,14 +1417,15 @@
     <MESSAGE value="Ascending and Descending parameters added to Where" />
     <MESSAGE value="Set default table columns to blank array" />
     <MESSAGE value="Separate results in Association class to AssociationResults object." />
-    <option name="LAST_COMMIT_MESSAGE" value="Separate results in Association class to AssociationResults object." />
+    <MESSAGE value="Reformed associations as V2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Reformed associations as V2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="90" />
+      <option name="time" value="93" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1473,20 +1471,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/builders/AssociationBuilder.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="24" column="39" lean-forward="false" selection-start-line="24" selection-start-column="39" selection-end-line="24" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/builders/AssociationBuilder.kt" />
     <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryObjects/Table.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4471">
           <caret line="282" column="17" lean-forward="false" selection-start-line="282" selection-start-column="17" selection-end-line="282" selection-end-column="17" />
-          <folding>
-            <element signature="e#43#1247#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1511,7 +1501,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#0#517#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1546,16 +1538,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryObjects/builders/TableBuilder.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding>
-            <element signature="e#52#314#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/connection/PostgresConnectionManager.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
@@ -1567,6 +1549,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="1" lean-forward="false" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1588,14 +1571,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
           <caret line="33" column="73" lean-forward="false" selection-start-line="33" selection-start-column="73" selection-end-line="33" selection-end-column="73" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="28" column="39" lean-forward="false" selection-start-line="28" selection-start-column="39" selection-end-line="28" selection-end-column="39" />
           <folding />
         </state>
       </provider>
@@ -1624,58 +1599,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/module/ModuleAssociation.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="38" lean-forward="true" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/module/ModulesAssociation.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="1" lean-forward="true" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/module/GenericModuleAssociation.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/Association.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="583">
-          <caret line="46" column="0" lean-forward="true" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/RowAssociation.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="41" lean-forward="false" selection-start-line="4" selection-start-column="38" selection-end-line="5" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/module/ModuleAssociation.kt" />
+    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/module/ModulesAssociation.kt" />
+    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/module/GenericModuleAssociation.kt" />
     <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/Associating.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="22" column="13" lean-forward="false" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/GenericAssociation.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="68" lean-forward="false" selection-start-line="8" selection-start-column="68" selection-end-line="8" selection-end-column="68" />
           <folding />
         </state>
       </provider>
@@ -1688,14 +1618,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/builders/AssociationBuilder.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="39" column="1" lean-forward="false" selection-start-line="39" selection-start-column="1" selection-end-line="39" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/builders/AssociationBuilder.kt" />
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/util/HashMap.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="295">
@@ -1720,72 +1643,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/GenericAssociation.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="34" lean-forward="false" selection-start-line="2" selection-start-column="34" selection-end-line="2" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/GenericAssociationsManager.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/commonUtils/row/Rows.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="188" column="0" lean-forward="false" selection-start-line="187" selection-start-column="53" selection-end-line="188" selection-end-column="0" />
-          <folding>
-            <element signature="e#46#575#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/Associations.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/RowsAssociation.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="26" lean-forward="false" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/TableAssociation.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="1" lean-forward="true" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
-          <folding>
-            <element signature="e#61#367#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryObjects/Table.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="300" column="0" lean-forward="true" selection-start-line="300" selection-start-column="0" selection-end-line="300" selection-end-column="0" />
-          <folding>
-            <element signature="e#43#1247#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/GenericAssociationsManager.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1806,16 +1667,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/handler/TableAssociationHandler.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="12" column="139" lean-forward="false" selection-start-line="12" selection-start-column="139" selection-end-line="12" selection-end-column="139" />
-          <folding>
-            <element signature="e#69#587#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/ReformatAssociation.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
@@ -1828,9 +1679,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="109" lean-forward="true" selection-start-line="7" selection-start-column="109" selection-end-line="7" selection-end-column="109" />
-          <folding>
-            <element signature="e#70#344#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1844,10 +1692,122 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/format/ReformatAssociation.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="29" lean-forward="false" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
+        <state relative-caret-position="272">
+          <caret line="16" column="1" lean-forward="true" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
           <folding>
-            <element signature="e#62#355#0" expanded="true" />
+            <element signature="e#62#355#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/GenericAssociationsManager.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/GenericAssociationsManager.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/GenericAssociation.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="68" lean-forward="false" selection-start-line="8" selection-start-column="68" selection-end-line="8" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/GenericAssociation.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="33" lean-forward="false" selection-start-line="2" selection-start-column="33" selection-end-line="2" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/RowAssociation.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="41" lean-forward="false" selection-start-line="4" selection-start-column="38" selection-end-line="5" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/TableAssociation.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="9" column="11" lean-forward="false" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
+          <folding>
+            <element signature="e#61#447#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryObjects/builders/TableBuilder.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding>
+            <element signature="e#52#316#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associations/Association.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="31" column="42" lean-forward="true" selection-start-line="31" selection-start-column="42" selection-end-line="31" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/RowsAssociation.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="29" lean-forward="false" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryObjects/Table.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="300" column="51" lean-forward="false" selection-start-line="300" selection-start-column="51" selection-end-line="300" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/commonUtils/row/Rows.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="19" column="84" lean-forward="false" selection-start-line="19" selection-start-column="84" selection-end-line="19" selection-end-column="84" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/trinitcore/sqlv2/queryUtils/associationV2/table/handler/TableAssociationHandler.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="492">
+          <caret line="32" column="45" lean-forward="false" selection-start-line="32" selection-start-column="45" selection-end-line="32" selection-end-column="45" />
+          <folding>
+            <element signature="e#69#587#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="366">
+          <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#517#0" expanded="true" />
           </folding>
         </state>
       </provider>

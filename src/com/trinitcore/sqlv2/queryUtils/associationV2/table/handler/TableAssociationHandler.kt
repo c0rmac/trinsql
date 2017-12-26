@@ -14,6 +14,7 @@ class TableAssociationHandler(tableAssociation: TableAssociation, val parameters
 
     val queryTable: Table = Table(tableAssociation.tableName)
     var queryRows: Rows? = null
+    val notArray = tableAssociation.notArray
 
     init {
         queryTable.indexColumnKey = parameters.childColumnName
@@ -29,14 +30,14 @@ class TableAssociationHandler(tableAssociation: TableAssociation, val parameters
     }
 
     override fun match(matchingRow: Row): Any? {
-        if (queryRows == null) queryTable.find(where = Where().join(indexQueryParameters, Query.AND, true).join(parameters.generateWhereParameters(), Query.AND))
+        if (queryRows == null) this.queryRows = queryTable.find(where = Where().join(indexQueryParameters, Query.AND, true).join(parameters.generateWhereParameters(), Query.AND))
         val child = this.queryRows!![matchingRow[parameters.columnName]]
         if (child is Rows) {
-            if (tableAssociation.notArray) return child.firstEntry().value
+            if (notArray) return child.firstEntry().value
             return child
         } else if (child is Row) {
             // This usually happens when child indexColumnKey = ID for the queryTable
-            if (tableAssociation.notArray) return child
+            if (notArray) return child
 
             val childRows = Rows(parameters.childColumnName, child.parentTable)
             childRows.put(matchingRow[parameters.columnName]!!, child)

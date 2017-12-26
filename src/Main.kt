@@ -2,8 +2,10 @@ import com.trinitcore.sqlv2.commonUtils.AssociatingQMap
 import com.trinitcore.sqlv2.commonUtils.QMap
 import com.trinitcore.sqlv2.queryObjects.SQL
 import com.trinitcore.sqlv2.queryObjects.Table
+import com.trinitcore.sqlv2.queryUtils.associationV2.Associating
+import com.trinitcore.sqlv2.queryUtils.associationV2.table.RowsAssociation
 import com.trinitcore.sqlv2.queryUtils.connection.PostgresConnectionManager
-import com.trinitcore.sqlv2.queryUtils.associations.Associating
+import com.trinitcore.sqlv2.queryUtils.parameters.Where
 import java.security.SecureRandom
 import java.util.*
 
@@ -27,12 +29,13 @@ fun main(args: Array<String>) {
 
     val appointments = Table("appointments")
             .addAssociation(
-                    AssociationBuilder("messages", false, Associating("ID", "messages", "appointmentID"))
+                    RowsAssociation("messages", Associating("ID", "messages", "appointmentID"))
                             .addAssociation(
-                                    AssociationBuilder("users", true, Associating("senderUserID", "userDetails", "ID"))
+                                    RowsAssociation("users", Associating("senderUserID", "userDetails", "ID"))
                             )
             )
 
+    /*
     appointments.insert(
             QMap("ID", 184),
             AssociatingQMap("messages",
@@ -41,6 +44,11 @@ fun main(args: Array<String>) {
                     QMap("dateTime", Date().time)
             )
     )
+    */
+    val a = appointments.find(Where().andEqualValue("ID",184))
+    val b = appointments.find(Where().andEqualValue("ID",184))
+    val c = appointments.find(Where().andEqualValue("ID",184))
+    println(a)
 }
 
 class RandomString @JvmOverloads constructor(length: Int = 21, random: Random = SecureRandom(), symbols: String = alphanum) {

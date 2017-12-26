@@ -298,6 +298,7 @@ class Table : GenericAssociationsManager {
 
         val rows = Rows(indexColumnKey, this)
         rows.associations = this.associations
+        rows.associationHandlers = this.associations.handlers()
 
         SQL.session({
             val results = SQL.returnable(sqlString, where.getQueryParameters().toTypedArray())

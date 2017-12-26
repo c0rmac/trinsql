@@ -17,7 +17,7 @@ import java.util.*
 class Rows(public val indexColumnKey: String, public val parentTable: Table) : TreeMap<Any, RowType>(), RowType {
 
     public var associations: Associations = Associations()
-    public lateinit var associationHandlers: Map<String, GenericAssociationHandler>
+    public var associationHandlers: Map<String, GenericAssociationHandler> = mapOf()
 
     public var associationsAdded = false
 
@@ -185,7 +185,6 @@ class Rows(public val indexColumnKey: String, public val parentTable: Table) : T
 
     // These methods must run runDispatchedUpdates()
     fun addAllAssociations() {
-        associationHandlers = associations.handlers()
 
         fun dealWithEmptyAssociations(association: TableAssociationHandler, assocObject: Any?, row: Row) {
             if (association.parameters.deleteRowIfNotFound && assocObject == null)
