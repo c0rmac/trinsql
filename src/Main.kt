@@ -33,14 +33,31 @@ fun main(args: Array<String>) {
                     RowsAssociation("adviser_category_selection", Associating("ID", "categoryID", "userID"))
             )
     users.insert(QMap("ID",62), AssociatingQMap("categoryID", QMap("categoryID",1)))
-    users.insert(QMap("ID",62), AssociatingQMap("categoryID", QMap("categoryID",2)))
 
     val user = users.findRowByID(62)!!
-
     val categories = user["categoryID"] as Rows
-    //categories.delete(Where().value("userID", 62))
+    categories.delete(Where().value("userID", 62))
 
-    //categories.multiValueInsert()
+    users.insert(QMap("ID",62), AssociatingQMap("categoryID", QMap("categoryID",1)))
+
+    val user2 = users.findRowByID(62)!!
+    val categories2 = user2["categoryID"] as Rows
+    categories2.delete(Where().value("userID", 62))
+
+    categories2.multiValueInsert(
+            arrayOf(
+                    arrayOf(QMap("userID", 62), QMap("categoryID",1)),
+                    arrayOf(QMap("userID", 62), QMap("categoryID",2)),
+                    arrayOf(QMap("userID", 62), QMap("categoryID",3)),
+                    arrayOf(QMap("userID", 62), QMap("categoryID",4)),
+                    arrayOf(QMap("userID", 62), QMap("categoryID",5)),
+                    arrayOf(QMap("userID", 62), QMap("categoryID",6)),
+                    arrayOf(QMap("userID", 62), QMap("categoryID",7)),
+                    arrayOf(QMap("userID", 62), QMap("categoryID",8)),
+                    arrayOf(QMap("userID", 62), QMap("categoryID",9))
+                    )
+    )
+    //categories2.delete(Where().value("userID", 62))
 }
 
 class RandomString @JvmOverloads constructor(length: Int = 21, random: Random = SecureRandom(), symbols: String = alphanum) {

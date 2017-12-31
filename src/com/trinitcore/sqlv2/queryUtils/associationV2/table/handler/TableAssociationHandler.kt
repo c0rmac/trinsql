@@ -1,5 +1,6 @@
 package com.trinitcore.sqlv2.queryUtils.associationV2.table.handler
 
+import com.trinitcore.sqlv2.commonUtils.Defaults
 import com.trinitcore.sqlv2.commonUtils.QMap
 import com.trinitcore.sqlv2.commonUtils.row.Row
 import com.trinitcore.sqlv2.commonUtils.row.Rows
@@ -40,8 +41,8 @@ class TableAssociationHandler(tableAssociation: TableAssociation, val parameters
             // This usually happens when child indexColumnKey = ID for the queryTable
             if (notArray) return child
 
-            val childRows = Rows(parameters.childColumnName, child.parentTable)
-            childRows.put(matchingRow[parameters.columnName]!!, child)
+            val childRows = Rows(Defaults.indexColumnKey, child.parentTable)
+            childRows.put(child[Defaults.indexColumnKey]!!, child)
             return childRows
         }
         return null

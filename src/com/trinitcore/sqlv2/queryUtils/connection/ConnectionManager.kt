@@ -36,7 +36,7 @@ abstract class ConnectionManager {
             fun doSleep() {
                 try {
                     println("Sleeping")
-                    Thread.sleep(1000 * 10)
+                    Thread.sleep(1000 * 60 * 5)
                 } catch (e: InterruptedException) {
                     println("Close connection timeout has been reset")
                     doSleep()
