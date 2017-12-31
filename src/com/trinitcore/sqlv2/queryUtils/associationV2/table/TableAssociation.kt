@@ -10,7 +10,10 @@ import com.trinitcore.sqlv2.queryUtils.associationV2.table.handler.TableAssociat
 open class TableAssociation(val tableName: String,
                             val notArray: Boolean,
                             val parameters: Associating) : GenericAssociation(), GenericAssociationsManager {
+    val associations = mutableListOf<GenericAssociation>()
+
     override fun addAssociation(association: GenericAssociation): TableAssociation {
+        associations.add(association)
         return this
     }
 

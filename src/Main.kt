@@ -1,5 +1,6 @@
 import com.trinitcore.sqlv2.commonUtils.AssociatingQMap
 import com.trinitcore.sqlv2.commonUtils.QMap
+import com.trinitcore.sqlv2.commonUtils.row.Rows
 import com.trinitcore.sqlv2.queryObjects.SQL
 import com.trinitcore.sqlv2.queryObjects.Table
 import com.trinitcore.sqlv2.queryUtils.associationV2.Associating
@@ -27,28 +28,19 @@ fun main(args: Array<String>) {
     //SQL.sharedConnection = PostgresConnectionManager("localhost","trinsqltest", "postgres", "@C[]4m9c17")
     SQL.sharedConnection = PostgresConnectionManager("ec2-23-23-220-163.compute-1.amazonaws.com", "dali3p5b9n1bn", "kkrjxuzslvuuqh", "d14d0dd9116a0be25834fe489e56a8409cd6e51d9a7fcbd84fff91b3672dc401", true)
 
-    val appointments = Table("appointments")
+    val users = Table("users")
             .addAssociation(
-                    RowsAssociation("messages", Associating("ID", "messages", "appointmentID"))
-                            .addAssociation(
-                                    RowsAssociation("users", Associating("senderUserID", "userDetails", "ID"))
-                            )
+                    RowsAssociation("adviser_category_selection", Associating("ID", "categoryID", "userID"))
             )
+    users.insert(QMap("ID",62), AssociatingQMap("categoryID", QMap("categoryID",1)))
+    users.insert(QMap("ID",62), AssociatingQMap("categoryID", QMap("categoryID",2)))
 
-    /*
-    appointments.insert(
-            QMap("ID", 184),
-            AssociatingQMap("messages",
-                    QMap("content", "lah"),
-                    QMap("senderUserID", 55),
-                    QMap("dateTime", Date().time)
-            )
-    )
-    */
-    val a = appointments.find(Where().andEqualValue("ID",184))
-    val b = appointments.find(Where().andEqualValue("ID",184))
-    val c = appointments.find(Where().andEqualValue("ID",184))
-    println(a)
+    val user = users.findRowByID(62)!!
+
+    val categories = user["categoryID"] as Rows
+    //categories.delete(Where().value("userID", 62))
+
+    //categories.multiValueInsert()
 }
 
 class RandomString @JvmOverloads constructor(length: Int = 21, random: Random = SecureRandom(), symbols: String = alphanum) {

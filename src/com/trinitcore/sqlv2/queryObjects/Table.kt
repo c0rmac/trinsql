@@ -130,7 +130,9 @@ class Table : GenericAssociationsManager {
     public fun delete(where: Where): Rows? {
         return SQL.session({
             val sqlString = DELETE(tableName) + where.toString()
-            val rowsToDelete = find(where,false)
+
+            // Note: Creating new table because if this table is used as an association, it may have a different indexColumnKey.
+            val rowsToDelete = Table(tableName).find(where,false)
             if (rowsToDelete.size != 0) {
                 if (SQL.noneReturnable(sqlString, where.getQueryParameters().toTypedArray())) {
                     return rowsToDelete
@@ -146,8 +148,9 @@ class Table : GenericAssociationsManager {
             val association = associationHandlers[subValue.key]
             if (association is TableAssociationHandler) {
                 val associationParameters = association.parameters
+                val valuesQMap = subValue.getValueAsQMapArray().toList()
                 association.queryTable.insertValues(
-                        subValue.getValueAsQMapArray().toList()
+                        valuesQMap
                                 .plus(element = QMap(associationParameters.childColumnName, createdRow[associationParameters.columnName]!!))
                                 .toTypedArray())
             }

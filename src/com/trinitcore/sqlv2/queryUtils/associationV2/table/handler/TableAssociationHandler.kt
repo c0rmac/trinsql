@@ -18,6 +18,7 @@ class TableAssociationHandler(tableAssociation: TableAssociation, val parameters
 
     init {
         queryTable.indexColumnKey = parameters.childColumnName
+        tableAssociation.associations.forEach { queryTable.associations.addAssociation(it) }
     }
 
     public val indexQueryParameters: Where = Where()

@@ -5,8 +5,8 @@ import com.trinitcore.sqlv2.queryUtils.associationV2.GenericAssociation
 import com.trinitcore.sqlv2.queryUtils.associationV2.GenericAssociationHandler
 import com.trinitcore.sqlv2.queryUtils.associationV2.format.handler.ReformatAssociationHandler
 
-class ReformatAssociation(val newColumnTitle: String,
-                          val reformationHandler: (row: Row) -> Any?) : GenericAssociation() {
+open class ReformatAssociation(val newColumnTitle: String,
+                               val reformationHandler: (row: Row) -> Any?) : GenericAssociation() {
     override fun generateAssociationHandler(): GenericAssociationHandler {
         return ReformatAssociationHandler(reformationHandler, this)
     }

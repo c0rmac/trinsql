@@ -46,12 +46,13 @@ class Rows(public val indexColumnKey: String, public val parentTable: Table) : T
     }
     */
 
+    // Warning: May remove reference of this object!!
     public fun rowValues(): List<Row> {
-        return this.values.map { it as Row }
+        return this.values.filterIsInstance<Row>()
     }
 
     public fun rowsValues(): List<Rows> {
-        return this.values.map { it as Rows }
+        return this.values.filterIsInstance<Rows>()
     }
 
     public fun findRowsByColumnValue(column: String, value: Any) : Rows {
@@ -120,7 +121,8 @@ class Rows(public val indexColumnKey: String, public val parentTable: Table) : T
 
     public fun delete(where: Where): Rows? {
         return this.parentTable.delete(where)?.let { deletedRowValues ->
-            for (row in deletedRowValues.rowValues()) {
+            val deletedRows = deletedRowValues.rowValues()
+            for (row in deletedRows) {
                 remove(row[indexColumnKey]!!, row)
             }
             return deletedRowValues

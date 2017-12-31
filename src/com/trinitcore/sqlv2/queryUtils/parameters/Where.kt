@@ -9,6 +9,7 @@ import com.trinitcore.sqlv2.queryUtils.builders.Query
  */
 class Where : GenericParameters {
     private var queryString: String = Query.WHERE
+    private var queryColumns: MutableList<String> = mutableListOf()
     private var queryParameters: MutableList<Any> = mutableListOf()
 
     private var orderQueryString: String = ""
@@ -18,8 +19,14 @@ class Where : GenericParameters {
         }
 
         for (parameter in parameters) {
-            this.queryString += Query.WHERE(column = parameter.key, equalizer = equalizer) + nameSpace
-            this.queryParameters.add(parameter.value)
+            val dontAdd = queryColumns
+                    .filterIndexed { i, column -> column == parameter.key && queryParameters[i] == parameter.value }
+                    .any()
+            if (!dontAdd) {
+                this.queryColumns.add(parameter.key)
+                this.queryString += Query.WHERE(column = parameter.key, equalizer = equalizer) + nameSpace
+                this.queryParameters.add(parameter.value)
+            }
         }
         this.queryString = this.queryString.removeSuffix(suffix = nameSpace)
     }
