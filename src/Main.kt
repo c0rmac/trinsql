@@ -1,9 +1,11 @@
 import com.trinitcore.sqlv2.commonUtils.AssociatingQMap
 import com.trinitcore.sqlv2.commonUtils.QMap
+import com.trinitcore.sqlv2.commonUtils.row.Row
 import com.trinitcore.sqlv2.commonUtils.row.Rows
 import com.trinitcore.sqlv2.queryObjects.SQL
 import com.trinitcore.sqlv2.queryObjects.Table
 import com.trinitcore.sqlv2.queryUtils.associationV2.Associating
+import com.trinitcore.sqlv2.queryUtils.associationV2.format.ReformatAssociation
 import com.trinitcore.sqlv2.queryUtils.associationV2.table.RowsAssociation
 import com.trinitcore.sqlv2.queryUtils.connection.PostgresConnectionManager
 import com.trinitcore.sqlv2.queryUtils.parameters.Where
@@ -28,35 +30,28 @@ fun main(args: Array<String>) {
     //SQL.sharedConnection = PostgresConnectionManager("localhost","trinsqltest", "postgres", "@C[]4m9c17")
     SQL.sharedConnection = PostgresConnectionManager("ec2-23-23-220-163.compute-1.amazonaws.com", "dali3p5b9n1bn", "kkrjxuzslvuuqh", "d14d0dd9116a0be25834fe489e56a8409cd6e51d9a7fcbd84fff91b3672dc401", true)
 
+    val minHourAssoc = ReformatAssociation("min", { row -> return@ReformatAssociation row["minimumHour"].toString() + ":" + row["minimumMinute"] })
+    val maxHourAssoc = ReformatAssociation("max", { row -> return@ReformatAssociation row["maximumHour"].toString() + ":" + row["maximumMinute"] })
+
     val users = Table("users")
-            .addAssociation(
-                    RowsAssociation("adviser_category_selection", Associating("ID", "categoryID", "userID"))
+            .addAssociation(RowsAssociation("adviser_unavailable_time_ranges",
+                    Associating("ID","unavailableTimeRanges","userID")
+                            .skipRowIfParentRowExcludesValue("userType",1)
+                            .blankRowsIfMatchNotFound()
             )
-    users.insert(QMap("ID",62), AssociatingQMap("categoryID", QMap("categoryID",1)))
+                    .addAssociation(minHourAssoc)
+                    .addAssociation(maxHourAssoc)
+            )
+    val row = users.find(Where().value("ID",62))[62] as Row
+    val rows = row["unavailableTimeRanges"] as Rows
+    rows.delete(Where().value("userID", 62))
 
-    val user = users.findRowByID(62)!!
-    val categories = user["categoryID"] as Rows
-    categories.delete(Where().value("userID", 62))
+    rows.multiValueInsert(arrayOf(
+            arrayOf(QMap("minimumHour",1), QMap("minimumMinute",1), QMap("maximumHour",2), QMap("maximumMinute",2), QMap("userID",62)),
+            arrayOf(QMap("minimumHour",1), QMap("minimumMinute",1), QMap("maximumHour",2), QMap("maximumMinute",2), QMap("userID",62))
+    ))
 
-    users.insert(QMap("ID",62), AssociatingQMap("categoryID", QMap("categoryID",1)))
-
-    val user2 = users.findRowByID(62)!!
-    val categories2 = user2["categoryID"] as Rows
-    categories2.delete(Where().value("userID", 62))
-
-    categories2.multiValueInsert(
-            arrayOf(
-                    arrayOf(QMap("userID", 62), QMap("categoryID",1)),
-                    arrayOf(QMap("userID", 62), QMap("categoryID",2)),
-                    arrayOf(QMap("userID", 62), QMap("categoryID",3)),
-                    arrayOf(QMap("userID", 62), QMap("categoryID",4)),
-                    arrayOf(QMap("userID", 62), QMap("categoryID",5)),
-                    arrayOf(QMap("userID", 62), QMap("categoryID",6)),
-                    arrayOf(QMap("userID", 62), QMap("categoryID",7)),
-                    arrayOf(QMap("userID", 62), QMap("categoryID",8)),
-                    arrayOf(QMap("userID", 62), QMap("categoryID",9))
-                    )
-    )
+    val a = rows.toJSONArray()
     //categories2.delete(Where().value("userID", 62))
 }
 

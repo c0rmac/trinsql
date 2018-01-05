@@ -17,6 +17,10 @@ import java.util.*
 class Rows(public val indexColumnKey: String, public val parentTable: Table) : TreeMap<Any, RowType>(), RowType {
 
     public var associations: Associations = Associations()
+    set(value) {
+        associationHandlers = value.handlers()
+    }
+
     public var associationHandlers: Map<String, GenericAssociationHandler> = mapOf()
 
     public var associationsAdded = false
@@ -111,6 +115,7 @@ class Rows(public val indexColumnKey: String, public val parentTable: Table) : T
                 remove(row[indexColumnKey]!!, row)
                 put(row[indexColumnKey]!!, row)
             }
+            didPerformUpdates()
             return updatedRowValues
         }
     }
@@ -125,6 +130,7 @@ class Rows(public val indexColumnKey: String, public val parentTable: Table) : T
             for (row in deletedRows) {
                 remove(row[indexColumnKey]!!, row)
             }
+            didPerformUpdates()
             return deletedRowValues
         }
     }
@@ -132,6 +138,7 @@ class Rows(public val indexColumnKey: String, public val parentTable: Table) : T
     public fun insert(vararg values: QMap): Row? {
         return parentTable.insertValues(values)?.let { row ->
             put(row[indexColumnKey]!!, row)
+            didPerformUpdates()
             return row
         }
     }
@@ -141,6 +148,7 @@ class Rows(public val indexColumnKey: String, public val parentTable: Table) : T
             for (row in insertedRows.rowValues()) {
                 put(row[indexColumnKey]!!, row)
             }
+            didPerformUpdates()
             return insertedRows
         }
     }
@@ -161,6 +169,7 @@ class Rows(public val indexColumnKey: String, public val parentTable: Table) : T
             } else {
                 // Create a list for multiple rows
                 val newMultiValues = Rows(Defaults.indexColumnKey, parentTable)
+                newMultiValues.associations = parentTable.associations
                 val initialRowValue = multiValues as Row
                 val newRowValue = value as Row
 
@@ -193,13 +202,13 @@ class Rows(public val indexColumnKey: String, public val parentTable: Table) : T
                 dispatchedUpdates.add({
                     remove(row.getID(), row)
                 })
-            else if (association.parameters.skipRowIfExcludedMatchFound && assocObject == null) {
+            else if (association.parameters.skipParentRowIfMatchNotFound && assocObject == null) {
                 dispatchedUpdates.add({
                     remove(row.getID(), row)
                 })
             }
             /*
-            else if (association.parameters.shouldMatches.isNotEmpty() && association.parameters.skipRowIfExcludedMatchFound) {
+            else if (association.parameters.shouldMatches.isNotEmpty() && association.parameters.skipParentRowIfMatchNotFound) {
                 association.parameters.shouldMatches.forEach { column, value ->
                     if (assocObject is Row) {
                         if (assocObject[column] == value) {
@@ -220,6 +229,7 @@ class Rows(public val indexColumnKey: String, public val parentTable: Table) : T
             }*/
         }
 
+        val handlers = associationHandlers.values
         for (row in this.values) {
             for (associationHandler in associationHandlers.values) {
                 if (row is Row) {
@@ -264,6 +274,7 @@ class Rows(public val indexColumnKey: String, public val parentTable: Table) : T
 
     fun remove(key: Any, row: Row) {
         runDispatchedUpdates()
+
         get(key)?.let { value ->
             when (value) {
                 is Rows -> {
@@ -277,9 +288,27 @@ class Rows(public val indexColumnKey: String, public val parentTable: Table) : T
         }
     }
 
+    override fun remove(key: Any) : RowType? {
+        val rowType = super.remove(key)
+        if (rowType is Row) {
+            for (association in associationHandlers.values) {
+                if (association is TableAssociationHandler) association.removeQueryIndex(row = rowType)
+            }
+        }
+        return rowType
+    }
+
     override fun get(key: Any): RowType? {
         runDispatchedUpdates()
         return super.get(key)
+    }
+
+    fun willPerformUpdates() {
+
+    }
+
+    fun didPerformUpdates() {
+        addAllAssociations()
     }
 
     private fun runDispatchedUpdates() {

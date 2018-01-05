@@ -191,4 +191,17 @@ class Where : GenericParameters {
         return this
     }
 
+    fun removeOrEqualValue(column: String, value: Any) {
+        for (i in 0..column.length) {
+            if (column == queryColumns[i] && value == queryParameters[i]) {
+                queryColumns.removeAt(i)
+                queryParameters.removeAt(i)
+
+                val query = Query.WHERE(column = column, equalizer = Query.EQUALS)
+                queryString = queryString.replaceFirst(query, "").replaceFirst(Query.OR,"")
+                break;
+            }
+        }
+    }
+
 }

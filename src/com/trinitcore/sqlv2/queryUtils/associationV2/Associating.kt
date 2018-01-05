@@ -8,20 +8,30 @@ class Associating(val columnName: String, columnTitle: String? = null, public va
     public val columnTitle = columnTitle ?: columnName
 
     public var deleteRowIfNotFound = false
+
+    val skipParentRowHasValues = hashMapOf<String,Any>()
+    val skipParentRowExcludesValues = hashMapOf<String,Any>()
+
     fun deleteRowIfNotFound(): Associating {
         this.deleteRowIfNotFound = true
         return this
     }
 
     private val shouldMatches = hashMapOf<String, Any>()
-    var skipRowIfExcludedMatchFound = false
+    var skipParentRowIfMatchNotFound = false
     fun shouldMatch(column:String, value:Any) : Associating {
         shouldMatches[column] = value
         return this
     }
 
-    fun skipRowIfExcludedMatchFound() : Associating {
-        skipRowIfExcludedMatchFound = true
+    var blankRowsIfMatchNotFound = false
+    fun blankRowsIfMatchNotFound() : Associating {
+        blankRowsIfMatchNotFound = true
+        return this
+    }
+
+    fun skipParentRowIfMatchNotFound() : Associating {
+        skipParentRowIfMatchNotFound = true
         return this
     }
 
@@ -31,5 +41,16 @@ class Associating(val columnName: String, columnTitle: String? = null, public va
             where.andEqualValue(column, value)
         }
         return where
+    }
+
+    // Parameters for optimising queries
+    fun skipRowIfParentRowHasValue(column: String, value: Any) : Associating {
+        skipParentRowHasValues[column] = value
+        return this
+    }
+
+    fun skipRowIfParentRowExcludesValue(column: String, value: Any) : Associating {
+        skipParentRowExcludesValues[column] = value
+        return this
     }
 }
