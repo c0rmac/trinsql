@@ -41,7 +41,7 @@ open class Row(public val parentTable: Table, public val parentRows: Rows? = nul
         return Where().andEqualValues(QMap(Defaults.indexColumnKey, get(Defaults.indexColumnKey)!!))
     }
 
-    public fun update(vararg values:QMap) {
+    fun update(vararg values:QMap) {
         this.parentTable.updateValues(getUniqueWhere(), values)?.let {
             it.indexAsRow(0).forEach { t, u ->
                 put(t, u)

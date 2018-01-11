@@ -14,5 +14,6 @@
     <orderEntry type="library" name="SQL" level="application" />
     <orderEntry type="library" name="KotlinJavaRuntime" level="project" />
     <orderEntry type="library" name="postgresql-42.1.4" level="project" />
+    <orderEntry type="library" name="AdvancedServletDevelopment" level="project" />
   </component>
 </module>

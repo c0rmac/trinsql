@@ -14,7 +14,7 @@ import java.util.*
 /**
  * Created by Cormac on 17/08/2017.
  */
-class Rows(public val indexColumnKey: String, public val parentTable: Table) : TreeMap<Any, RowType>(), RowType {
+open class Rows(public val indexColumnKey: String, public val parentTable: Table) : TreeMap<Any, RowType>(), RowType {
 
     public var associations: Associations = Associations()
     set(value) {
