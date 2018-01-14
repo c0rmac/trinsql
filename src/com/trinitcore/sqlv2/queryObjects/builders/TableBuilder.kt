@@ -5,8 +5,8 @@ import com.trinitcore.sqlv2.queryUtils.associationV2.Associations
 import com.trinitcore.sqlv2.queryUtils.associationV2.GenericAssociation
 import com.trinitcore.sqlv2.queryUtils.associationV2.GenericAssociationsManager
 
-class TableBuilder(public val tableName: String,
-                       private var tableColumns: Array<out String> = arrayOf()) : GenericAssociationsManager {
+open class TableBuilder(public val tableName: String,
+                        private var tableColumns: Array<out String> = arrayOf()) : GenericAssociationsManager {
     public var associations = Associations()
 
     override fun addAssociation(association: GenericAssociation): TableBuilder {
@@ -14,7 +14,7 @@ class TableBuilder(public val tableName: String,
         return this
     }
 
-    fun build():Table {
+    open fun build():Table {
         val build = Table(tableName)
         build.associations = associations
         return build

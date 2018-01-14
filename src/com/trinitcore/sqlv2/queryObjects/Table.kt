@@ -25,7 +25,7 @@ import java.sql.ResultSet
  * Created by Cormac on 17/08/2017.
  */
 
-class Table : GenericAssociationsManager {
+open class Table : GenericAssociationsManager {
 
     public val tableName: String
     private var tableColumns: Array<out String>
@@ -292,14 +292,16 @@ class Table : GenericAssociationsManager {
         } as Int
     }
 
-    public fun find(where: Where = Where(), associations: Boolean): Rows {
+    internal open fun rowsCreation() : Rows = Rows(indexColumnKey, this)
+
+    open fun find(where: Where = Where(), associations: Boolean): Rows {
         permanentQueryParameters?.let {
             where.join(it, permanentQueryParametersSeparator!!)
         }
 
         val sqlString = SELECT(this.tableName, this.tableColumns) + where.toString()
 
-        val rows = Rows(indexColumnKey, this)
+        val rows = rowsCreation()
         rows.associations = this.associations
 
         SQL.session({

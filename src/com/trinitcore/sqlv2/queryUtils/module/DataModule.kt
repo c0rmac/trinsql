@@ -1,28 +1,53 @@
 package com.trinitcore.sqlv2.queryUtils.module
 
 import com.trinitcore.asd.requestTools.SessionAttributes
+import com.trinitcore.sqlv2.commonUtils.QMap
 import com.trinitcore.sqlv2.commonUtils.row.Row
 import com.trinitcore.sqlv2.commonUtils.row.RowType
 import com.trinitcore.sqlv2.queryObjects.Table
-import com.trinitcore.sqlv2.queryUtils.module.annotations.Attribute
-import kotlin.reflect.KClass
-import kotlin.reflect.KMutableProperty
+import java.lang.reflect.InvocationHandler
+import java.lang.reflect.Method
+import kotlin.properties.ReadWriteProperty
+import kotlin.reflect.*
 import kotlin.reflect.full.*
 import kotlin.reflect.jvm.isAccessible
+import kotlin.reflect.jvm.javaField
 
+class Attribute<T: Any>(val columnName: String = "") :
+        ReadWriteProperty<Any?, T> {
+    private val fieldHolder = FieldHolder<T>()
+
+    override fun getValue(thisRef: Any?, property: KProperty<*>): T {
+        return fieldHolder.field
+    }
+    override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
+        val didInit = fieldHolder.didInit
+        fieldHolder.field = value
+        if (didInit) (thisRef as? DataModule)?.handleUpdate(property.name, value)
+        fieldHolder.didInit = true
+    }
+
+    class FieldHolder<T: Any> {
+        var didInit = false
+        lateinit var field: T
+    }
+}
 
 internal object RowPool {
 
     val rowModule = hashMapOf<KClass<*>, Map<String,KMutableProperty<*>>>()
 
-    fun registerModule(rowTypeKClass: KClass<*>) {
+    fun registerModule(rowTypeKClass: KClass<*>, instance: DataModule) {
         if (!rowModule.containsKey(rowTypeKClass)) {
             val initialisableProperties = hashMapOf<String,KMutableProperty<*>>()
+
             rowTypeKClass.memberProperties.forEach { memberProperty ->
-                if (memberProperty is KMutableProperty<*>) {
-                    memberProperty.findAnnotation<Attribute>()?.let {
-                        memberProperty.isAccessible = true
-                        val name = if (it.columnName == "") memberProperty.name else it.columnName
+                memberProperty.isAccessible = true
+                if (memberProperty is KMutableProperty1<*,*>) {
+                    val columnName = (memberProperty as KMutableProperty1<DataModule, *>).getDelegate(instance)?.let { (it as? Attribute<*>)?.columnName }
+
+                    columnName?.let {
+                        val name = if (it == "") memberProperty.name else it
                         initialisableProperties.put(name, memberProperty)
                     }
                 }
@@ -35,31 +60,61 @@ internal object RowPool {
         return rowModule[rowTypeKClass]!!
     }
 }
+ open class DataModule : RowType, InvocationHandler {
+     override fun invoke(proxy: Any?, method: Method?, args: Array<out Any>?): Any? {
 
-abstract class DataModule : RowType {
+         return null
+     }
 
-    abstract val parentTable: Table
+     companion object {
+         fun newInstance(obj: Any, interfaces: Array<Class<*>>): DataModule {
+             return java.lang.reflect.Proxy.newProxyInstance(obj.javaClass.classLoader,
+                     interfaces,
+                     DataModule()) as DataModule
+         }
+     }
 
-    init {
-        RowPool.registerModule(this::class)
+     val parentTable: Table = Table("")
+
+    private fun genericInitialisation(map: Map<String,Any>) {
+        RowPool.registerModule(this::class, this)
+        optimisedInitialisation(map)
     }
 
     var optimisedInitialisation = true
 
-    @Attribute var ID: Int = 0
+    var ID: Int by Attribute()
 
     fun handlePropertyInitialisation(property: KMutableProperty<*>, subModulePostInitialisation: (module: DataModule) -> Unit, primitiveValueRetrieval: () -> Any?) {
         val returnType = property.returnType
         if (returnType.isSubtypeOf(DataModule::class.starProjectedType)) {
             val instance = (returnType.classifier as KClass<*>).createInstance() as DataModule
             subModulePostInitialisation(instance)
-            property.setter.call(this, instance)
+            val javaField = property.javaField!!
+            javaField.isAccessible = true
+            property.javaField!!.set(this, instance)
         } else {
             property.setter.call(this, primitiveValueRetrieval())
         }
     }
 
+    fun update(vararg qMaps: QMap) {
+        println("Updating")
+        parentTable.updateByID(ID, *qMaps)
+        /*
+        val attributes = RowPool.findInitialisableProperties(this::class)
+        for (qMap in qMaps) {
+            attributes.filter { it.key == qMap.key }
+        }
+        */
+    }
+
+    fun handleUpdate(propertyName: String, value: Any) {
+        update(QMap(propertyName, value))
+    }
+
     fun initialiseAttributes(row: Row) {
+        genericInitialisation(row as Map<String, Any>)
         if (!optimisedInitialisation)
             RowPool.findInitialisableProperties(this::class).forEach {
                 val key = it.key
@@ -72,6 +127,7 @@ abstract class DataModule : RowType {
     }
 
     fun initialiseAttributes(prefix: String, sessionAttributes: SessionAttributes<*>) {
+        genericInitialisation(sessionAttributes as Map<String, Any>)
         if (!optimisedInitialisation)
             RowPool.findInitialisableProperties(this::class).forEach {
                 val key = prefix + "::" + it.key
@@ -85,6 +141,8 @@ abstract class DataModule : RowType {
             }
     }
 
+    open fun attributes() : Map<String, Any>? = null
+
     open fun optimisedInitialisation(data : Map<String,Any>) {
         optimisedInitialisation = false
     }
@@ -92,11 +150,8 @@ abstract class DataModule : RowType {
 }
 
 class TestModule : DataModule() {
-    override val parentTable: Table
-        get() = Table("")
 
-    override fun optimisedInitialisation(data: Map<String,Any>) {
-
-    }
+    var firstname: String by Attribute()
+    var lastname: String by Attribute()
 
 }

@@ -1,13 +1,11 @@
-import com.trinitcore.sqlv2.commonUtils.AssociatingQMap
-import com.trinitcore.sqlv2.commonUtils.QMap
 import com.trinitcore.sqlv2.commonUtils.row.Row
-import com.trinitcore.sqlv2.commonUtils.row.Rows
 import com.trinitcore.sqlv2.queryObjects.SQL
 import com.trinitcore.sqlv2.queryObjects.Table
 import com.trinitcore.sqlv2.queryUtils.associationV2.Associating
 import com.trinitcore.sqlv2.queryUtils.associationV2.format.ReformatAssociation
 import com.trinitcore.sqlv2.queryUtils.associationV2.table.RowsAssociation
 import com.trinitcore.sqlv2.queryUtils.connection.PostgresConnectionManager
+import com.trinitcore.sqlv2.queryUtils.module.TestModule
 import com.trinitcore.sqlv2.queryUtils.parameters.Where
 import java.security.SecureRandom
 import java.util.*
@@ -26,7 +24,29 @@ fun measureOperation(stream: () -> Unit) : Long {
 }
 
 fun main(args: Array<String>) {
+    SQL.sharedConnection = PostgresConnectionManager("ec2-23-23-220-163.compute-1.amazonaws.com", "dali3p5b9n1bn", "kkrjxuzslvuuqh", "d14d0dd9116a0be25834fe489e56a8409cd6e51d9a7fcbd84fff91b3672dc401", true)
 
+    val minHourAssoc = ReformatAssociation("min", { row -> return@ReformatAssociation row["minimumHour"].toString() + ":" + row["minimumMinute"] })
+    val maxHourAssoc = ReformatAssociation("max", { row -> return@ReformatAssociation row["maximumHour"].toString() + ":" + row["maximumMinute"] })
+
+    val users = Table("users")
+            .addAssociation(RowsAssociation("adviser_unavailable_time_ranges",
+                    Associating("ID","unavailableTimeRanges","userID")
+                            .skipRowIfParentRowExcludesValue("userType",1)
+                            .blankRowsIfMatchNotFound()
+            )
+                    .addAssociation(minHourAssoc)
+                    .addAssociation(maxHourAssoc)
+            )
+    val row = users.find(Where().value("ID",62))[62] as Row
+
+    val instance = TestModule()
+    instance.initialiseAttributes(row)
+
+    instance.lastname = "Hey"
+
+    instance
+    /*
     //SQL.sharedConnection = PostgresConnectionManager("localhost","trinsqltest", "postgres", "@C[]4m9c17")
     SQL.sharedConnection = PostgresConnectionManager("ec2-23-23-220-163.compute-1.amazonaws.com", "dali3p5b9n1bn", "kkrjxuzslvuuqh", "d14d0dd9116a0be25834fe489e56a8409cd6e51d9a7fcbd84fff91b3672dc401", true)
 
@@ -53,6 +73,7 @@ fun main(args: Array<String>) {
 
     val a = rows.toJSONArray()
     //categories2.delete(Where().value("userID", 62))
+    */
 }
 
 class RandomString @JvmOverloads constructor(length: Int = 21, random: Random = SecureRandom(), symbols: String = alphanum) {

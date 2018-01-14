@@ -63,8 +63,10 @@ open class Rows(public val indexColumnKey: String, public val parentTable: Table
         return findRowsByColumnValue(arrayOf(QMap(column, value)))
     }
 
+    internal open fun rowsCreation(indexColumnKey: String = Defaults.indexColumnKey) : Rows = Rows(indexColumnKey, parentTable)
+
     public fun findRowsByColumnValue(parameterMap: Array<QMap>) : Rows {
-        val rows = Rows(indexColumnKey = indexColumnKey, parentTable = parentTable)
+        val rows = rowsCreation(indexColumnKey)
         this.values.forEach {
             when (it) {
                 is Rows -> {
@@ -91,12 +93,16 @@ open class Rows(public val indexColumnKey: String, public val parentTable: Table
         return rows
     }
 
-    override fun put(key: Any, value: RowType): RowType? {
+    fun handleInsertRowAssociations(value: RowType) {
         if (value is Row) {
             for (association in associationHandlers.values) {
                 if (association is TableAssociationHandler) association.addQueryIndex(row = value)
             }
         }
+    }
+
+    override fun put(key: Any, value: RowType): RowType? {
+        handleInsertRowAssociations(value)
         var multiValuedReturn = handleMultipleValues(key, value)
         return (multiValuedReturn != null) then multiValuedReturn ?: super.put(key, value)
     }
@@ -168,7 +174,7 @@ open class Rows(public val indexColumnKey: String, public val parentTable: Table
                 return super.put(key, multiValues)
             } else {
                 // Create a list for multiple rows
-                val newMultiValues = Rows(Defaults.indexColumnKey, parentTable)
+                val newMultiValues = rowsCreation()
                 newMultiValues.associations = parentTable.associations
                 val initialRowValue = multiValues as Row
                 val newRowValue = value as Row
