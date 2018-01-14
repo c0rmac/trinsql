@@ -5,16 +5,19 @@ import com.trinitcore.sqlv2.commonUtils.QMap
 import com.trinitcore.sqlv2.commonUtils.row.Row
 import com.trinitcore.sqlv2.commonUtils.row.Rows
 import com.trinitcore.sqlv2.queryObjects.Table
+import com.trinitcore.sqlv2.queryObjects.builders.ModuleTableBuilder
 import com.trinitcore.sqlv2.queryObjects.builders.TableBuilder
 import com.trinitcore.sqlv2.queryUtils.associationV2.Associating
 import com.trinitcore.sqlv2.queryUtils.associationV2.GenericAssociationHandler
 import com.trinitcore.sqlv2.queryUtils.associationV2.table.TableAssociation
 import com.trinitcore.sqlv2.queryUtils.builders.Query
+import com.trinitcore.sqlv2.queryUtils.module.DataModule
+import com.trinitcore.sqlv2.queryUtils.module.DataModules
 import com.trinitcore.sqlv2.queryUtils.parameters.Where
 
 class TableAssociationHandler(override val tableAssociation: TableAssociation, val parameters: Associating) : GenericAssociationHandler(tableAssociation) {
 
-    val queryTableBuilder: TableBuilder = TableBuilder(tableAssociation.tableName)
+    val queryTableBuilder: TableBuilder = tableAssociation.moduleInitialisation?.let { ModuleTableBuilder(tableAssociation.tableName, moduleInitialisation = it) } ?: TableBuilder(tableAssociation.tableName)
     val queryTable: Table
     var queryRows: Rows? = null
     val notArray = tableAssociation.notArray
@@ -48,7 +51,8 @@ class TableAssociationHandler(override val tableAssociation: TableAssociation, v
 
         fun blankRows() : Rows {
             val table = queryTableBuilder.build()
-            val rows = Rows(Defaults.indexColumnKey, table)
+            val rows = if (tableAssociation.moduleInitialisation != null) DataModules<DataModule>(Defaults.indexColumnKey, table, tableAssociation.moduleInitialisation!!)
+                                else Rows(Defaults.indexColumnKey, table)
             rows.associations = table.associations
             return rows
         }
