@@ -9,7 +9,7 @@ import org.json.simple.JSONObject
 /**
  * Created by Cormac on 17/08/2017.
  */
-open class Row(public val parentTable: Table, public val parentRows: Rows? = null) : HashMap<String, Any?>(), RowType {
+open class Row(public val parentTable: Table, public val parentRows: Rows? = null) : HashMap<String, Any?>(), SingularRowType {
 
     public fun hasAssociatingValues(associationName: String, associatingColumn: String, associatingValue: Any) : Boolean {
         return get(associationName)?.let {
@@ -62,8 +62,8 @@ open class Row(public val parentTable: Table, public val parentRows: Rows? = nul
         })
     }
 
-    fun getID() : Any? {
-        return get(parentTable.indexColumnKey)
+    override fun getID() : Int {
+        return get(Defaults.indexColumnKey) as Int
     }
 
 }

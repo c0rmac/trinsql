@@ -42,9 +42,9 @@ open class Table : GenericAssociationsManager {
     constructor(named: String, vararg columns: Column<out Any>) {
         this.tableName = named
         // this.tableColumns = columns.map { it.name }.toTypedArray()
-        SQL.session({
+        /*SQL.session({
             SQL.noneReturnable(Query.CREATE(named, columns))
-        })
+        })*/
         tableColumns = emptyArray()
     }
 
@@ -244,11 +244,11 @@ open class Table : GenericAssociationsManager {
         return insertValues(values = values)
     }
 
-    public fun findRow(): Row? {
+    open fun findRow(): Row? {
         return findRow(Where())
     }
 
-    public fun findRow(where: Where): Row? {
+    open fun findRow(where: Where): Row? {
         return find(where).firstEntry()?.value as? Row?
     }
 
@@ -262,15 +262,15 @@ open class Table : GenericAssociationsManager {
         return findRow(Where().andEqualValues(QMap(indexColumnKey, key)))
     }
 
-    public fun findByID(key: Any): Rows {
+    open fun findByID(key: Any): Rows {
         return find(Where().andEqualValues(QMap(indexColumnKey, key)))
     }
 
-    public fun find(): Rows {
+    open fun find(): Rows {
         return find(where = Where())
     }
 
-    public fun find(where: Where = Where()): Rows {
+    open fun find(where: Where = Where()): Rows {
         return find(where, true)
     }
 

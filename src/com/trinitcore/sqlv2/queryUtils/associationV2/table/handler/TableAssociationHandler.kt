@@ -4,6 +4,7 @@ import com.trinitcore.sqlv2.commonUtils.Defaults
 import com.trinitcore.sqlv2.commonUtils.QMap
 import com.trinitcore.sqlv2.commonUtils.row.Row
 import com.trinitcore.sqlv2.commonUtils.row.Rows
+import com.trinitcore.sqlv2.commonUtils.row.SingularRowType
 import com.trinitcore.sqlv2.queryObjects.Table
 import com.trinitcore.sqlv2.queryObjects.builders.ModuleTableBuilder
 import com.trinitcore.sqlv2.queryObjects.builders.TableBuilder
@@ -81,12 +82,12 @@ class TableAssociationHandler(override val tableAssociation: TableAssociation, v
             if (child is Rows) {
                 if (notArray) return child.firstEntry().value
                 return child
-            } else if (child is Row) {
+            } else if (child is SingularRowType) {
                 // This usually happens when child indexColumnKey = ID for the queryTable
                 if (notArray) return child
 
                 val childRows = blankRows()
-                childRows.put(child[Defaults.indexColumnKey]!!, child)
+                childRows.put(child.getID(), child)
                 return childRows
             }
         }

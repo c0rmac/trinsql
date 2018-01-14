@@ -7,6 +7,7 @@ import com.trinitcore.sqlv2.queryObjects.Table
 import com.trinitcore.sqlv2.queryUtils.associationV2.Associations
 import com.trinitcore.sqlv2.queryUtils.associationV2.GenericAssociationHandler
 import com.trinitcore.sqlv2.queryUtils.associationV2.table.handler.TableAssociationHandler
+import com.trinitcore.sqlv2.queryUtils.module.DataModule
 import com.trinitcore.sqlv2.queryUtils.parameters.Where
 import org.json.simple.JSONArray
 import java.util.*
@@ -164,27 +165,29 @@ open class Rows(public val indexColumnKey: String, public val parentTable: Table
     }
 
     private fun handleMultipleValues(key: Any, value: Any): RowType? {
-        if (get(key) != null) {
-            // Deal with multiple columns in an index column
-            val multiValues = get(key)
-            if (multiValues is Rows) {
-                // Add row to existing array
-                val rowValue = value as Row
-                multiValues.put(rowValue[multiValues.indexColumnKey]!!, rowValue)
-                return super.put(key, multiValues)
-            } else {
-                // Create a list for multiple rows
-                val newMultiValues = rowsCreation()
-                newMultiValues.associations = parentTable.associations
-                val initialRowValue = multiValues as Row
-                val newRowValue = value as Row
+        if (indexColumnKey != Defaults.indexColumnKey) {
+            if (get(key) != null) {
+                // Deal with multiple columns in an index column
+                val multiValues = get(key)
+                if (multiValues is Rows) {
+                    // Add row to existing array
+                    val rowValue = value as Row
+                    multiValues.put(rowValue[multiValues.indexColumnKey]!!, rowValue)
+                    return super.put(key, multiValues)
+                } else if (multiValues is Row) {
+                    // Create a list for multiple rows
+                    val newMultiValues = rowsCreation()
+                    newMultiValues.associations = parentTable.associations
+                    val initialRowValue = multiValues
+                    val newRowValue = value as Row
 
-                newMultiValues.put(newRowValue[Defaults.indexColumnKey]!!, newRowValue)
-                newMultiValues.put(initialRowValue[Defaults.indexColumnKey]!!, initialRowValue)
+                    newMultiValues.put(newRowValue[Defaults.indexColumnKey]!!, newRowValue)
+                    newMultiValues.put(initialRowValue[Defaults.indexColumnKey]!!, initialRowValue)
 
-                // val multiValuesWrapper = Row()
-                // multiValuesWrapper.put(indexColumnKey, newMultiValues)
-                return super.put(key, newMultiValues)
+                    // val multiValuesWrapper = Row()
+                    // multiValuesWrapper.put(indexColumnKey, newMultiValues)
+                    return super.put(key, newMultiValues)
+                }
             }
         }
         return null
@@ -256,6 +259,18 @@ open class Rows(public val indexColumnKey: String, public val parentTable: Table
 
                                 if (associationHandler is TableAssociationHandler) dealWithEmptyAssociations(associationHandler, assocRow, it)
                             }
+                } else if (row is DataModule) {
+                    val assocRow = associationHandler.match(row.row)?.let { assocRows ->
+                        /* if (associationHandler is TableAssociationHandler) {
+                            associationHandler.tableAssociation.moduleInitialisation?.let {
+                                row.initialiseAttribute(associationHandler.tableAssociation.getColumnTitle(), assocRows)
+                            }
+                        } else */row.initialiseAttribute(associationHandler.tableAssociation.getColumnTitle(), assocRows)
+                        //row.put(associationHandler.tableAssociation.getColumnTitle(), assocRows)
+                        assocRows
+                    }
+
+                    //if (associationHandler is TableAssociationHandler) dealWithEmptyAssociations(associationHandler, assocRow, row)
                 }
             }
         }

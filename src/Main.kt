@@ -1,10 +1,13 @@
 import com.trinitcore.sqlv2.commonUtils.row.Row
+import com.trinitcore.sqlv2.queryObjects.ModuleTable
 import com.trinitcore.sqlv2.queryObjects.SQL
 import com.trinitcore.sqlv2.queryObjects.Table
 import com.trinitcore.sqlv2.queryUtils.associationV2.Associating
 import com.trinitcore.sqlv2.queryUtils.associationV2.format.ReformatAssociation
+import com.trinitcore.sqlv2.queryUtils.associationV2.table.RowAssociation
 import com.trinitcore.sqlv2.queryUtils.associationV2.table.RowsAssociation
 import com.trinitcore.sqlv2.queryUtils.connection.PostgresConnectionManager
+import com.trinitcore.sqlv2.queryUtils.module.SubTestModule
 import com.trinitcore.sqlv2.queryUtils.module.TestModule
 import com.trinitcore.sqlv2.queryUtils.parameters.Where
 import java.security.SecureRandom
@@ -29,23 +32,16 @@ fun main(args: Array<String>) {
     val minHourAssoc = ReformatAssociation("min", { row -> return@ReformatAssociation row["minimumHour"].toString() + ":" + row["minimumMinute"] })
     val maxHourAssoc = ReformatAssociation("max", { row -> return@ReformatAssociation row["maximumHour"].toString() + ":" + row["maximumMinute"] })
 
-    val users = Table("users")
+    val users = ModuleTable<TestModule>("users", { TestModule() })
             .addAssociation(RowsAssociation("adviser_unavailable_time_ranges",
                     Associating("ID","unavailableTimeRanges","userID")
                             .skipRowIfParentRowExcludesValue("userType",1)
                             .blankRowsIfMatchNotFound()
-            )
-                    .addAssociation(minHourAssoc)
-                    .addAssociation(maxHourAssoc)
-            )
-    val row = users.find(Where().value("ID",62))[62] as Row
+            ).addAssociation(minHourAssoc).addAssociation(maxHourAssoc))
+            .addAssociation(RowAssociation("adviser_category_selection", Associating("ID", "categorySelection", "userID")).module { SubTestModule() })
+    val row = users.findModuleByID(138)
 
-    val instance = TestModule()
-    instance.initialiseAttributes(row)
-
-    instance.lastname = "Hey"
-
-    instance
+    row
     /*
     //SQL.sharedConnection = PostgresConnectionManager("localhost","trinsqltest", "postgres", "@C[]4m9c17")
     SQL.sharedConnection = PostgresConnectionManager("ec2-23-23-220-163.compute-1.amazonaws.com", "dali3p5b9n1bn", "kkrjxuzslvuuqh", "d14d0dd9116a0be25834fe489e56a8409cd6e51d9a7fcbd84fff91b3672dc401", true)

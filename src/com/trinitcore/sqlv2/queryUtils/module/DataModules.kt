@@ -5,7 +5,7 @@ import com.trinitcore.sqlv2.commonUtils.row.RowType
 import com.trinitcore.sqlv2.commonUtils.row.Rows
 import com.trinitcore.sqlv2.queryObjects.Table
 
-class DataModules<out Module : DataModule>(indexColumnKey: String, parentTable: Table, val moduleInitialisation: (row: Row) -> DataModule) : Rows(indexColumnKey, parentTable) {
+class DataModules<out Module : DataModule>(indexColumnKey: String, parentTable: Table, val moduleInitialisation: () -> DataModule) : Rows(indexColumnKey, parentTable) {
 
     init {
 
@@ -16,13 +16,13 @@ class DataModules<out Module : DataModule>(indexColumnKey: String, parentTable: 
     }
 
     override fun get(key: Any): Module? {
-        return super.get(key) as Module
+        return super.get(key) as Module?
     }
 
     override fun put(key: Any, value: RowType): RowType? {
         handleInsertRowAssociations(value)
         val module = if (value is Row) {
-            val m = moduleInitialisation(value)
+            val m = moduleInitialisation()
             m.initialiseAttributes(value)
             m
         } else null
