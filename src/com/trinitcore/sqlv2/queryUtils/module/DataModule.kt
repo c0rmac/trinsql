@@ -1,6 +1,12 @@
 package com.trinitcore.sqlv2.queryUtils.module
 
+import com.trinitcore.asd.requestTools.Parameters
 import com.trinitcore.asd.requestTools.SessionAttributes
+import com.trinitcore.asd.responseTools.Response
+import com.trinitcore.asd.responseTools.status.StatusResult
+import com.trinitcore.asd.servlet.support.RESTSupport
+import com.trinitcore.asd.servlet.support.ReflectiveUtilitiesContainer
+import com.trinitcore.asd.user.UserType
 import com.trinitcore.sqlv2.commonUtils.Defaults
 import com.trinitcore.sqlv2.commonUtils.QMap
 import com.trinitcore.sqlv2.commonUtils.row.Row
@@ -77,7 +83,14 @@ internal object RowPool {
     }
 }
 
-open class DataModule : SingularRowType {
+open class DataModule : SingularRowType, RESTSupport {
+    override fun bindAdditionalInformationToStatusResult(statusResult: StatusResult, requestingParameters: Parameters, sessionAttributes: SessionAttributes<*>): StatusResult? {
+        return null
+    }
+
+    override fun init() {
+
+    }
 
     val parentTable: Table = Table("")
     lateinit var row: Row
@@ -163,6 +176,10 @@ open class DataModule : SingularRowType {
 
     open fun optimisedInitialisation(data: Map<String, Any>) {
         optimisedInitialisation = false
+    }
+
+    override fun initializeAsSubWebServlet(methodNames: MutableList<String>, requestingParameters: Parameters, sessionAttributes: SessionAttributes<UserType<*>>, response: Response) {
+        ReflectiveUtilitiesContainer(this, requestingParameters, sessionAttributes, response, methodNames).performDefaultProcedure()
     }
 
 }
