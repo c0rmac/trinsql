@@ -1,6 +1,7 @@
 package com.trinitcore.sqlv2.queryObjects
 
 import com.trinitcore.sqlv2.commonUtils.Defaults
+import com.trinitcore.sqlv2.commonUtils.NullValue
 import com.trinitcore.sqlv2.commonUtils.then
 import com.trinitcore.sqlv2.queryUtils.connection.ConnectionManager
 import org.postgresql.util.PSQLException
@@ -42,6 +43,7 @@ object SQL {
     }
 
     private fun getStatement(query: String, parameters: Array<Any>, resultSetParameters: Array<String> = emptyArray()): PreparedStatement {
+        val finalparameters = parameters.map { if (it is NullValue) null else it }
 
         /*
         if (sharedConnection.currentConnection == null || sharedConnection.currentConnection?.isClosed == true) {
@@ -53,7 +55,7 @@ object SQL {
         val statement = sharedConnection.currentConnection!!.prepareStatement(query, resultSetParameters)
 
         var count = 0
-        for (p in parameters) statement.setObject(++count, p)
+        for (p in finalparameters) statement.setObject(++count, p)
 
         return statement
     }

@@ -1,9 +1,11 @@
 package com.trinitcore.sqlv2.queryUtils.module
 
+import com.trinitcore.asd.annotations.Web
 import com.trinitcore.asd.requestTools.Parameters
 import com.trinitcore.asd.requestTools.SessionAttributes
 import com.trinitcore.asd.responseTools.Response
 import com.trinitcore.asd.responseTools.status.StatusResult
+import com.trinitcore.asd.responseTools.status.json.OKFormStatus
 import com.trinitcore.asd.servlet.support.RESTSupport
 import com.trinitcore.asd.servlet.support.ReflectiveUtilitiesContainer
 import com.trinitcore.asd.user.UserType
@@ -84,12 +86,16 @@ internal object RowPool {
 }
 
 open class DataModule : SingularRowType, RESTSupport {
+
+    // REST Support paternity
+    var restparent: RESTSupport? = null
+    override fun didPerformFirstTimeInitialisation(): Boolean = restparent != null
+    override fun firstTimeInitialisation(parent: RESTSupport?) { restparent = parent }
+    override fun getParent(): RESTSupport? = restparent
+
+    // Optional overrides
     override fun bindAdditionalInformationToStatusResult(statusResult: StatusResult, requestingParameters: Parameters, sessionAttributes: SessionAttributes<*>): StatusResult? {
         return null
-    }
-
-    override fun init() {
-
     }
 
     val parentTable: Table = Table("")
@@ -112,25 +118,12 @@ open class DataModule : SingularRowType, RESTSupport {
         val returnType = property.returnType
         if (!returnType.isSubtypeOf(DataModule::class.starProjectedType)) {
             property.setter.call(this, primitiveValueRetrieval())
-            /*
-            val instance = (returnType.classifier as KClass<*>).createInstance() as DataModule
-            subModulePostInitialisation(instance)
-            property.setter.call(this, instance)
-            */
-        } else {
-
         }
     }
 
     fun update(vararg qMaps: QMap) {
         println("Updating")
         parentTable.updateByID(getID(), *qMaps)
-        /*
-        val attributes = RowPool.findInitialisableProperties(this::class)
-        for (qMap in qMaps) {
-            attributes.filter { it.key == qMap.key }
-        }
-        */
     }
 
     fun handleUpdate(propertyName: String, value: Any) {
@@ -178,8 +171,16 @@ open class DataModule : SingularRowType, RESTSupport {
         optimisedInitialisation = false
     }
 
+    val reflectiveUtilities = ReflectiveUtilitiesContainer(this)
+
     override fun initializeAsSubWebServlet(methodNames: MutableList<String>, requestingParameters: Parameters, sessionAttributes: SessionAttributes<UserType<*>>, response: Response) {
-        ReflectiveUtilitiesContainer(this, requestingParameters, sessionAttributes, response, methodNames).performDefaultProcedure()
+        val handler = reflectiveUtilities.generateHandler(methodNames, requestingParameters, sessionAttributes, response)
+        handler.performDefaultProcedure { handler.executeMethod("toJSONObject") }
+    }
+
+    @Web
+    open fun toJSONObject() : StatusResult {
+        return OKFormStatus("")
     }
 
 }
